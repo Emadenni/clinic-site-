@@ -2,9 +2,14 @@
   --bg:#FAFAF8; --fg:#1F1F1F; --muted:#6b7280;
   --accent:#C8B688; --accent-strong:#B88A2E;
   --white:#fff; --shadow:0 10px 28px rgba(0,0,0,.10);
-  --header-min: clamp(130px, 16vw, 200px);   /* un filo più basso */
-  --header-top-gap: 12px;                    /* margine in alto richiesto */
-  --nav-offset: 6px;                         /* micro allineamento top nav/cta */
+
+  /* dimensioni / allineamenti */
+  --header-top-gap: 12px;
+  --header-min: clamp(150px, 18vw, 220px);
+  --nav-offset: 6px;
+
+  /* spazio occupato dall'header (per compensare la hero) */
+  --header-space: calc(var(--header-min) + var(--header-top-gap));
 }
 
 /* base */
@@ -12,29 +17,30 @@
 [hidden]{display:none !important}
 html{scroll-behavior:smooth}
 html,body{height:100%}
-body{ margin:0; background:var(--bg); color:var(--fg);
-  font:16px/1.6 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.6 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
 
-/* container: header full-width, altri contenuti centrati */
-.container{max-width:1200px;margin:0 auto;padding:0 24px}
-.site-header .container{max-width:none} /* header davvero full width */
+/* container */
+.container{max-width:1200px;margin:-10px auto;padding:0 24px}
+.site-header .container{max-width:none} /* header full width */
 
-/* ===== HEADER sopra la hero ===== */
+/* ===== HEADER sticky sopra la hero ===== */
 .site-header{
-  position:fixed; top:0; left:0; right:0; width:100%;
+  position: sticky; top:0; left:0; right:0; width:100%;
   z-index:10000;
   transition: background-color .25s ease, color .25s ease, box-shadow .25s ease, border-color .25s ease;
 }
 
-/* 1) sopra hero: trasparente, elementi bianchi */
+/* sopra hero: trasparente */
 .site-header.over-hero{
   background: transparent;
   border-bottom:none; box-shadow:none;
   color:#fff;
   --nav-link-color:#fff;
 }
-
-/* 2) dopo hero: fondo chiaro, nav ACCENTO forte */
+/* fuori dalla hero: fondo chiaro, nav accento forte */
 .site-header.not-over{
   background: rgba(250,250,248,0.96);
   backdrop-filter: blur(8px) saturate(160%);
@@ -44,8 +50,7 @@ body{ margin:0; background:var(--bg); color:var(--fg);
   --nav-link-color: var(--accent-strong);
 }
 
-/* layout header: logo | nav centrata | actions */
-/* TOP alignment + un filo di padding alto */
+/* layout header: logo | nav centrata | actions (tutti TOP) */
 .header-inner{
   min-height:var(--header-min);
   padding-top: var(--header-top-gap);
@@ -55,31 +60,43 @@ body{ margin:0; background:var(--bg); color:var(--fg);
   gap:24px;
 }
 
-/* LOGO leggermente più piccolo (ma sempre big) */
-.brand{justify-self:start}
+/* LOGO */
+.brand{ justify-self:start }
 .brand img{
   display:block;
-  height: clamp(140px, 18vw, 210px);  /* ↓ rispetto a prima */
+  height: clamp(160px, 20vw, 230px); /* regola qui la dimensione del logo */
   width:auto;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,.35));
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.25));
   image-rendering: -webkit-optimize-contrast;
 }
 @media (max-width:960px){
-  .header-inner{ min-height: clamp(110px, 20vw, 150px); padding-top: 10px; }
-  .brand img{ height: clamp(100px, 22vw, 160px); }
+  :root{
+    --header-min: clamp(110px, 20vw, 150px);
+    --header-space: calc(var(--header-min) + var(--header-top-gap));
+  }
+  .brand img{ height: clamp(112px, 24vw, 160px); }
 }
 
-/* NAV centrata, MAIUSCOLO (Poppins) */
+/* NAV desktop (centrata, MAIUSCOLO) */
 .nav-desktop{
-  justify-self:center;
-  align-self:start;
-  margin-top: var(--nav-offset); /* filo di margine alto */
-  display:flex; align-items:flex-start; gap:28px;
+  justify-self:center; align-self:start;
+  margin-top: var(--nav-offset);
+  display:flex; align-items:flex-start; gap:36px;
   font-family:"Poppins", Inter, system-ui, sans-serif;
-  text-transform:uppercase; letter-spacing:.08em; font-weight:800;
+  text-transform:uppercase; letter-spacing:.10em; font-weight:800;
+  transition: transform .24s ease, opacity .18s ease; will-change: transform;
 }
 .nav-desktop a{
   text-decoration:none; color: var(--nav-link-color);
+  transition: opacity .2s ease, text-shadow .2s ease;
+}
+.nav-desktop a:hover{ opacity:.9; text-shadow:0 1px 0 rgba(0,0,0,.2); }
+
+/* HIDE-ON-SCROLL: solo la navbar scompare in su (logo/CTA restano) */
+.site-header.hide-nav .nav-desktop{
+  transform: translateY(-140%);
+  opacity:0;
+  pointer-events:none;
 }
 
 /* CTA + hamburger a destra (top aligned) */
@@ -89,14 +106,19 @@ body{ margin:0; background:var(--bg); color:var(--fg);
 }
 
 /* Bottoni */
-.btn{ display:inline-block; padding:.9rem 1.2rem; border-radius:999px;
-  text-decoration:none; cursor:pointer; border:1px solid transparent; transition:transform .06s }
+.btn{
+  display:inline-block; border-radius:999px; border:1px solid transparent;
+  padding: 1rem 1.25rem; font-weight:700;
+  transition: transform .08s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease;
+  text-decoration: none;
+}
 .btn:active{transform:translateY(1px)}
-.btn-primary{background:var(--accent); border-color:var(--accent); color:#fff}
+.btn-primary{background:#C8B688; border-color:#C8B688; color:#fff}
+.btn-primary:hover{ transform:translateY(-1px) scale(1.03); box-shadow:0 10px 24px rgba(200,182,136,.35) }
 .btn-ghost{ background:transparent; border-color:rgba(255,255,255,.5); color:#fff }
-.site-header.not-over .btn-ghost{ border-color:rgba(0,0,0,.12); color:var(--fg) }
 
-/* Hamburger (currentColor → bianco sopra hero, scuro dopo) */
+
+/* Hamburger */
 .hamburger{display:none; position:relative; width:52px; height:52px; border:0; background:transparent; cursor:pointer}
 .hamburger span{position:absolute; left:12px; right:12px; height:2px; background:currentColor; transition:.25s}
 .hamburger span:nth-child(1){top:16px}
@@ -110,7 +132,7 @@ body{ margin:0; background:var(--bg); color:var(--fg);
   .hamburger{display:block}
 }
 
-/* ===== MOBILE MENU fullscreen ===== */
+/* ===== MOBILE MENU ===== */
 .mobile-wrap{ position:fixed; inset:0; z-index:20000; background:var(--white); display:none }
 body.menu-open .mobile-wrap{display:block}
 .nav-mobile{
@@ -122,7 +144,7 @@ body.menu-open .nav-mobile{transform:translateY(0); opacity:1}
 .nav-mobile a{
   text-decoration:none; color:var(--fg);
   font-family:"Poppins", Inter, system-ui, sans-serif;
-  font-weight:800; text-transform:uppercase; letter-spacing:.08em;
+  font-weight:800; text-transform:uppercase; letter-spacing:.10em;
   font-size:clamp(1.4rem,4vw,2.4rem); line-height:1.2; padding:.45rem .7rem;
 }
 .nav-mobile .btn{
@@ -132,9 +154,13 @@ body.menu-open .nav-mobile{transform:translateY(0); opacity:1}
 }
 @media (min-width:960px){ .mobile-wrap{display:none !important} }
 
-/* ===== HERO ===== */
+/* ===== HERO (compensa header sticky) ===== */
 .hero{
   position:relative; min-height:100svh;
+  /* +1px anti-seam */
+  margin-top: calc(-1 * var(--header-space) - 1px);
+  padding-top: calc(var(--header-space) + 1px);
+
   color:#fff; display:grid; place-items:center; isolation:isolate; overflow:hidden;
 }
 .hero-bg{position:absolute; inset:0; z-index:0}
@@ -145,10 +171,10 @@ body.menu-open .nav-mobile{transform:translateY(0); opacity:1}
   animation:ken 14s ease-in-out infinite alternate;
   filter:saturate(108%);
 }
-/* overlay SOLO sulla hero */
+/* overlay per contrasto (senza banda nera extra) */
 .hero::after{
   content:""; position:absolute; inset:0; z-index:1;
-  background:linear-gradient(180deg, rgba(0,0,0,.58), rgba(0,0,0,.34) 55%, rgba(0,0,0,.14));
+  background: linear-gradient(180deg, rgba(0,0,0,.62), rgba(0, 0, 0, 0.476) 55%, rgba(0, 0, 0, 0.424));
   pointer-events:none;
 }
 /* copy sopra overlay — CENTRATO */
@@ -158,7 +184,7 @@ body.menu-open .nav-mobile{transform:translateY(0); opacity:1}
   margin-inline:auto; text-align:center;
   opacity:0; transform:translateY(12px);
 }
-.display{font-family:"DM Serif Display", serif; font-size:clamp(2.8rem,6vw,5rem); line-height:1.05; margin:0 0 16px}
+.display{font-family:"DM Serif Display", serif; font-size:clamp(3rem, 6.8vw, 5.4rem); line-height:1.05; margin:0 0 16px}
 .lead{font-size:clamp(1.1rem,2.4vw,1.5rem); color:rgba(255,255,255,.96); margin:0 0 22px}
 .hero-actions{display:flex; justify-content:center; gap:12px; flex-wrap:wrap}
 .underline{box-shadow:inset 0 -0.6em 0 rgba(200,182,136,.40); border-radius:4px}
@@ -168,6 +194,9 @@ body.menu-open .nav-mobile{transform:translateY(0); opacity:1}
   100%{transform:scale(1.20) translate3d(2%,-2%,0)}
 }
 @media (prefers-reduced-motion:reduce){ .hero-bg img{animation:none; transform:none} }
+
+/* Ancore: evita che i target restino sotto l'header */
+[id]{ scroll-margin-top: calc(var(--header-space) + 24px); }
 
 /* sections / footer */
 .section{padding:56px 0; color:var(--fg); background:var(--bg)}

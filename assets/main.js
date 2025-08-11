@@ -5,13 +5,27 @@ const header = document.querySelector('[data-header]');
 const hero   = document.querySelector('.hero');
 const BREAKPOINT = 960;
 
-// Header: passa da "over-hero" (trasparente) a "not-over" (chiaro) quando superi la hero
+let lastY = window.scrollY;
+const NAV_HIDE_THRESHOLD = 80; // px di scroll prima di nascondere la nav
+
 function updateHeaderState(){
   if (!header || !hero) return;
+
+  // stato over-hero / not-over
   const rect = hero.getBoundingClientRect();
-  const overHero = rect.bottom > 0; // finché la hero è sotto l'header
+  const headerH = header.offsetHeight || 0;
+  const overHero = rect.bottom > headerH;
   header.classList.toggle('over-hero', overHero);
   header.classList.toggle('not-over', !overHero);
+
+  // hide-only-navbar on scroll
+  const y = window.scrollY;
+  const scrollingDown = y > lastY;
+  const shouldHideNav = (window.innerWidth >= BREAKPOINT) && scrollingDown && y > NAV_HIDE_THRESHOLD;
+
+  header.classList.toggle('hide-nav', shouldHideNav);
+
+  lastY = y;
 }
 updateHeaderState();
 window.addEventListener('scroll', updateHeaderState, { passive:true });
@@ -32,6 +46,7 @@ const closeMenu = () => {
   hamburger?.setAttribute('aria-expanded', 'false');
   if (wrap) wrap.hidden = true;
 };
+
 hamburger?.addEventListener('click', () => {
   const expanded = hamburger.getAttribute('aria-expanded') === 'true';
   expanded ? closeMenu() : openMenu();
