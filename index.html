@@ -11,23 +11,33 @@
   <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-  <!-- HEADER (trasparente sopra la hero, full width) -->
+
+  <!-- HEADER (fixed, trasparente sopra la hero) -->
   <header class="site-header over-hero" data-header>
     <div class="container header-inner">
-      <!-- sinistra: logo -->
-      <a class="brand" href="/" aria-label="Homepage">
-        <img id="brandLogo" src="/images/fullogo_transparent.png" alt="Logo clinica" />
+      <!-- Logo -->
+      <a class="brand" href="#home" aria-label="Homepage">
+        <img id="brandLogo" src="/images/fulllogo_transparent.png" alt="Logo clinica" />
       </a>
 
-      <!-- centro: nav centrata, MAIUSCOLO -->
-      <nav class="nav-desktop" aria-label="Menu principale">
+      <!-- NAV desktop -->
+      <nav class="nav-desktop" aria-label="Menu principale" data-nav>
+        <a href="#home">Home</a>
         <a href="#trattamenti">Trattamenti</a>
-        <a href="#prima-dopo">Prima &amp; Dopo</a>
-        <a href="#chi-siamo">Dottoressa</a>
+        <a href="#booking">Prenota</a>
         <a href="#contatti">Contatti</a>
+        <a href="#prima-dopo">Prima &amp; Dopo</a>
+
+        <!-- indicatori attivo -->
+        <span class="active-ink" aria-hidden="true"></span>
+        <span class="active-sparkle" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" focusable="false" aria-hidden="true">
+            <path d="M12 2l2.1 5.7 5.9.5-4.6 3.7 1.5 5.8L12 15.9 7.1 17.7l1.5-5.8L4 8.2l5.9-.5L12 2z" />
+          </svg>
+        </span>
       </nav>
 
-      <!-- destra: CTA + hamburger -->
+      <!-- CTA + hamburger -->
       <div class="header-actions">
         <a class="btn btn-primary" href="#booking">Prenota</a>
         <button class="hamburger" aria-label="Apri menu" aria-controls="mobileMenu" aria-expanded="false" data-hamburger>
@@ -38,18 +48,23 @@
 
     <!-- MENU MOBILE fullscreen -->
     <div class="mobile-wrap" data-mobile-wrap hidden>
-      <nav id="mobileMenu" class="nav-mobile" aria-label="Menu mobile">
-        <a href="#trattamenti">Trattamenti</a>
-        <a href="#prima-dopo">Prima &amp; Dopo</a>
-        <a href="#chi-siamo">Dottoressa</a>
-        <a href="#contatti">Contatti</a>
-        <a class="btn" href="#booking">Prenota</a>
-      </nav>
+      <div class="mobile-panel" role="dialog" aria-modal="true" aria-labelledby="mobileMenuTitle">
+        <button class="mobile-close" aria-label="Chiudi menu" data-close>&times;</button>
+        <nav id="mobileMenu" class="nav-mobile" aria-label="Menu mobile">
+          <h2 id="mobileMenuTitle" class="sr-only">Menu</h2>
+          <a href="#home">Home</a>
+          <a href="#trattamenti">Trattamenti</a>
+          <a href="#booking">Prenota</a>
+          <a href="#contatti">Contatti</a>
+          <a href="#prima-dopo">Prima &amp; Dopo</a>
+          <a class="btn btn-primary" href="#booking">Prenota ora</a>
+        </nav>
+      </div>
     </div>
   </header>
 
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" id="home" data-section="home">
     <picture class="hero-bg">
       <source media="(min-width:1024px)" srcset="/images/hero-img-desktop.webp" type="image/webp" />
       <source media="(min-width:600px)"  srcset="/images/hero-img-tablet.webp"  type="image/webp" />
@@ -68,9 +83,34 @@
     </div>
   </section>
 
-  <main class="container">
-    <section id="trattamenti" class="section"><h2>Trattamenti</h2></section>
-    <section id="booking" class="section"><h2>Prenotazione</h2></section>
+  <!-- CONTENUTO -->
+  <main>
+    <section id="trattamenti" data-section="trattamenti" class="section container">
+      <h2>Trattamenti</h2>
+      <p>Descrizione breve dei trattamenti principali.</p>
+      <div class="grid">
+        <article class="card"><h3>Filler</h3><p>Volumi naturali e armonia.</p></article>
+        <article class="card"><h3>Botox</h3><p>Rughe distensive, sguardo riposato.</p></article>
+        <article class="card"><h3>Biostimolazione</h3><p>Pelle luminosa e compatta.</p></article>
+      </div>
+    </section>
+
+    <section id="booking" data-section="booking" class="section container">
+      <h2>Prenota</h2>
+      <p>Prenota una consulenza personalizzata.</p>
+      <a class="btn btn-primary" href="#contatti">Richiedi appuntamento</a>
+    </section>
+
+    <section id="contatti" data-section="contatti" class="section container">
+      <h2>Contatti</h2>
+      <p>Clinica XYZ • Via Roma 10, Milano • +39 02 123456 • info@clinica.xyz</p>
+      <a class="btn btn-ghost" href="tel:+3902123456">Chiama ora</a>
+    </section>
+
+    <section id="prima-dopo" data-section="prima-dopo" class="section container">
+      <h2>Prima &amp; Dopo</h2>
+      <p>Una selezione di casi reali con consenso informato.</p>
+    </section>
   </main>
 
   <footer class="container footer">
