@@ -1,8 +1,174 @@
-:root { --bg:#FAFAF8; --fg:#1F1F1F; --accent:#C8B688; }
+:root{
+  --bg:#FAFAF8; --fg:#1F1F1F; --muted:#6b7280;
+  --accent:#C8B688; --accent-strong:#B88A2E;
+  --white:#fff; --shadow:0 10px 28px rgba(0,0,0,.10);
+  --header-min: clamp(130px, 16vw, 200px);   /* un filo più basso */
+  --header-top-gap: 12px;                    /* margine in alto richiesto */
+  --nav-offset: 6px;                         /* micro allineamento top nav/cta */
+}
+
+/* base */
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,sans-serif}
-.container{max-width:1080px;margin:auto;padding:20px}
-header{display:flex;align-items:center;justify-content:space-between}
-.cta,button{padding:.75rem 1rem;border-radius:999px;border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer}
-.hero{padding:48px 0}
-.hidden{display:none}
+[hidden]{display:none !important}
+html{scroll-behavior:smooth}
+html,body{height:100%}
+body{ margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.6 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+
+/* container: header full-width, altri contenuti centrati */
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.site-header .container{max-width:none} /* header davvero full width */
+
+/* ===== HEADER sopra la hero ===== */
+.site-header{
+  position:fixed; top:0; left:0; right:0; width:100%;
+  z-index:10000;
+  transition: background-color .25s ease, color .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+/* 1) sopra hero: trasparente, elementi bianchi */
+.site-header.over-hero{
+  background: transparent;
+  border-bottom:none; box-shadow:none;
+  color:#fff;
+  --nav-link-color:#fff;
+}
+
+/* 2) dopo hero: fondo chiaro, nav ACCENTO forte */
+.site-header.not-over{
+  background: rgba(250,250,248,0.96);
+  backdrop-filter: blur(8px) saturate(160%);
+  border-bottom:1px solid rgba(0,0,0,.06);
+  box-shadow: var(--shadow);
+  color: var(--fg);
+  --nav-link-color: var(--accent-strong);
+}
+
+/* layout header: logo | nav centrata | actions */
+/* TOP alignment + un filo di padding alto */
+.header-inner{
+  min-height:var(--header-min);
+  padding-top: var(--header-top-gap);
+  display:grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items:start;
+  gap:24px;
+}
+
+/* LOGO leggermente più piccolo (ma sempre big) */
+.brand{justify-self:start}
+.brand img{
+  display:block;
+  height: clamp(140px, 18vw, 210px);  /* ↓ rispetto a prima */
+  width:auto;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.35));
+  image-rendering: -webkit-optimize-contrast;
+}
+@media (max-width:960px){
+  .header-inner{ min-height: clamp(110px, 20vw, 150px); padding-top: 10px; }
+  .brand img{ height: clamp(100px, 22vw, 160px); }
+}
+
+/* NAV centrata, MAIUSCOLO (Poppins) */
+.nav-desktop{
+  justify-self:center;
+  align-self:start;
+  margin-top: var(--nav-offset); /* filo di margine alto */
+  display:flex; align-items:flex-start; gap:28px;
+  font-family:"Poppins", Inter, system-ui, sans-serif;
+  text-transform:uppercase; letter-spacing:.08em; font-weight:800;
+}
+.nav-desktop a{
+  text-decoration:none; color: var(--nav-link-color);
+}
+
+/* CTA + hamburger a destra (top aligned) */
+.header-actions{
+  justify-self:end; align-self:start; margin-top: var(--nav-offset);
+  display:flex; align-items:flex-start; gap:12px;
+}
+
+/* Bottoni */
+.btn{ display:inline-block; padding:.9rem 1.2rem; border-radius:999px;
+  text-decoration:none; cursor:pointer; border:1px solid transparent; transition:transform .06s }
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--accent); border-color:var(--accent); color:#fff}
+.btn-ghost{ background:transparent; border-color:rgba(255,255,255,.5); color:#fff }
+.site-header.not-over .btn-ghost{ border-color:rgba(0,0,0,.12); color:var(--fg) }
+
+/* Hamburger (currentColor → bianco sopra hero, scuro dopo) */
+.hamburger{display:none; position:relative; width:52px; height:52px; border:0; background:transparent; cursor:pointer}
+.hamburger span{position:absolute; left:12px; right:12px; height:2px; background:currentColor; transition:.25s}
+.hamburger span:nth-child(1){top:16px}
+.hamburger span:nth-child(2){top:24px}
+.hamburger span:nth-child(3){top:32px}
+.hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.hamburger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+@media (max-width:960px){
+  .nav-desktop{display:none}
+  .hamburger{display:block}
+}
+
+/* ===== MOBILE MENU fullscreen ===== */
+.mobile-wrap{ position:fixed; inset:0; z-index:20000; background:var(--white); display:none }
+body.menu-open .mobile-wrap{display:block}
+.nav-mobile{
+  position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:20px; padding:24px;
+  transform:translateY(12px); opacity:0; transition:opacity .28s ease, transform .28s ease;
+}
+body.menu-open .nav-mobile{transform:translateY(0); opacity:1}
+.nav-mobile a{
+  text-decoration:none; color:var(--fg);
+  font-family:"Poppins", Inter, system-ui, sans-serif;
+  font-weight:800; text-transform:uppercase; letter-spacing:.08em;
+  font-size:clamp(1.4rem,4vw,2.4rem); line-height:1.2; padding:.45rem .7rem;
+}
+.nav-mobile .btn{
+  border-radius:999px; padding:1rem 1.35rem;
+  border:1px solid var(--accent); background:var(--accent); color:#fff;
+  margin-top:10px; font-size:clamp(1.1rem,3vw,1.5rem);
+}
+@media (min-width:960px){ .mobile-wrap{display:none !important} }
+
+/* ===== HERO ===== */
+.hero{
+  position:relative; min-height:100svh;
+  color:#fff; display:grid; place-items:center; isolation:isolate; overflow:hidden;
+}
+.hero-bg{position:absolute; inset:0; z-index:0}
+.hero-bg img{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:center;
+  transform:scale(1.10);
+  animation:ken 14s ease-in-out infinite alternate;
+  filter:saturate(108%);
+}
+/* overlay SOLO sulla hero */
+.hero::after{
+  content:""; position:absolute; inset:0; z-index:1;
+  background:linear-gradient(180deg, rgba(0,0,0,.58), rgba(0,0,0,.34) 55%, rgba(0,0,0,.14));
+  pointer-events:none;
+}
+/* copy sopra overlay — CENTRATO */
+.hero-inner{ position:relative; z-index:2; width:100% }
+.hero-content{
+  max-width:900px; padding:44px 24px;
+  margin-inline:auto; text-align:center;
+  opacity:0; transform:translateY(12px);
+}
+.display{font-family:"DM Serif Display", serif; font-size:clamp(2.8rem,6vw,5rem); line-height:1.05; margin:0 0 16px}
+.lead{font-size:clamp(1.1rem,2.4vw,1.5rem); color:rgba(255,255,255,.96); margin:0 0 22px}
+.hero-actions{display:flex; justify-content:center; gap:12px; flex-wrap:wrap}
+.underline{box-shadow:inset 0 -0.6em 0 rgba(200,182,136,.40); border-radius:4px}
+
+@keyframes ken{
+  0%{transform:scale(1.10) translate3d(0,0,0)}
+  100%{transform:scale(1.20) translate3d(2%,-2%,0)}
+}
+@media (prefers-reduced-motion:reduce){ .hero-bg img{animation:none; transform:none} }
+
+/* sections / footer */
+.section{padding:56px 0; color:var(--fg); background:var(--bg)}
+.footer{padding:28px 0; border-top:1px solid rgba(0,0,0,.06); margin-top:32px}
