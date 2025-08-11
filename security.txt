@@ -1,0 +1,3 @@
+Contact: mailto:info@TUO-DOMINIO
+Policy: https://TUO-DOMINIO/policy
+Preferred-Languages: it, en

@@ -1,0 +1,37 @@
+cat > index.html << 'EOF'
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Clinica di Medicina Estetica – Dott.ssa Nome</title>
+  <meta name="description" content="Medicina estetica basata su evidenze. Prenota una consulenza." />
+  <link rel="preload" href="/assets/styles.css" as="style" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+  <header class="container">
+    <h1>Clinica di Medicina Estetica</h1>
+    <a class="cta" href="#booking">Prenota</a>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h2>Risultati naturali e sicuri</h2>
+      <p>Approccio medico, piani personalizzati.</p>
+      <button id="openBooking">Prenota una consulenza</button>
+    </section>
+    <section id="booking" class="booking hidden" aria-hidden="true">
+      <h3>Prenotazione</h3>
+      <p>Integra qui Calendly o un form.</p>
+    </section>
+  </main>
+
+  <footer class="container">
+    <small>&copy; <span id="year"></span> Dott.ssa Nome • Tutti i diritti riservati</small>
+  </footer>
+
+  <script src="/assets/main.js" defer></script>
+</body>
+</html>
+EOF
