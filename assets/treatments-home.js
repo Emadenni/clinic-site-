@@ -126,10 +126,43 @@ function toCardHTML(item) {
 
 function injectCTA() {
   const wrap = document.createElement('div');
-  wrap.className = 'treatments__cta';
-  wrap.innerHTML = `<a class="btn btn-primary" href="/trattamenti.html">Scopri tutti i trattamenti</a>`;
+
   GRID.parentElement.appendChild(wrap);
 }
+
+
+(()=>{const b=document.querySelector('.cta-button');if(!b)return;
+const max=12, lerp=(a,b,t)=>a+(b-a)*t; let tx=0,ty=0,cx=0,cy=0;
+function loop(){cx=lerp(cx,tx,.16); cy=lerp(cy,ty,.16); b.style.transform=`translate(${cx}px,${cy}px)`; requestAnimationFrame(loop)}
+loop();
+function onMove(e){const r=b.getBoundingClientRect(), p=e.touches?e.touches[0]:e;
+  const x=((p.clientX-(r.left+r.width/2))/(r.width/2)); const y=((p.clientY-(r.top+r.height/2))/(r.height/2));
+  tx=Math.max(-1,Math.min(1,x))*max; ty=Math.max(-1,Math.min(1,y))*max;}
+function reset(){tx=0;ty=0;}
+b.addEventListener('mousemove',onMove,{passive:true});
+b.addEventListener('mouseleave',reset,{passive:true});
+b.addEventListener('touchmove',onMove,{passive:true});
+b.addEventListener('touchend',reset,{passive:true});})();
+
+
+
+function setupCTAReveal(){
+  const el = document.querySelector('.treatments__cta');
+  if (!el) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce){
+    el.classList.add('is-visible');
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) el.classList.add('is-visible');
+      // se vuoi che si spenga quando esce, usa else remove
+    });
+  }, { threshold: 0.35 });
+  io.observe(el);
+}
+
 
 function openModal(slug, push = true) {
   if (!BACKDROP) return;

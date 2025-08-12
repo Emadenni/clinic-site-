@@ -807,3 +807,144 @@ a { text-decoration: none; color: inherit; }
     transition: none !important;
   }
 }
+
+/* ===== CTA full-width, centrata ===== */
+.section-cta{
+  position: relative;
+  overflow: clip;               /* evita scroll orizzontale */
+  padding: clamp(40px, 8vw, 90px) 0;
+  isolation: isolate;
+}
+
+/* sfondo animato che occupa TUTTA la viewport in larghezza */
+.section-cta__bg{
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.section-cta__bg::before,
+.section-cta__bg::after{
+  content:"";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;                 /* full viewport width */
+  height: 100%;
+}
+
+/* 1) Bandiere luminose diagonali che scorrono (ben visibili) */
+.section-cta__bg::before{
+  background:
+    repeating-linear-gradient(
+      105deg,
+      rgba(230,201,129,.18) 0 22px,
+      rgba(230,201,129,.40) 22px 38px,
+      rgba(200,182,136,.22) 38px 60px,
+      rgba(200,182,136,.00) 60px 92px
+    );
+  filter: saturate(125%) blur(6px);
+  animation: cta-rails 9s linear infinite;
+  opacity: .65;                 /* alza/abbassa se vuoi più/meno “wow” */
+}
+
+/* 2) Glow centrale morbido (sempre centrato) */
+.section-cta__bg::after{
+  background:
+    radial-gradient(60% 55% at 50% 50%, rgba(230,201,129,.45), transparent 65%),
+    radial-gradient(36% 30% at 20% 30%, rgba(200,182,136,.35), transparent 70%),
+    radial-gradient(36% 30% at 80% 70%, rgba(200,182,136,.28), transparent 70%);
+  filter: blur(24px);
+  mix-blend-mode: screen;
+  opacity: .55;
+}
+
+@keyframes cta-rails{
+  0%   { background-position: 0% 50%; }
+  100% { background-position: -220% 50%; }
+}
+
+/* wrapper centrato come il resto del sito */
+.section-cta__wrap{
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;               /* CENTRATO */
+  padding: 0 clamp(16px, 4vw, 28px);
+  text-align: center;
+}
+
+/* === Pulsante “wow” ma elegante === */
+.cta-button{
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  padding: 1rem 1.25rem;
+  border-radius: 999px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #111;
+
+  background:
+    linear-gradient(#fff,#fff) padding-box,
+    conic-gradient(from var(--ang,0deg),
+      var(--accent) 0%,
+      var(--accent-bright) 18%,
+      var(--accent) 36%,
+      transparent 37% 63%,
+      var(--accent) 64%,
+      var(--accent-bright) 82%,
+      var(--accent) 100%
+    ) border-box;
+  border: 2px solid transparent;
+  box-shadow:
+    0 14px 36px rgba(200,182,136,.36),
+    inset 0 -2px 12px rgba(230,201,129,.25);
+  transition: transform .18s ease, box-shadow .25s ease;
+  animation: cta-spin 12s linear infinite;
+}
+.cta-button:hover{
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    0 18px 48px rgba(200,182,136,.45),
+    inset 0 -2px 12px rgba(230,201,129,.28);
+}
+/* sheen */
+.cta-button::after{
+  content:"";
+  position:absolute; inset:-2px; border-radius:inherit;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.85) 50%, transparent 70%);
+  transform: translateX(-130%);
+  mix-blend-mode: screen;
+  animation: cta-sheen 5s ease-in-out infinite;
+}
+@keyframes cta-spin{ to { --ang: 360deg; } }
+@keyframes cta-sheen{
+  0%, 10% { transform: translateX(-130%); opacity: 0; }
+  18%,28% { transform: translateX(0%);    opacity: .95; }
+  36%     { transform: translateX(130%);  opacity: 0; }
+  100%    { transform: translateX(130%);  opacity: 0; }
+}
+
+/* riduzione motion */
+@media (prefers-reduced-motion: reduce){
+  .section-cta__bg::before,
+  .cta-button,
+  .cta-button::after{ animation:none; }
+}
+
+/* tuoi token */
+:root{
+  --accent:#c8b688;
+  --accent-bright:#e6c981;
+}
+
+.section-cta__bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+

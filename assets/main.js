@@ -120,7 +120,7 @@ Array.from(document.querySelectorAll('#mobileMenu a')).forEach(a => {
   if (!mediaOK.matches || reduce.matches) return;
 
   // elementi dove il cursore è permesso (CTA)
-  const allowSel = '.btn, [data-cta]';         // aggiungi qui eventuali altri selettori
+  const allowSel = '.btn, [data-cta], img';         // aggiungi qui eventuali altri selettori
   const excludeSel = '.site-header, .mobile-panel, .mobile-topbar';
 
   const root = document.createElement('div');
