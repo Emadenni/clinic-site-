@@ -1,0 +1,173 @@
+[
+  {
+    "slug": "biorivitalizzazione",
+    "title": "Biorivitalizzazione",
+    "duration": "30–40 min",
+    "pain": "Basso",
+    "result": "Progressivi in 2–4 settimane",
+    "price": "da 1 900 kr",
+    "image": "images/treatments/biorivitalizzazione.webp",
+    "short": "Idratazione profonda e tono migliorato",
+    "long": "La biorivitalizzazione è un trattamento estetico iniettivo che utilizza acido ialuronico, vitamine e aminoacidi per stimolare la produzione di collagene ed elastina. Migliora l’idratazione cutanea, la luminosità e la compattezza della pelle, riducendo i segni di stanchezza e invecchiamento.",
+     "featured": true
+  },
+  {
+    "slug": "lifting-liquido",
+    "title": "Lifting liquido",
+    "duration": "45–60 min",
+    "pain": "Medio",
+    "result": "Immediati e ottimali in 2 settimane",
+    "price": "da 3 900 kr",
+    "image": "images/treatments/lifting-liquido.webp",
+    "short": "Effetto tensore senza bisturi",
+    "long": "Il lifting liquido è una tecnica non chirurgica che combina filler e biostimolanti per sollevare e ridisegnare i volumi del viso. Offre un effetto tensore naturale, migliorando l’ovale e attenuando i segni di cedimento senza tempi di recupero prolungati."
+  },
+  {
+    "slug": "botulino-rughe-fronte-occhi",
+    "title": "Botulino – Rughe fronte e occhi",
+    "duration": "20–30 min",
+    "pain": "Basso",
+    "result": "In 3–7 giorni, pieno in 14",
+    "price": "da 2 500 kr",
+    "image": "images/treatments/botulino.webp",
+    "short": "Distende le linee d’espressione",
+    "long": "Il trattamento con tossina botulinica riduce le rughe di espressione nella zona della fronte e del contorno occhi. Agisce rilassando i muscoli responsabili delle pieghe cutanee, offrendo un aspetto più disteso e riposato.",
+     "featured": true
+  },
+  {
+    "slug": "rimodellamento-labbra",
+    "title": "Rimodellamento Labbra",
+    "duration": "30–45 min",
+    "pain": "Medio",
+    "result": "Immediati, naturali in 3–5 giorni",
+    "price": "da 2 900 kr",
+    "image": "images/treatments/labbra.webp",
+    "short": "Volume e definizione armonica",
+    "long": "Il rimodellamento labbra con filler a base di acido ialuronico migliora il volume, la forma e la definizione del contorno labiale. L’obiettivo è un risultato naturale e proporzionato al volto.",
+     "featured": true
+  },
+  {
+    "slug": "radiesse",
+    "title": "Radiesse",
+    "duration": "30–45 min",
+    "pain": "Medio",
+    "result": "Subito visibili, collagene 4–8 settimane",
+    "price": "da 3 500 kr",
+    "image": "images/treatments/radiesse.webp",
+    "short": "Biostimolazione e sostegno dei tessuti",
+    "long": "Radiesse è un filler a base di idrossiapatite di calcio che, oltre a riempire e rimodellare, stimola la produzione naturale di collagene. Migliora la densità e la compattezza della pelle con risultati duraturi."
+  },
+  {
+    "slug": "profhilo",
+    "title": "Profhilo",
+    "duration": "20–30 min",
+    "pain": "Basso",
+    "result": "In 2–4 settimane",
+    "price": "da 3 200 kr",
+    "image": "images/treatments/profhilo.webp",
+    "short": "Idratazione e turgore diffusi",
+    "long": "Profhilo è un trattamento iniettivo a base di acido ialuronico ad alta purezza, progettato per ridare tono e idratazione alla pelle. Agisce in modo naturale stimolando la produzione di collagene ed elastina.",
+    "featured": true
+  },
+  {
+    "slug": "rimodellamento-rughe",
+    "title": "Rimodellamento rughe",
+    "duration": "30–45 min",
+    "pain": "Medio",
+    "result": "Immediati e migliorano in 1–2 settimane",
+    "price": "da 2 700 kr",
+    "image": "images/treatments/rughe.webp",
+    "short": "Naso-geniene, marionetta, rughe del viso",
+    "long": "Trattamento mirato per riempire e distendere le rughe più profonde, come le naso-geniene e quelle della marionetta. Migliora l’armonia e la freschezza del volto."
+  },
+  {
+    "slug": "rimodellamento-zigomi-mento-mandibola-temporale",
+    "title": "Rimodellamento zigomi, mento, mandibola, zona temporale",
+    "duration": "40–60 min",
+    "pain": "Medio",
+    "result": "Immediati, assestamento in 1 settimana",
+    "price": "da 3 900 kr",
+    "image": "images/treatments/rimodellamento.webp",
+    "short": "Contouring e armonizzazione del profilo",
+    "long": "Rimodellamento volumetrico del viso per migliorare zigomi, mento, linea mandibolare e zona temporale. Utilizza filler sicuri per armonizzare e ridefinire il profilo."
+  },
+  {
+    "slug": "filler-occhiaie",
+    "title": "Filler Occhiaie",
+    "duration": "30–40 min",
+    "pain": "Medio",
+    "result": "Immediati, definitivi in 1 settimana",
+    "price": "da 2 900 kr",
+    "image": "images/treatments/filler-occhiaie.webp",
+    "short": "Sguardo riposato e luminoso",
+    "long": "Il filler occhiaie riduce il solco lacrimale e attenua l’aspetto stanco dello sguardo. Migliora la luminosità e uniforma la zona perioculare."
+  },
+  {
+    "slug": "rinofiller",
+    "title": "Rinofiller",
+    "duration": "20–30 min",
+    "pain": "Medio",
+    "result": "Immediati",
+    "price": "da 3 000 kr",
+    "image": "images/treatments/rinofiller.webp",
+    "short": "Correzione del profilo nasale senza chirurgia",
+    "long": "Il rinofiller permette di correggere imperfezioni e asimmetrie del naso tramite filler dermico, evitando l’intervento chirurgico. Risultato armonico e naturale.",
+     "featured": true
+  },
+  {
+    "slug": "peeling",
+    "title": "Peeling",
+    "duration": "30–40 min",
+    "pain": "Basso",
+    "result": "Immediati, pelle più luminosa e uniforme",
+    "price": "da 1 200 kr",
+    "image": "images/treatments/peeling.webp",
+    "short": "Rigenerazione e luminosità cutanea",
+    "long": "Il peeling chimico rimuove le cellule morte, stimola il rinnovamento cellulare e migliora la texture della pelle, donandole un aspetto più giovane e fresco."
+  },
+  {
+    "slug": "profiloplastica-2",
+    "title": "Profiloplastica 2",
+    "duration": "40–60 min",
+    "pain": "Medio",
+    "result": "Immediati",
+    "price": "da 4 500 kr",
+    "image": "images/treatments/profiloplastica-2.webp",
+    "short": "Ridefinizione avanzata del profilo",
+    "long": "La profiloplastica 2 combina diverse tecniche di filler per correggere e armonizzare il profilo del viso in maniera personalizzata."
+  },
+  {
+    "slug": "profiloplastica",
+    "title": "Profiloplastica",
+    "duration": "40–60 min",
+    "pain": "Medio",
+    "result": "Immediati",
+    "price": "da 4 200 kr",
+    "image": "images/treatments/profiloplastic.webp",
+    "short": "Armonizzazione complessiva del viso",
+    "long": "Trattamento di rimodellamento del profilo volto a equilibrare proporzioni e volumi, ottenendo un aspetto armonico e naturale."
+  },
+  {
+    "slug": "pixel-co2-alma-lasers",
+    "title": "Pixel CO₂ di Alma Lasers",
+    "duration": "30–60 min",
+    "pain": "Medio-Alto",
+    "result": "Visibili dopo 1–2 settimane, migliorano nei mesi",
+    "price": "da 3 500 kr",
+    "image": "images/treatments/laser.webp",
+    "short": "Ringiovanimento cutaneo laser frazionato",
+    "long": "Il Pixel CO₂ è un trattamento laser frazionato che migliora rughe, cicatrici e texture cutanea, stimolando la rigenerazione profonda della pelle."
+  },
+  {
+    "slug": "soprano-ice-platinum",
+    "title": "Soprano Ice Platinum Epilazione laser",
+    "duration": "15–60 min (in base all’area)",
+    "pain": "Molto basso",
+    "result": "Progressivi in 4–6 sedute",
+    "price": "da 800 kr",
+    "image": "images/treatments/platinum.webp",
+    "short": "Epilazione permanente indolore",
+    "long": "Il laser Soprano Ice Platinum combina tre lunghezze d’onda per un’epilazione efficace e praticamente indolore, adatta a tutti i tipi di pelle.",
+     "featured": true
+  }
+]

@@ -1,6 +1,8 @@
 // ===== Footer year =========================================================
 document.getElementById('year').textContent = new Date().getFullYear();
 
+
+
 // ===== DOM refs ============================================================
 const header    = document.querySelector('[data-header]');
 const navEl     = document.querySelector('[data-nav]');
@@ -188,3 +190,4 @@ Array.from(document.querySelectorAll('#mobileMenu a')).forEach(a => {
   };
   requestAnimationFrame(loop);
 })();
+

@@ -1,0 +1,185 @@
+// === HOME: Trattamenti (solo 6 featured + CTA) ===
+
+const GRID = document.getElementById('treatments-grid');
+const BACKDROP = document.getElementById('quick-backdrop');
+const TITLE = document.getElementById('quick-title');
+const CONTENT = document.getElementById('quick-content');
+const CLOSE = document.getElementById('quick-close');
+
+const PLACEHOLDER_IMG = new URL('../images/seo-section-img.webp', import.meta.url).href;
+
+let DATA = [];
+let lastFocused = null;
+
+/* ---------- REVEAL: setup unico ---------- */
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const revealObserver = !prefersReduced
+  ? new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 })
+  : null;
+
+function attachReveals(container) {
+  if (!container) return;
+  const cards = Array.from(container.querySelectorAll('.card'));
+  cards.forEach((card, i) => {
+    card.classList.add('sx-reveal');
+    card.style.setProperty('--i', i); // delay progressivo
+    if (revealObserver) revealObserver.observe(card);
+    else card.classList.add('in');     // se reduce motion, mostra subito
+  });
+}
+/* ----------------------------------------- */
+
+init().catch(err => {
+  console.error('Init error:', err);
+  if (GRID) GRID.innerHTML = `<p class="notice">Non è stato possibile caricare i trattamenti.</p>`;
+});
+
+async function init() {
+  // 1) Carica JSON via fetch (niente import JSON)
+  const res = await fetch('/data/treatments.json', { headers: { 'Accept': 'application/json' } });
+  if (!res.ok) throw new Error(`HTTP ${res.status} su /data/trattamenti.json`);
+  DATA = await res.json();
+
+  // 2) Prendi solo 6 featured (fallback se meno di 6)
+  let subset = DATA.filter(t => t.featured === true);
+  if (subset.length < 6) {
+    subset = subset.concat(
+      DATA.filter(t => !t.featured).slice(0, 6 - subset.length)
+    );
+  }
+  subset = subset.slice(0, 6);
+
+  // 3) Render + CTA
+  renderGrid(subset);
+  injectCTA();
+
+  // 4) Deep-link ?quick=slug
+  const params = new URLSearchParams(location.search);
+  const quick = params.get('quick');
+  if (quick) openModal(quick, false);
+
+  // 5) Back/forward
+  window.addEventListener('popstate', () => {
+    const p = new URLSearchParams(location.search).get('quick');
+    if (p) openModal(p, false);
+    else closeModal(false);
+  });
+
+  // 6) Chiusure modal
+  BACKDROP?.addEventListener('click', (e) => { if (e.target === BACKDROP) closeModal(); });
+  CLOSE?.addEventListener('click', () => closeModal());
+  document.addEventListener('keydown', (e) => {
+    if (!BACKDROP.hidden && e.key === 'Escape') closeModal();
+  });
+}
+
+function renderGrid(items) {
+  if (!GRID) return;
+  GRID.innerHTML = items.map(toCardHTML).join('');
+
+  // 👉 attiva il reveal sulle card appena renderizzate
+  attachReveals(GRID);
+
+  // quick view
+  GRID.querySelectorAll('[data-quick]').forEach(btn => {
+    btn.addEventListener('click', () => openModal(btn.dataset.quick, true));
+  });
+}
+
+function toCardHTML(item) {
+  const { slug, title, image, short, duration, pain, result, price } = item;
+  const imgSrc = image || PLACEHOLDER_IMG;
+  return `
+    <article class="card">
+      <a class="card__media-link" href="/trattamenti/${slug}.html" aria-label="${title}">
+        <img class="card__media" src="${imgSrc}" alt="${title}"
+             loading="lazy"
+             onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'">
+      </a>
+      <div class="card__body">
+        <h3 class="card__title"><a href="/trattamenti/${slug}.html">${title}</a></h3>
+        <p class="card__short">${short ?? ''}</p>
+        <ul class="pill-list" aria-label="Informazioni rapide">
+          <li class="pill"><span class="pill__label">Durata</span> <span class="pill__val">${duration}</span></li>
+          <li class="pill"><span class="pill__label">Dolore</span> <span class="pill__val">${pain}</span></li>
+          <li class="pill"><span class="pill__label">Risultati</span> <span class="pill__val">${result}</span></li>
+        </ul>
+        <div class="card__footer">
+          <span class="price">${price}</span>
+          <div class="actions">
+            <button class="btn" data-quick="${slug}" aria-haspopup="dialog">Dettagli veloci</button>
+            <a class="btn btn--ghost" href="/trattamenti/${slug}.html">Vai alla pagina</a>
+          </div>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+function injectCTA() {
+  const wrap = document.createElement('div');
+  wrap.className = 'treatments__cta';
+  wrap.innerHTML = `<a class="btn btn-primary" href="/trattamenti.html">Scopri tutti i trattamenti</a>`;
+  GRID.parentElement.appendChild(wrap);
+}
+
+function openModal(slug, push = true) {
+  if (!BACKDROP) return;
+  const item = DATA.find(x => x.slug === slug);
+  if (!item) return;
+
+  TITLE.textContent = item.title;
+  CONTENT.innerHTML = modalContent(item);
+
+  lastFocused = document.activeElement;
+  BACKDROP.hidden = false;
+  CLOSE?.focus();
+
+  if (push) {
+    const url = new URL(location.href);
+    url.searchParams.set('quick', slug);
+    history.pushState({ quick: slug }, '', url);
+  }
+}
+
+function closeModal(push = true) {
+  if (!BACKDROP || BACKDROP.hidden) return;
+  BACKDROP.hidden = true;
+  if (lastFocused) lastFocused.focus();
+
+  if (push) {
+    const url = new URL(location.href);
+    url.searchParams.delete('quick');
+    history.pushState({}, '', url);
+  }
+}
+
+function modalContent(item) {
+  const { image, title, long, duration, pain, result, price, slug } = item;
+  const imgSrc = image || PLACEHOLDER_IMG;
+  return `
+    <figure class="quick__figure">
+      <img class="quick__img" src="${imgSrc}" alt="${title}"
+           onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'">
+    </figure>
+    <ul class="kv-list">
+      <li><span>Durata</span><strong>${duration}</strong></li>
+      <li><span>Dolore</span><strong>${pain}</strong></li>
+      <li><span>Risultati</span><strong>${result}</strong></li>
+      <li><span>Prezzo</span><strong>${price}</strong></li>
+    </ul>
+    <div class="prose">${long ? `<p>${long}</p>` : ''}</div>
+    <div class="quick__actions">
+      <a class="btn" href="/prenota?trattamento=${slug}">Prenota ora</a>
+      <a class="btn btn--ghost" href="/trattamenti/${slug}.html">Vai alla pagina</a>
+    </div>
+  `;
+}
