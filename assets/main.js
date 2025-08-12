@@ -1,157 +1,154 @@
-// anno footer
+// ===== Footer year =========================================================
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const header = document.querySelector('[data-header]');
-const hero   = document.querySelector('.hero');
-const navEl  = document.querySelector('[data-nav]');
-const links  = Array.from(document.querySelectorAll('[data-nav] a[href^="#"]'));
-const BREAKPOINT = 960;
-let lastY = window.scrollY;
-const NAV_HIDE_THRESHOLD = 80;
+// ===== DOM refs ============================================================
+const header    = document.querySelector('[data-header]');
+const navEl     = document.querySelector('[data-nav]');
+const links     = Array.from(document.querySelectorAll('[data-nav] a')); // tutte le voci
+const wrap      = document.querySelector('[data-mobile-wrap]');
+const panel     = document.querySelector('.mobile-panel');
+const hamburger = document.querySelector('[data-hamburger]');
 
-// ===== Utils per l'ink dinamico =====
+// ===== Active ink (desktop) ===============================================
 function moveInkTo(el){
   if (!navEl || !el) return;
   const nr = navEl.getBoundingClientRect();
   const r  = el.getBoundingClientRect();
-  const left = r.left - nr.left;
-  const width = r.width;
-  const topCenter = r.top - nr.top + r.height/2;
-
-  navEl.style.setProperty('--ink-left', `${left}px`);
-  navEl.style.setProperty('--ink-width', `${width}px`);
-  navEl.style.setProperty('--ink-top', `${topCenter}px`);
-  navEl.style.setProperty('--sparkle-x', `${left + width - 10}px`);
-  navEl.style.setProperty('--sparkle-y', `${topCenter}px`);
-}
-function setActive(id){
-  links.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === `#${id}`));
-  const current = links.find(a => a.classList.contains('is-active')) || links[0];
-  moveInkTo(current);
+  navEl.style.setProperty('--ink-left',  `${r.left - nr.left}px`);
+  navEl.style.setProperty('--ink-width', `${r.width}px`);
+  navEl.style.setProperty('--ink-top',   `${r.top  - nr.top + r.height/2}px`);
+  navEl.style.setProperty('--sparkle-x', `${r.left - nr.left + r.width - 10}px`);
+  navEl.style.setProperty('--sparkle-y', `${r.top  - nr.top + r.height/2}px`);
 }
 
-// ===== Header state (over-hero / not-over) + hide-only-nav on scroll down
-function updateHeaderState(){
-  if (!header || !hero) return;
-
-  // con header fixed, over-hero finché il fondo della hero sta sotto il bordo inferiore dell’header
-  const rect = hero.getBoundingClientRect();
-  const headerH = header.offsetHeight || 0;
-  const overHero = rect.bottom > headerH;
-  header.classList.toggle('over-hero', overHero);
-  header.classList.toggle('not-over', !overHero);
-
-  const y = window.scrollY;
-  const scrollingDown = y > lastY;
-  const shouldHideNav = (window.innerWidth >= BREAKPOINT) && scrollingDown && y > NAV_HIDE_THRESHOLD;
-  header.classList.toggle('hide-nav', shouldHideNav);
-  lastY = y;
+// attiva la voce giusta in base alla pagina
+function getActiveLinkByPath(){
+  if (!links.length) return null;
+  const path = (location.pathname.replace(/\/+$/,'') || '/index.html');
+  const match = links.find(a => {
+    let href = a.getAttribute('href') || '';
+    try { href = new URL(href, location.origin).pathname.replace(/\/+$/,''); } catch(e){}
+    return href === path || (href === '/index.html' && (path === '/' || path === ''));
+  });
+  return match || links[0];
+}
+function syncActiveTo(el){
+  if (!el) return;
+  links.forEach(a => a.classList.toggle('is-active', a === el));
+  moveInkTo(el);
 }
 
-// ===== Inizializzazione =====
 function initInk(){
-  setActive('home');
-  moveInkTo(links[0]);
+  const active = getActiveLinkByPath() || links[0];
+  syncActiveTo(active);
 }
 initInk();
-updateHeaderState();
+window.addEventListener('resize', initInk, {passive:true});
+document.fonts?.ready.then(initInk);
+if ('ResizeObserver' in window && navEl) new ResizeObserver(initInk).observe(navEl);
 
-// ricalcola su scroll/resize/load
-window.addEventListener('scroll', () => { updateHeaderState(); }, { passive:true });
-window.addEventListener('resize', () => {
-  const current = links.find(a=>a.classList.contains('is-active')) || links[0];
-  moveInkTo(current);
-  updateHeaderState();
-}, { passive:true });
-window.addEventListener('load', () => {
-  const current = links.find(a=>a.classList.contains('is-active')) || links[0];
-  moveInkTo(current);
-});
-
-// se i font cambiano dimensioni, riallinea l'ink
-if (document.fonts && document.fonts.ready){
-  document.fonts.ready.then(() => {
-    const current = links.find(a=>a.classList.contains('is-active')) || links[0];
-    moveInkTo(current);
-  });
-}
-
-// ResizeObserver sul nav per adattarsi a restringimenti
-if ('ResizeObserver' in window && navEl){
-  const ro = new ResizeObserver(() => {
-    const current = links.find(a=>a.classList.contains('is-active')) || links[0];
-    moveInkTo(current);
-  });
-  ro.observe(navEl);
-}
-
-// ===== Scroll-spy (attiva la voce corretta mentre scorri)
-const sections = links
-  .map(a => ({ a, id: a.getAttribute('href').slice(1), el: document.getElementById(a.getAttribute('href').slice(1)) }))
-  .filter(x => x.el);
-
-if ('IntersectionObserver' in window){
-  const spy = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) setActive(entry.target.id); });
-  }, {
-    root: null,
-    rootMargin: `-${(header?.offsetHeight || 0) + 10}px 0px -60% 0px`,
-    threshold: 0
-  });
-  sections.forEach(({el}) => spy.observe(el));
-}
-
-// ===== Hover-follow (ink segue hover, poi torna all'attivo)
-let hoverTimeout = null;
+// hover intent (pill rilassata)
+let hoverTimer = 0, hoverTarget = null;
 links.forEach(a => {
   a.addEventListener('mouseenter', () => {
-    if (hoverTimeout) clearTimeout(hoverTimeout);
-    moveInkTo(a);
+    hoverTarget = a;
+    clearTimeout(hoverTimer);
+    hoverTimer = setTimeout(() => { if (hoverTarget === a) moveInkTo(a); }, 140);
   });
   a.addEventListener('mouseleave', () => {
-    hoverTimeout = setTimeout(() => {
-      const current = links.find(x => x.classList.contains('is-active')) || links[0];
-      moveInkTo(current);
-    }, 80);
+    hoverTarget = null; clearTimeout(hoverTimer);
+    setTimeout(() => syncActiveTo(getActiveLinkByPath()), 120);
   });
 });
 
-// ===== Mobile menu =====
-const hamburger = document.querySelector('[data-hamburger]');
-const wrap = document.querySelector('[data-mobile-wrap]');
-const panel = document.querySelector('.mobile-panel');
-const closeBtn = document.querySelector('[data-close]');
+// ===== Header: visibile SOLO in cima ======================================
+function updateHeaderTopOnly(){
+  if (!header) return;
+  (window.scrollY <= 10) ? header.classList.add('show') : header.classList.remove('show');
+}
+updateHeaderTopOnly();
+window.addEventListener('scroll', updateHeaderTopOnly, { passive:true });
+window.addEventListener('resize', updateHeaderTopOnly, { passive:true });
 
+// ===== Mobile/Tablet menu (robusto) =======================================
 const openMenu = () => {
   document.body.classList.add('menu-open');
-  hamburger?.setAttribute('aria-expanded', 'true');
-  if (wrap) wrap.hidden = false;
-  closeBtn?.focus();
-  // blocca scroll sotto
+  hamburger?.setAttribute('aria-expanded','true');
+  header?.classList.add('show');
+  wrap && (wrap.hidden = false);
   document.documentElement.style.overflow = 'hidden';
 };
 const closeMenu = () => {
   document.body.classList.remove('menu-open');
-  hamburger?.setAttribute('aria-expanded', 'false');
-  if (wrap) wrap.hidden = true;
-  hamburger?.focus();
+  hamburger?.setAttribute('aria-expanded','false');
+  wrap && (wrap.hidden = true);
   document.documentElement.style.overflow = '';
+  updateHeaderTopOnly();
 };
-hamburger?.addEventListener('click', () => {
-  const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-  expanded ? closeMenu() : openMenu();
-});
-closeBtn?.addEventListener('click', closeMenu);
-wrap?.addEventListener('click', (e) => {
-  // chiudi se clic fuori dal pannello
-  if (panel && !panel.contains(e.target)) closeMenu();
+hamburger?.addEventListener('click', (e) => {
+  e.preventDefault();
+  (hamburger.getAttribute('aria-expanded') === 'true') ? closeMenu() : openMenu();
 });
 window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
-
-// click su nav: chiudi mobile e set active immediato
-Array.from(document.querySelectorAll('#mobileMenu a[href^="#"]')).forEach(a => {
-  a.addEventListener('click', () => { setActive(a.getAttribute('href').slice(1)); closeMenu(); });
+wrap?.addEventListener('click', (e) => {
+  if (e.target.closest('[data-close]')) { e.preventDefault(); closeMenu(); return; }
+  if (panel && !panel.contains(e.target)) closeMenu();
+}, { passive:false });
+Array.from(document.querySelectorAll('#mobileMenu a')).forEach(a => {
+  a.addEventListener('click', () => closeMenu());
 });
 
-// click su nav desktop: attiva subito
-links.forEach(a => a.addEventListener('click', () => setActive(a.getAttribute('href').slice(1))));
+// ===== Custom cursor — SOLO su CTA, MAI in navbar/menu ====================
+(() => {
+  const mediaOK = window.matchMedia('(hover:hover) and (pointer:fine)');
+  const reduce  = window.matchMedia('(prefers-reduced-motion:reduce)');
+  if (!mediaOK.matches || reduce.matches) return;
+
+  // elementi dove il cursore è permesso (CTA)
+  const allowSel = '.btn, [data-cta]';         // aggiungi qui eventuali altri selettori
+  const excludeSel = '.site-header, .mobile-panel, .mobile-topbar';
+
+  const root = document.createElement('div');
+  root.id = 'lux-cursor';
+  root.innerHTML = `<div class="c-ring"></div><div class="c-dot"></div>`;
+  document.body.appendChild(root);
+
+  const ring = root.querySelector('.c-ring');
+  const dot  = root.querySelector('.c-dot');
+
+  const isAllowed = el => !!el.closest(allowSel) && !el.closest(excludeSel);
+
+  let x=-100,y=-100, rx=-100,ry=-100;
+  const ease=.18;
+
+  const tick = () => {
+    rx += (x - rx) * ease; ry += (y - ry) * ease;
+    ring.style.setProperty('--cx', rx + 'px');
+    ring.style.setProperty('--cy', ry + 'px');
+    dot .style.setProperty('--dx', x  + 'px');
+    dot .style.setProperty('--dy', y  + 'px');
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+
+  window.addEventListener('mousemove', (e) => {
+    x = e.clientX; y = e.clientY;
+    const ok = isAllowed(e.target) && !document.body.classList.contains('menu-open');
+    root.classList.toggle('is-hidden', !ok);
+  }, { passive:true });
+
+  window.addEventListener('mouseleave', () => root.classList.add('is-hidden'), { passive:true });
+  window.addEventListener('mouseenter', () => root.classList.remove('is-hidden'), { passive:true });
+  window.addEventListener('mousedown', () => root.classList.add('is-down'), { passive:true });
+  window.addEventListener('mouseup',   () => root.classList.remove('is-down'), { passive:true });
+
+  // stato "link" solo sulle CTA
+  document.addEventListener('mouseover', (e) => {
+    root.classList.toggle('is-link', isAllowed(e.target));
+  }, { passive:true });
+  document.addEventListener('mouseout', () => {
+    root.classList.remove('is-link');
+  }, { passive:true });
+
+  mediaOK.addEventListener?.('change', (e) => { if (!e.matches) root.remove(); });
+})();
