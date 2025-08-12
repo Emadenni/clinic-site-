@@ -217,3 +217,116 @@ function modalContent(item) {
   `;
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+  const root = document.querySelector('.before-after-gallery');
+  if (!root) return;
+
+  const pool = [
+    '/images/treatments/botulino.webp',
+    '/images/treatments/labbra.webp',
+    '/images/treatments/rinofiller.webp',
+    '/images/treatments/rughe.webp',
+    '/images/treatments/biorivitalizzazione.webp'
+  ];
+
+  const imgs = Array.from(root.querySelectorAll('.ba-bubble img'));
+  if (!imgs.length) return;
+
+  // Precarica (log se path rotti)
+  pool.forEach(src => { const im = new Image(); im.onerror = () => console.error('[ba]', src); im.src = src; });
+
+  const N = imgs.length;
+  const M = pool.length;
+  const period = 3600;  // + alto = più lento
+  const fadeMs = 260;
+
+  // Stato: indice immagine corrente per ogni bolla
+  const current = new Array(N);
+
+  // Inizializza con indici tutti diversi (finché possibile)
+  imgs.forEach((img, i) => {
+    const idx = i % M;
+    current[i] = idx;
+    img.src = pool[idx];
+    img.style.objectFit = 'cover';
+    img.style.transition = `opacity ${fadeMs}ms ease, transform ${Math.round(fadeMs*1.6)}ms ease`;
+  });
+
+  // Trova il prossimo indice non usato dagli altri (se possibile)
+  function nextDistinctIndex(i) {
+    const used = new Set(current.filter((_, j) => j !== i));
+    // prova i successivi in ordine circolare finché non trovi un buco
+    for (let step = 1; step <= M; step++) {
+      const candidate = (current[i] + step) % M;
+      if (!used.has(candidate)) return candidate;
+    }
+    // se tutto occupato (pool troppo piccolo), ritorna il successivo normale
+    return (current[i] + 1) % M;
+  }
+
+  // Swap coordinato
+  function swapOne(i) {
+    const img = imgs[i];
+    let nextIdx = nextDistinctIndex(i);
+    const nextSrc = pool[nextIdx] + '?v=' + Date.now(); // cache-bust
+
+    img.style.opacity = '0';
+    img.style.transform = 'scale(0.985)';
+
+    setTimeout(() => {
+      img.onerror = () => {
+        // se fallisce, prova un altro indice libero
+        for (let tries = 0; tries < M; tries++) {
+          nextIdx = (nextIdx + 1) % M;
+          if (!current.includes(nextIdx)) break;
+        }
+        img.src = pool[nextIdx] + '?v=' + Date.now();
+      };
+      img.onload = () => {
+        img.style.opacity = '1';
+        img.style.transform = 'scale(1)';
+      };
+      img.src = nextSrc;
+      current[i] = nextIdx; // aggiorna lo stato condiviso
+    }, fadeMs);
+  }
+
+  // Avvia con sfasamento tra le bolle
+  imgs.forEach((_, i) => {
+    setTimeout(() => {
+      swapOne(i);
+      setInterval(() => swapOne(i), period);
+    }, i * 500);
+  });
+
+  // Click: vai alla pagina
+  root.addEventListener('click', () => {
+    window.location.href = '/prima-dopo.html';
+  });
+});
+
+/* ===== Micro-interazione: tilt sul portrait (facoltativo) ===== */
+(() => {
+  const card = document.querySelector('.doctor-preview__portrait[data-tilt]');
+  if (!card) return;
+  const max = 6; // gradi max
+  const lerp = (a,b,t)=>a+(b-a)*t;
+  let rx=0, ry=0, tx=0, ty=0;
+
+  const onMove = (e) => {
+    const r = card.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top)  / r.height;
+    tx = lerp(-max, max, px);
+    ty = lerp(max, -max, py);
+    card.classList.add('tilting');
+    card.style.transform = `rotateY(${tx.toFixed(2)}deg) rotateX(${ty.toFixed(2)}deg)`;
+  };
+  const onLeave = () => {
+    card.classList.remove('tilting');
+    card.style.transform = '';
+  };
+
+  card.addEventListener('mousemove', onMove, {passive:true});
+  card.addEventListener('mouseleave', onLeave, {passive:true});
+})();

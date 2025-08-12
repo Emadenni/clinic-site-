@@ -191,3 +191,58 @@ Array.from(document.querySelectorAll('#mobileMenu a')).forEach(a => {
   requestAnimationFrame(loop);
 })();
 
+(function(){
+  function onReady(fn){
+    if(document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', fn, {once:true});
+    }else{ fn(); }
+  }
+
+  function safeLS(){
+    return {
+      get(k){ try{ return localStorage.getItem(k); }catch{ return null; } },
+      set(k,v){ try{ localStorage.setItem(k,v); }catch{} },
+      sget(k){ try{ return sessionStorage.getItem(k); }catch{ return null; } },
+      sset(k,v){ try{ sessionStorage.setItem(k,v); }catch{} }
+    };
+  }
+
+  function tween(el, from, to, dur=900){
+    const start = performance.now();
+    const fmt = n => n.toLocaleString('it-IT');
+    function frame(t){
+      const k = Math.min(1, (t-start)/dur);
+      const e = 1 - Math.pow(1-k, 3);
+      el.textContent = fmt(Math.round(from + (to-from)*e));
+      if(k < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  onReady(() => {
+    const el = document.getElementById('site-views-count');
+    if(!el) return;
+
+    const store = safeLS();
+    const BASE = 5500;
+    const KEY  = 'pv_local_count_v1';
+    const LAST = 'pv_last_seen';
+
+    let n = parseInt(store.get(KEY)||'0',10);
+    if(!Number.isFinite(n)) n = 0;
+    n += 1;
+    store.set(KEY, String(n));
+
+    const current = BASE + n;
+    const lastSeen = parseInt(store.sget(LAST)||'0',10);
+    store.sset(LAST, String(current));
+
+    // se qualcosa va storto con RAF, almeno mostriamo il numero
+    try{
+      const from = Number.isFinite(lastSeen)&&lastSeen>0 ? lastSeen : Math.max(0, current-7);
+      tween(el, from, current);
+    }catch{
+      el.textContent = current.toLocaleString('it-IT');
+    }
+  });
+})();
