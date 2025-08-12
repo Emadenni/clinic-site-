@@ -216,3 +216,4 @@ function modalContent(item) {
     </div>
   `;
 }
+
