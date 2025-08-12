@@ -47,19 +47,32 @@ window.addEventListener('resize', initInk, {passive:true});
 document.fonts?.ready.then(initInk);
 if ('ResizeObserver' in window && navEl) new ResizeObserver(initInk).observe(navEl);
 
-// hover intent (pill rilassata)
-let hoverTimer = 0, hoverTarget = null;
+// --- HOVER INTENT + niente snap-back tra le voci ---
+const HOVER_INTENT = 160;
+let hoverTimer = 0;
+let pending = null;
+
 links.forEach(a => {
   a.addEventListener('mouseenter', () => {
-    hoverTarget = a;
+    pending = a;
     clearTimeout(hoverTimer);
-    hoverTimer = setTimeout(() => { if (hoverTarget === a) moveInkTo(a); }, 140);
+    hoverTimer = setTimeout(() => {
+      if (pending === a) moveInkTo(a);
+    }, HOVER_INTENT);
   });
+
   a.addEventListener('mouseleave', () => {
-    hoverTarget = null; clearTimeout(hoverTimer);
-    setTimeout(() => syncActiveTo(getActiveLinkByPath()), 120);
+    // non torniamo all'attivo qui: evitiamo jitter tra le voci
+    pending = null;
+    clearTimeout(hoverTimer);
   });
 });
+
+// quando esco dall'intera NAV → torna alla voce attiva (per pagina)
+navEl?.addEventListener('mouseleave', () => {
+  syncActiveTo(getActiveLinkByPath());
+});
+
 
 // ===== Header: visibile SOLO in cima ======================================
 function updateHeaderTopOnly(){
@@ -151,4 +164,27 @@ Array.from(document.querySelectorAll('#mobileMenu a')).forEach(a => {
   }, { passive:true });
 
   mediaOK.addEventListener?.('change', (e) => { if (!e.matches) root.remove(); });
+})();
+
+// Reveal per la sezione SEO
+(() => {
+  const io = new IntersectionObserver((es) => {
+    es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.sx-reveal').forEach(el => io.observe(el));
+})();
+
+// Parallax soft sull’immagine (se ti piace)
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if (reduce) return;
+  const visual = document.querySelector('.sx-visual[data-parallax]');
+  if (!visual) return;
+  const loop = () => {
+    const r = visual.getBoundingClientRect();
+    const y = ((r.top + r.height * .5) / innerHeight - .5) * -14;
+    visual.style.transform = `translateY(${y.toFixed(2)}px)`;
+    requestAnimationFrame(loop);
+  };
+  requestAnimationFrame(loop);
 })();
