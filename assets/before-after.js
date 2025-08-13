@@ -1,55 +1,57 @@
-
 (function(){
   const cards = document.querySelectorAll('.ba-card');
+  if (!cards.length) return;
 
   cards.forEach(card => {
     const media  = card.querySelector('.ba-media');
-    const after  = media.querySelector('.ba-img--after');
-    const handle = media.querySelector('.ba-handle');
+    const knob   = media.querySelector('.ba-knob');
 
-    // posizione iniziale dalla data-attr (se presente) o 50
-    const start = Number(card.getAttribute('data-split')) || 50;
-    setSplit(start);
+    // iniziale dalla figura (es. data-split="60")
+    const initial = Number(card.getAttribute('data-split'));
+    if (Number.isFinite(initial)) media.style.setProperty('--split', initial + '%');
 
     let dragging = false;
+    let pid = null;
+    let raf = 0;
 
-    function setSplit(pct){
-      const clamped = Math.max(0, Math.min(100, pct));
-      // un'unica fonte di verità: --split
-      media.style.setProperty('--split', clamped + '%');
-    }
-
-    function xToPct(clientX){
+    const setSplit = pct => {
+      const v = Math.max(0, Math.min(100, pct));
+      media.style.setProperty('--split', v + '%');
+    };
+    const xToPct = x => {
       const r = media.getBoundingClientRect();
-      return ((clientX - r.left) / r.width) * 100;
-    }
+      return ((x - r.left) / r.width) * 100;
+    };
+    const schedule = x => {
+      if (!Number.isFinite(x)) return;
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => setSplit(xToPct(x)));
+    };
 
-    function onPointerDown(e){
+    const onDown = e => {
+      // drag SOLO se parte dal knob
+      if (e.target !== knob) return;
       dragging = true;
-      // catturo il puntatore sul contenitore per non perderlo
-      media.setPointerCapture?.(e.pointerId);
-      move(e);
-    }
-    function onPointerMove(e){
-      if (!dragging) return;
-      // clientX esiste per pointer/mouse; su touch è emulato nei pointer events
-      const pct = xToPct(e.clientX);
-      setSplit(pct);
-    }
-    function onPointerUp(e){
+      pid = e.pointerId;
+      media.setPointerCapture?.(pid);
+      e.preventDefault();               // blocca pan/scroll
+      schedule(e.clientX);
+    };
+    const onMove = e => {
+      if (!dragging || (pid != null && e.pointerId !== pid)) return;
+      e.preventDefault();
+      schedule(e.clientX);
+    };
+    const onUp = e => {
+      if (pid != null && e.pointerId !== pid) return;
       dragging = false;
-      media.releasePointerCapture?.(e.pointerId);
-    }
+      media.releasePointerCapture?.(pid);
+      pid = null;
+    };
 
-    // Importantissimo su mobile: evitare che il browser prenda lo scroll
-    media.addEventListener('pointerdown', (e)=>{ e.preventDefault(); onPointerDown(e); }, {passive:false});
-    media.addEventListener('pointermove', (e)=>{ e.preventDefault(); onPointerMove(e); }, {passive:false});
-    window.addEventListener('pointerup',   onPointerUp, {passive:true});
-    window.addEventListener('pointercancel', onPointerUp, {passive:true});
-
-    // Anche il knob deve avviare il drag
-    const knob = media.querySelector('.ba-knob');
-    knob.addEventListener('pointerdown', (e)=>{ e.preventDefault(); onPointerDown(e); }, {passive:false});
+    knob.addEventListener('pointerdown', onDown, { passive:false });
+    window.addEventListener('pointermove', onMove, { passive:false });
+    window.addEventListener('pointerup',   onUp,   { passive:true });
+    window.addEventListener('pointercancel', onUp, { passive:true });
   });
 })();
-

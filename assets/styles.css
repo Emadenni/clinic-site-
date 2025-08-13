@@ -2217,101 +2217,82 @@ img, svg { max-width: 100%; height: auto; }
   transition:opacity .5s ease, transform .5s ease;
 }
 
-.ba-show {
-  padding: 60px 20px;
-  background: #fafafa;
-  text-align: center;
-}
+/* ——— Sezione centrata ——— */
+.ba-show { padding: 60px 20px; background: #fafafa; }
+.ba-show__head, .ba-track { max-width: 1200px; margin: 0 auto; }
+.ba-track { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; overscroll-behavior: contain; }
 
-.ba-track {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+/* ——— Card ——— */
+.ba-card { background:#fff; border-radius:12px; overflow:hidden; max-width:360px; flex:1 1 320px; }
 
-.ba-card {
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  max-width: 320px;
-  flex: 1 1 300px;
-}
-
-.ba-media {
-  position: relative;
-  width: 100%;
-  height: 400px;
-  overflow: hidden;
+/* ——— Area media + variabile condivisa ——— */
+.ba-media{
+  position:relative; width:100%; height:420px; overflow:hidden;
+  /* val. iniziale della maniglia (desktop) */
+  --split: 60%;
   cursor: ew-resize;
+  /* fondamentali per mobile */
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-.ba-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+/* Mobile: un po' più centrata all’avvio */
+@media (max-width: 768px){
+  .ba-media{ --split: 55%; }
 }
 
-.ba-img--after {
-  clip-path: inset(0 0 0 var(--split, 50%));
-  transition: clip-path 0.05s linear;
+/* Le immagini NON devono “rubare” gli eventi */
+.ba-img{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; pointer-events:none;
 }
 
-.ba-handle {
-  position: absolute;
-  top: 0;
-  left: var(--split, 50%);
-  transform: translateX(-50%);
-  height: 100%;
-  display: flex;
-  align-items: center;
+/* DOPO tagliato a sinistra in base a --split (niente transition qui!) */
+.ba-img--after{ clip-path: inset(0 0 0 var(--split)); }
+
+/* Maniglia/linea: seguono la stessa variabile */
+.ba-handle{
+  position:absolute; top:0; left:var(--split); transform:translateX(-50%);
+  height:100%; display:flex; align-items:center; pointer-events:none; z-index:2;
+}
+.ba-line{
+  width:2px; height:100%; background:#fff;
+  box-shadow:0 0 0 1px rgba(0,0,0,.28);
 }
 
-.ba-line {
-  width: 2px;
-  background: white;
-  height: 100%;
-  margin-left: 20px;
+/* Il knob riceve gli eventi: hitbox generosa per il dito */
+.ba-knob{
+  width:24px; height:24px; border-radius:50%; background:#fff; border:2px solid #111;
+  pointer-events:auto; cursor:ew-resize; z-index:3;
+  touch-action:none; user-select:none; -webkit-user-select:none;
+  position:relative;
+}
+/* aumenta l’area “cliccabile” senza cambiare l’aspetto */
+.ba-knob::before{
+  content:""; position:absolute; inset:-14px; /* hitbox 52px */
 }
 
-.ba-knob {
-  width: 20px;
-  height: 20px;
-  background: white;
-  border-radius: 50%;
-  border: 2px solid black;
+/* Etichette & meta (come avevi) */
+.ba-cap{
+  position:absolute; top:10px; left:10px; right:10px;
+  display:flex; justify-content:space-between;
+  font-size:14px; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,.6); z-index:3;
+}
+.ba-meta{ padding:12px; }
+.ba-badges{ display:flex; gap:6px; flex-wrap:wrap; justify-content:center; }
+.ba-badge{ background:#eee; padding:3px 6px; border-radius:4px; font-size:12px; }
+
+.ba-show_head  {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ text-align: center;
 }
 
-.ba-cap {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  color: white;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
-}
-
-.ba-meta {
-  padding: 10px;
-}
-
-.ba-badges {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.ba-badge {
-  background: #eee;
-  padding: 3px 6px;
-  border-radius: 4px;
-  font-size: 12px;
-}
-
+.ba-media{ --split:60%; touch-action:none; user-select:none; }
+.ba-img{ pointer-events:none; }
+.ba-img--after{ clip-path: inset(0 0 0 var(--split)); }
+.ba-handle{ left: var(--split); transform: translateX(-50%); }
+.ba-knob{ touch-action:none; user-select:none; cursor:ew-resize; }
