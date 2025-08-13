@@ -1838,290 +1838,290 @@ a {
   .doctor-preview{ padding: clamp(36px, 10vw, 56px) 0; } /* un filo meno padding */
 }
 
+/* ==== CONTATORE (site-views) – LIGHT E PREMIUM ==== */
 .site-views{
   --bg: #fff;
-  position: relative;
-  display: flex;                 /* invece di inline-flex */
-  width: max-content;            /* si adatta al contenuto */
-  margin: 24px auto 0;  
-  align-items: center;
-  gap: .6rem;
-  padding: 10px 14px;
-  margin: 24px auto 0;
-  border-radius: 14px;
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  padding:10px 14px;
+  margin:15px auto 1rem;
+  border-radius:14px;
   background:
     linear-gradient(#fff,#fff) padding-box,
     linear-gradient(120deg, rgba(200,182,136,.35), rgba(230,201,129,.25)) border-box;
-  border: 1px solid transparent;
-  box-shadow: 0 10px 28px rgba(0,0,0,.06);
-  color: var(--fg);
+  border:1px solid transparent;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+  
 }
 
-.site-views::before{
-  /* leggerissimo ghost dorato dietro */
-  content:"";
-  position:absolute; inset:-18% -10%;
-  background: radial-gradient(closest-side, rgba(230,201,129,.18), transparent 70%);
-  filter: blur(14px) saturate(110%);
-  z-index:-1; pointer-events:none;
-  animation: svGlow 8s ease-in-out infinite alternate;
-}
-@keyframes svGlow { from{transform:translate3d(0,0,0)} to{transform:translate3d(2%, -2%, 0)} }
-
+/* icona */
 .site-views__icon{
   display:inline-flex; align-items:center; justify-content:center;
-  color: var(--accent);
-  opacity: .9;
+  color: var(--accent, #d4af37);
+  opacity:.95;
 }
+.site-views__icon svg{ width:20px; height:20px; }
 
+/* testo */
 .site-views__label{
-  color: var(--muted);
+  color: var(--muted, #6b7280);
   font: 600 .95rem/1.2 Inter, system-ui, sans-serif;
-  letter-spacing: .01em;
+  letter-spacing:.01em;
 }
 
+/* numero */
 .site-views__count{
   font: 700 1.05rem/1.1 Inter, system-ui, sans-serif;
-  color: var(--fg);
-  /* cifre allineate meglio */
   font-variant-numeric: tabular-nums;
-  padding: 2px 8px;
-  border-radius: 10px;
-  background: linear-gradient(180deg, rgba(212,175,55,.10), rgba(212,175,55,.06));
+  color:#333;
+  padding:2px 10px;
+  border-radius:10px;
+  background: linear-gradient(180deg, rgba(212,175,55,.12), rgba(212,175,55,.06));
   box-shadow: inset 0 0 0 1px rgba(212,175,55,.25);
-  color:white;
+  transition: background .25s ease, box-shadow .25s ease;
+}
+.site-views__count:hover{
+  background: linear-gradient(180deg, rgba(212,175,55,.18), rgba(212,175,55,.10));
+  box-shadow: inset 0 0 0 1px rgba(212,175,55,.35);
 }
 
-/* variante a tutta larghezza (bar) – se preferisci blocco pieno */
-.site-views--bar{
-  display:flex; justify-content:center;
-  width: min(980px, 92vw);
-}
-
-/* dark mode soft */
-@media (prefers-color-scheme: dark){
+/* ===== DESKTOP: versione “bar” elegante e centrata ===== */
+@media (min-width: 1024px){
   .site-views{
-    --bg: #0f1115;
-    background:
-      linear-gradient(#464645,#0f1115) padding-box,
-      linear-gradient(120deg, rgba(200,182,136,.4), rgba(230,201,129,.3)) border-box;
-    box-shadow: 0 10px 28px rgba(0,0,0,.4);
-    color: #eaeaea;
+    width: min(500px, 92vw);
+    padding: 12px 10px;
+    gap: 14px;
+    justify-content: center;          /* tutto centrato */
+    margin-bottom: 2rem;
   }
-  .site-views__label{ color:#a8b0ba; }
+  .site-views__icon svg{ width:22px; height:22px; }
+  .site-views__label{ font-size:1rem; }
   .site-views__count{
-    background: linear-gradient(180deg, rgba(212,175,55,.12), rgba(212,175,55,.08));
-    box-shadow: inset 0 0 0 1px rgba(212,175,55,.28);
+    font-size:1.15rem;
+    padding:4px 12px;
+  }
+  /* piccolo divisore prima del numero per struttura */
+  .site-views__count{
+    position:relative;
+  }
+  .site-views__count::before{
+    content:"";
+    position:absolute;
+    left:-10px; top:50%;
+    width:1px; height:18px;
+    background: rgba(0,0,0,.08);
+    transform: translateY(-50%);
   }
 }
 
-/* 1) Colore footer leggermente più deciso + no overflow */
-.footer{
-  background: #f6f4ef; /* un filo più scuro di #faf9f6 */
-  overflow-x: hidden;  /* evita scroll orizzontale da eventuali piccoli overflow */
-}
 
-/* 2) Logo centrato nella colonna 1 */
-.footer .brand{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center; /* centra anche su desktop */
-  padding: 6px 0 10px;
-}
-.footer .brand img{
-  max-width: min(200px, 60%);
-  max-height: 48px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-}
 
-/* 3) Griglia a prova di overflow */
-.footer__grid{
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: clamp(18px, 3vw, 36px);
-}
-.footer__col{
-  min-width: 0; /* consente ai contenuti di comprimersi senza spingere la griglia */
-}
-.footer__col p,
-.footer__col a{
-  word-break: break-word;
-}
-
-/* 4) Stripe pagamenti */
-.footer__bottom{
-  margin-top: 28px;
+/* ==== FOOTER BASE ==== */
+.footer {
+  background: #f3f2ee;
+  padding: 40px 20px 20px;
+  overflow-x: hidden;
   text-align: center;
-  font-size: 0.85rem;
-  color: var(--muted, #777);
-  display: grid;
-  gap: 12px;
-  justify-items: center;
 }
 
-.footer__payments{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;           /* va a capo su mobile, niente scroll */
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.footer * {
   max-width: 100%;
-}
-.footer__payments li{
-  flex: 0 1 auto;
-}
-.footer__payments img{
-  height: 22px;              /* dimensione mini */
-  width: auto;
-  display: block;
-  filter: grayscale(1) contrast(1.05);
-  opacity: .85;
-  max-width: 100%;
+  box-sizing: border-box;
 }
 
-/* 5) Social: evita overflow e centra su mobile */
-.footer__social{
-  flex-wrap: wrap;
-}
-@media (max-width: 600px){
-  .footer{
-    text-align: center;
-  }
-  .footer__social{
-    justify-content: center;
-  }
-  .footer .brand img{
-    max-width: 72%;
-    max-height: 44px;
-  }
-}
-
-/* 6) Micro-refine link & hover */
-.footer__col ul li a{
-  text-underline-offset: 2px;
-}
-.footer__col ul li a:hover{
-  color: var(--accent, #d4af37);
-}
-
-/* 7) Immagini nel footer sempre contained */
-.footer img{
-  max-width: 100%;
-  height: auto;
-}
-
-/* ==== LAYOUT PULITO A COLONNE ==== */
-
-/* Griglia: 4 colonne desktop, 2 tablet, 1 mobile */
-.footer__grid{
+/* ==== GRIGLIA ==== */
+.footer__grid {
   display: grid;
   gap: 24px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: start;
 }
-@media (max-width: 1024px){
-  .footer__grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 1024px) {
+  .footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
-@media (max-width: 600px){
-  .footer__grid{ grid-template-columns: 1fr; }
-}
-
-/* Niente overflow orizzontale */
-.footer,
-.footer__grid{
-  overflow-x: hidden;
-}
-.footer *{
-  max-width: 100%;
-  box-sizing: border-box;
+@media (max-width: 600px) {
+  .footer__grid {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* Colore footer un filo più distinto */
-.footer{
-  background: #f3f2ee; /* più scuro di prima per staccare */
-  padding: 40px 20px 20px;
-}
-
-/* Colonna 1: logo centrato (solo nella colonna), testo sotto */
-.footer .brand{
+/* ==== LOGO ==== */
+.footer .brand {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 6px 0 12px;
+  padding: 0 0 10px;
+  width: 100%;
 }
-.footer .brand img{
-  max-height: 48px;
+.footer .brand img {
+  max-width: 260px;
+  max-height: 250px;
   width: auto;
   height: auto;
   object-fit: contain;
 }
 
-/* ==== LISTE SENZA DECORAZIONI (pulite) ==== */
-.footer__col ul{
-  list-style: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
+/* ==== COLONNE ==== */
+.footer__col {
+  min-width: 0;
 }
-.footer__col li{
+.footer__col p,
+.footer__col a {
+  word-break: break-word;
+}
+.footer__col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer__col li {
   padding: 6px 0;
 }
-.footer__col li::marker{
-  content: none;
-}
-
-/* Link semplici, senza fronzoli */
-.footer__col a{
+.footer__col a {
   color: inherit;
   text-decoration: none;
+  text-underline-offset: 2px;
 }
-.footer__col a:hover{
+.footer__col a:hover {
   color: var(--accent, #d4af37);
 }
 
-/* Social più sobri (niente cerchi/pattern, solo link inline) */
-.footer__social{
+/* ==== SOCIAL CON IMMAGINI ==== */
+.footer__social {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  justify-content: center;
 }
-.footer__social a{
+.footer__social a {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 0;
-  border: 0;
   background: transparent;
+  border: 0;
   color: inherit;
 }
+.footer__social img {
+  height: 28px; /* dimensione loghi social */
+  width: auto;
+  display: block;
+}
 
-/* Stripe pagamenti compatta e senza causare scroll */
-.footer__bottom{
+/* ==== STRIPE PAGAMENTI A COLORI ==== */
+.footer__bottom {
   margin-top: 28px;
   display: grid;
   gap: 10px;
   justify-items: center;
   text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted, #777);
 }
-.footer__payments{
+.footer__payments {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin-bottom: 2rem;
 }
-.footer__payments img{
-  height: 20px;
+.footer__payments li {
+  flex: 0 1 auto;
+}
+.footer__payments img {
+  height: 33px;
   width: auto;
   display: block;
+  /* tolto il filtro in bianco e nero */
 }
 
-/* Mobile: centra testi e social */
-@media (max-width: 600px){
-  .footer{ text-align: center; }
-  .footer__social{ justify-content: center; }
+/* ==== MOBILE ==== */
+@media (max-width: 600px) {
+   .footer .brand img {
+    max-width: 260px; /* ↑ prima era 220px */
+    max-height: 260px; /* ↑ prima era 220px */
+}
+}
+
+.footer__locations,
+.footer__contacts {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+}
+
+.footer__locations li,
+.footer__contacts li {
+  padding: 3px 0;
+}
+
+.footer__contacts a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer__contacts a:hover {
+  color: var(--accent, #d4af37);
+}
+
+/* Mobile: centra tutto */
+@media (max-width: 600px) {
+  .footer__locations,
+  .footer__contacts {
+    text-align: center;
+  }
+}
+
+.footer__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.footer__actions button {
+  background: transparent;
+  border: 1px solid var(--accent, #d4af37);
+  color: var(--accent, #d4af37);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.footer__actions button:hover {
+  background: var(--accent, #d4af37);
+  color: #fff;
+}
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #25d366;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.whatsapp-float img {
+  width: 32px;
+  height: 32px;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
