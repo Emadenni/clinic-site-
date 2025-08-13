@@ -400,12 +400,16 @@
         </div>
       </section>
 
-      <section class="treatments" id="treatments">
-        <div class="treatments__head">
-          <h2 class="treatments__title">I nostri trattamenti</h2>
-        </div>
-        <div id="treatments-grid" class="treatments__grid" aria-live="polite"></div>
-      </section>
+      <section class="treatments">
+  <div class="wrapper">
+    <h2 class="section-title">I nostri trattamenti</h2>
+    <div class="treatments__grid" data-max="6" id="treatments-grid"></div>
+    <div class="treatments__cta">
+      <a href="/trattamenti" class="btn btn-primary">Scopri tutti i trattamenti</a>
+    </div>
+  </div>
+</section>
+
 
       <!-- Quick View Modal -->
       <div
@@ -425,35 +429,62 @@
         </div>
       </div>
 
-      <section class="section-cta">
-        <div class="section-cta__bg" aria-hidden="true"></div>
-        <div class="section-cta__wrap">
-          <a class="cta-button" href="/trattamenti.html" data-cta>
-            <span>Scopri tutti i trattamenti</span>
-          </a>
-        </div>
-      </section>
 
-      <section class="before-after-intro">
-        <div class="before-after-bg">
-          <div class="before"></div>
-          <div class="after"></div>
-        </div>
-        <div class="before-after-overlay"></div>
 
-        <div class="before-after-content">
-          <h2>Trasformazioni che parlano da sole</h2>
-          <p>Guarda con i tuoi occhi la bellezza di un trattamento fatto a regola d’arte.</p>
+<section class="ba-show">
 
-          <a href="/prima-dopo.html" class="btn btn-primary">Scopri il Prima & Dopo</a>
-          <div class="before-after-gallery">
-            <div class="ba-bubble"><img src="/images/seo-section-img.webp" alt="Prima e dopo 1" loading="lazy" /></div>
-            <div class="ba-bubble"><img src="/images/seo-section-img.webp" alt="Prima e dopo 2" loading="lazy" /></div>
-            <div class="ba-bubble"><img src="/images/seo-section-img.webp" alt="Prima e dopo 3" loading="lazy" /></div>
-            <div class="ba-bubble"><img src="/images/seo-section-img.webp" alt="Prima e dopo 4" loading="lazy" /></div>
-          </div>
-        </div>
-      </section>
+   <div>
+      <h2 class="ba-show__title">Prima &amp; Dopo</h2>
+      <p class="ba-show__lead">Esplora i nostri casi di studio. Foto reali, visione chiara.</p>
+    </div>
+
+  <div class="ba-track">
+    <!-- Card 1 -->
+    <figure class="ba-card" data-split="50">
+      <div class="ba-media">
+        <img class="ba-img ba-img--before" src="/images/before-after/case-01-before.webp" alt="Filler labbra — prima" />
+        <img class="ba-img ba-img--after"  src="/images/before-after/case-01-after.webp" alt="Filler labbra — dopo" />
+        <div class="ba-handle"><span class="ba-line"></span><span class="ba-knob"></span></div>
+        <div class="ba-cap"><span class="ba-tag">Prima</span><span class="ba-tag is-after">Dopo</span></div>
+      </div>
+      <figcaption class="ba-meta">
+        <span class="ba-title">Filler labbra</span>
+        <span class="ba-badges"><span class="ba-badge">1 seduta</span><span class="ba-badge">look naturale</span></span>
+      </figcaption>
+    </figure>
+
+    <!-- Card 2 -->
+    <figure class="ba-card" data-split="50">
+      <div class="ba-media">
+        <img class="ba-img ba-img--before" src="/images/before-after/case-02-before.webp" alt="Rinofiller — prima" />
+        <img class="ba-img ba-img--after"  src="/images/before-after/case-02-after.webp" alt="Rinofiller — dopo" />
+        <div class="ba-handle"><span class="ba-line"></span><span class="ba-knob"></span></div>
+        <div class="ba-cap"><span class="ba-tag">Prima</span><span class="ba-tag is-after">Dopo</span></div>
+      </div>
+      <figcaption class="ba-meta">
+        <span class="ba-title">Rinofiller</span>
+        <span class="ba-badges"><span class="ba-badge">profilo armonico</span><span class="ba-badge">zero bisturi</span></span>
+      </figcaption>
+    </figure>
+
+    <!-- Card 3 -->
+    <figure class="ba-card" data-split="50">
+      <div class="ba-media">
+        <img class="ba-img ba-img--before" src="/images/before-after/case-03-before.webp" alt="Occhiaie — prima" />
+        <img class="ba-img ba-img--after"  src="/images/before-after/case-03-after.webp" alt="Occhiaie — dopo" />
+        <div class="ba-handle"><span class="ba-line"></span><span class="ba-knob"></span></div>
+        <div class="ba-cap"><span class="ba-tag">Prima</span><span class="ba-tag is-after">Dopo</span></div>
+      </div>
+      <figcaption class="ba-meta">
+        <span class="ba-title">Occhiaie</span>
+        <span class="ba-badges"><span class="ba-badge">sguardo riposato</span><span class="ba-badge">effetto immediato</span></span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+
+
 
       <!-- ===== Doctor Preview ===== -->
       <section class="doctor-preview sx-reveal" id="veranika" style="--i: 0">
@@ -516,97 +547,93 @@
     </main>
 
     <footer class="footer">
-  <!-- Contatore in alto -->
-  <section class="site-views" aria-live="polite">
-    <span class="site-views__icon" aria-hidden="true">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <path d="M1.5 12s3.8-6.5 10.5-6.5S22.5 12 22.5 12s-3.8 6.5-10.5 6.5S1.5 12 1.5 12Z" stroke="currentColor" />
-        <circle cx="12" cy="12" r="3.2" stroke="currentColor" />
-      </svg>
-    </span>
-    <span class="site-views__label">Sei il visitatore numero</span>
-    <strong id="site-views-count" class="site-views__count">—</strong>
-  </section>
+      <!-- Contatore in alto -->
+      <section class="site-views" aria-live="polite">
+        <span class="site-views__icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M1.5 12s3.8-6.5 10.5-6.5S22.5 12 22.5 12s-3.8 6.5-10.5 6.5S1.5 12 1.5 12Z" stroke="currentColor" />
+            <circle cx="12" cy="12" r="3.2" stroke="currentColor" />
+          </svg>
+        </span>
+        <span class="site-views__label">Sei il visitatore numero</span>
+        <strong id="site-views-count" class="site-views__count">—</strong>
+      </section>
 
-  <!-- Griglia colonne -->
-  <div class="footer__grid">
-    <!-- Colonna 1 -->
-    <div class="footer__col">
-      <a class="brand" href="#home" aria-label="Homepage">
-          <img id="brandLogo"  src="/images/logo-transparent-hamb.png" alt="Logo clinica" />
-        </a>
-      <p>Medicina estetica avanzata per viso e profilo. Approccio conservativo e risultati credibili nel tempo.</p>
-    </div>
+      <!-- Griglia colonne -->
+      <div class="footer__grid">
+        <!-- Colonna 1 -->
+        <div class="footer__col">
+          <a class="brand" href="#home" aria-label="Homepage">
+            <img id="brandLogo" src="/images/logo-transparent-hamb.png" alt="Logo clinica" />
+          </a>
+          <p>Medicina estetica avanzata per viso e profilo. Approccio conservativo e risultati credibili nel tempo.</p>
+        </div>
 
-    <!-- Colonna 2 -->
-    <div class="footer__col">
-      <h4>Link utili</h4>
-      <ul>
-        <li><a href="/chi-siamo.html">Chi siamo</a></li>
-        <li><a href="/trattamenti.html">Trattamenti</a></li>
-        <li><a href="/contatti.html">Contatti</a></li>
-        <li><a href="/privacy.html">Privacy Policy</a></li>
-      </ul>
-    </div>
+        <!-- Colonna 2 -->
+        <div class="footer__col">
+          <h4>Link utili</h4>
+          <ul>
+            <li><a href="/chi-siamo.html">Chi siamo</a></li>
+            <li><a href="/trattamenti.html">Trattamenti</a></li>
+            <li><a href="/contatti.html">Contatti</a></li>
+            <li><a href="/privacy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
 
- <div class="footer__col">
-  <h4>Sedi</h4>
-  <ul class="footer__locations">
-    <li>📍 Via Roma 123, Torino</li>
-    <li>📍 Corso Milano 45, Milano</li>
-    <li>📍 Via Napoli 87, Roma</li>
-  </ul>
+        <div class="footer__col">
+          <h4>Sedi</h4>
+          <ul class="footer__locations">
+            <li>📍 Via Roma 123, Torino</li>
+            <li>📍 Corso Milano 45, Milano</li>
+            <li>📍 Via Napoli 87, Roma</li>
+          </ul>
 
-  <h4>Contatti</h4>
-  <ul class="footer__contacts">
-    <li>📞 <a href="tel:+39011223344">+39 011 223344</a></li>
-    <li>✉️ <a href="mailto:info@clinica.it">info@clinica.it</a></li>
-  </ul>
-</div>
+          <h4>Contatti</h4>
+          <ul class="footer__contacts">
+            <li>📞 <a href="tel:+39011223344">+39 011 223344</a></li>
+            <li>✉️ <a href="mailto:info@clinica.it">info@clinica.it</a></li>
+          </ul>
+        </div>
 
+        <!-- Colonna 4 -->
+        <div class="footer__col">
+          <h4>Seguici</h4>
+          <div class="footer__social">
+            <a href="#" aria-label="Facebook">
+              <img src="/images/socials/facebook-logo-facebook-icon-transparent-free-png.webp" alt="Facebook" />
+            </a>
+            <a href="#" aria-label="Instagram">
+              <img src="/images/socials/instagram-logo-instagram-icon-transparent-free-png.webp" alt="Instagram" />
+            </a>
+          </div>
+        </div>
+      </div>
 
+      <!-- Bottom -->
+      <div class="footer__bottom">
+        <div class="footer__actions">
+          <button id="btn-cookie-settings" type="button">Preferenze cookie</button>
+          <button id="btn-scroll-top" type="button">↑ Torna su</button>
+        </div>
+        <ul class="footer__payments" aria-label="Metodi di pagamento accettati">
+          <!-- usa le tue icone; questi sono placeholder -->
+          <li><img src="/images/payments/visa-logo-visa-icon-transparent-free-png.webp" alt="Visa" /></li>
+          <li><img src="/images/payments/MasterCard-Logo-1979-1990.png" alt="Mastercard" /></li>
+          <li><img src="/images/payments/amex-american-express-logo.png" alt="American Express" /></li>
+          <li><img src="/images/payments/Apple-Pay-Logo-0٤.png" alt="Apple Pay" /></li>
+          <li><img src="/images/payments/google-pay-logo-transparent-free-png.webp" alt="Google Pay" /></li>
+          <li><img src="/images/payments/klarna-543b3460.png" alt="Google Pay" /></li>
+        </ul>
+        <small>&copy; <span id="year"></span> Clinica • Tutti i diritti riservati</small>
+      </div>
+    </footer>
 
-    <!-- Colonna 4 -->
-    <div class="footer__col">
-      <h4>Seguici</h4>
-      <div class="footer__social">
-  <a href="#" aria-label="Facebook">
-    <img src="/images/socials/facebook-logo-facebook-icon-transparent-free-png.webp" alt="Facebook">
-  </a>
-  <a href="#" aria-label="Instagram">
-    <img src="/images/socials/instagram-logo-instagram-icon-transparent-free-png.webp" alt="Instagram">
-  </a>
-
-</div>
-
-    </div>
-  </div>
-
-  <!-- Bottom -->
-  <div class="footer__bottom">
-    <div class="footer__actions">
-  <button id="btn-cookie-settings" type="button">Preferenze cookie</button>
-  <button id="btn-scroll-top" type="button">↑ Torna su</button>
-</div>
-  <ul class="footer__payments" aria-label="Metodi di pagamento accettati">
-    <!-- usa le tue icone; questi sono placeholder -->
-    <li><img src="/images/payments/visa-logo-visa-icon-transparent-free-png.webp" alt="Visa"></li>
-    <li><img src="/images/payments/MasterCard-Logo-1979-1990.png" alt="Mastercard"></li>
-    <li><img src="/images/payments/amex-american-express-logo.png" alt="American Express"></li>
-    <li><img src="/images/payments/Apple-Pay-Logo-0٤.png" alt="Apple Pay"></li>
-    <li><img src="/images/payments/google-pay-logo-transparent-free-png.webp" alt="Google Pay"></li>
-    <li><img src="/images/payments/klarna-543b3460.png" alt="Google Pay"></li>
-  </ul>
-  <small>&copy; <span id="year"></span> Clinica • Tutti i diritti riservati</small>
-</div>
-</footer>
-
-<a href="https://wa.me/39333111222" class="whatsapp-float" target="_blank" aria-label="Chatta su WhatsApp">
-  <img src="/images/socials/whatsapp-logo-icone.png" alt="WhatsApp">
-</a>
-
+    <a href="https://wa.me/39333111222" class="whatsapp-float" target="_blank" aria-label="Chatta su WhatsApp">
+      <img src="/images/socials/whatsapp-logo-icone.png" alt="WhatsApp" />
+    </a>
 
     <script src="/assets/main.js" type="module"></script>
+<script type="module" src="/assets/before-after.js"></script>
     <script type="module" src="assets/treatments-home.js"></script>
   </body>
 </html>
