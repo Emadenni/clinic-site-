@@ -2296,3 +2296,16 @@ img, svg { max-width: 100%; height: auto; }
 .ba-img--after{ clip-path: inset(0 0 0 var(--split)); }
 .ba-handle{ left: var(--split); transform: translateX(-50%); }
 .ba-knob{ touch-action:none; user-select:none; cursor:ew-resize; }
+
+.ba-media {
+  touch-action: pan-y; /* consente lo scroll verticale */
+}
+
+.ba-knob {
+  touch-action: none; /* blocca scroll solo sul knob per drag */
+  cursor: grab;
+}
+
+.ba-knob:active {
+  cursor: grabbing;
+}
