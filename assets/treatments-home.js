@@ -74,3 +74,74 @@ function setupCTAReveal(){
   }
   setupCTAReveal();
 })();
+
+(() => {
+  const sec = document.querySelector('.treatments');
+  if (!sec) return;
+
+  const DEST = '/trattamenti';
+
+  // --- Tooltip element (unico per desktop+mobile) ---
+  const tip = document.createElement('div');
+  tip.className = 'treatments-tooltip';
+  tip.textContent = 'Vai ai trattamenti';
+  document.body.appendChild(tip);
+
+  // Helpers
+  const isInteractive = el => !!el.closest('a,button,input,textarea,select,label,[role="button"]');
+
+  const showTipAt = (x, y) => {
+    tip.style.left = x + 12 + 'px';
+    tip.style.top  = y + 12 + 'px';
+    tip.classList.add('show');
+    // su mobile auto-hide soft
+    if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+      clearTimeout(showTipAt._t);
+      showTipAt._t = setTimeout(() => tip.classList.remove('show'), 1200);
+    }
+  };
+  const hideTip = () => tip.classList.remove('show');
+
+  // --- Desktop (hover/mouse) ---
+  const isDesktop = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if (isDesktop) {
+    sec.addEventListener('mouseenter', e => showTipAt(e.pageX, e.pageY));
+    sec.addEventListener('mousemove',  e => showTipAt(e.pageX, e.pageY));
+    sec.addEventListener('mouseleave', hideTip);
+  }
+
+  // --- Mobile/tablet (touch) ---
+  // Mostra subito al tocco, segue il dito, non blocca scroll
+  sec.addEventListener('touchstart', (e) => {
+    if (isInteractive(e.target)) return;           // rispetta elementi interni
+    const t = e.touches[0];
+    if (!t) return;
+    showTipAt(t.pageX, t.pageY);
+  }, { passive: true });
+
+  sec.addEventListener('touchmove', (e) => {
+    const t = e.touches[0];
+    if (!t) return;
+    showTipAt(t.pageX, t.pageY);
+  }, { passive: true });
+
+  sec.addEventListener('touchend', hideTip,   { passive: true });
+  sec.addEventListener('touchcancel', hideTip,{ passive: true });
+
+  // --- Navigazione (tap/click ovunque nella sezione) ---
+  // Click desktop: diretto
+  sec.addEventListener('click', (e) => {
+    if (isInteractive(e.target)) return; // lascia fare ai link interni
+    window.location.href = DEST;
+  });
+
+  // Accessibilità tastiera
+  sec.setAttribute('role','link');
+  sec.setAttribute('tabindex','0');
+  sec.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      window.location.href = DEST;
+    }
+  });
+})();
