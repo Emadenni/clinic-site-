@@ -1863,7 +1863,7 @@ a {
 }
 .site-views__icon svg{ width:20px; height:20px; }
 
-/* testo */
+
 .site-views__label{
   color: var(--muted, #6b7280);
   font: 600 .95rem/1.2 Inter, system-ui, sans-serif;
