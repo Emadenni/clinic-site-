@@ -1941,7 +1941,7 @@ img, svg { max-width: 100%; height: auto; }
 
 /* ——— Card ——— */
 
-.ba-card { background:#fff; border-radius:12px; overflow:hidden; max-width:300px; flex:1 1 320px; margin: ; }
+.ba-card { background:#fff; border-radius:12px; overflow:hidden; max-width:300px; flex:1 1 320px;}
 
 /* ——— Area media + variabile condivisa ——— */
 .ba-media{
