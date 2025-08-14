@@ -1670,7 +1670,8 @@ a {
 
 /* ==== FOOTER BASE ==== */
 .footer {
-  background: var(--bg) !important; /* forza lo sfondo richiesto */
+/*   background: var(--bg) !important;  */
+background-color: #f8f1f1;
   color: var(--fg);
   padding: 40px 20px 20px;
   overflow-x: hidden;
