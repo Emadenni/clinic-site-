@@ -225,3 +225,45 @@
     text-align: center;
   }
 }
+
+/* Fix .t-meta su mobile: niente padding della <ul>, allineamento flush */
+.t-meta{
+  list-style: none;      /* rimuove i bullet */
+  padding: 0;            /* ← il colpevole su mobile */
+  margin: 10px 0 12px;   /* già usato, lo manteniamo pulito */
+}
+
+@media (max-width: 900px){
+  .t-meta{
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    width: 100%;
+    justify-items: stretch;  /* le card meta occupano tutta la cella */
+  }
+  .t-meta li{ text-align: left; }
+  .t-modal__body{ text-align: left; } /* nel dubbio, evita centraggi ereditati */
+}
+
+/* === DESKTOP: bilanciamento verticale contenuti modal body === */
+@media (min-width: 901px){
+  .t-modal__body{
+    /* quando il contenuto è più basso del contenitore, viene centrato;
+       se è più alto, resta l’allineamento in alto e lo scroll funziona */
+    display: grid;
+    align-content: center;
+    gap: 12px;              /* spazi compatti e regolari */
+    min-height: 100%;
+  }
+
+  /* rifiniture di spaziatura */
+  .t-modal h2{ margin: 2px 0 6px; }
+  .t-meta{ gap: 8px; margin: 8px 0 10px; }
+  .t-long{ line-height: 1.55; }
+}
+
+/* (opzionale) se vuoi ancora meno “vuoto” totale del modal su schermi molto alti */
+@media (min-width: 901px){
+  .t-modal{
+    height: clamp(520px, 64vh, 740px);
+  }
+}
