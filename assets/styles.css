@@ -1940,7 +1940,8 @@ img, svg { max-width: 100%; height: auto; }
 .ba-track { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; overscroll-behavior: contain; }
 
 /* ——— Card ——— */
-.ba-card { background:#fff; border-radius:12px; overflow:hidden; max-width:300px; flex:1 1 320px; }
+
+.ba-card { background:#fff; border-radius:12px; overflow:hidden; max-width:300px; flex:1 1 320px; margin: ; }
 
 /* ——— Area media + variabile condivisa ——— */
 .ba-media{
@@ -2278,3 +2279,14 @@ img, svg { max-width: 100%; height: auto; }
 /* niente freccette decorative */
 .treatments-tooltip::before,
 .treatments-tooltip::after{ display:none !important; content:none !important; }
+
+.ba-meta {
+  text-align: center;
+}
+
+.ba-title {
+  display: block;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 0 auto;
+}
