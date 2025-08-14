@@ -1,3 +1,4 @@
+
 /* =========================
    TOKENS / ROOT
    ========================= */
@@ -10,6 +11,12 @@
   --accent-strong: #b88a2e;
   --accent-bright: #e6c981;
   --white: #fff;
+
+  /* derivati per il footer */
+  --footer-bg: var(--bg);
+  --footer-ink: var(--fg);
+  --accent-weak: color-mix(in oklab, var(--accent) 18%, transparent);
+
 
   /* layout / fx */
   --shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
@@ -1595,88 +1602,76 @@ a {
   .doctor-preview{ padding: clamp(36px, 10vw, 56px) 0; } /* un filo meno padding */
 }
 
-/* ==== CONTATORE (site-views) – LIGHT E PREMIUM ==== */
+/* Tipografia coerente */
+.footer, .footer * {
+  font-family: Manrope, Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol", sans-serif;
+  letter-spacing: .01em;
+
+}
+
+/* ==== CONTATORE (site-views) – moderno e “inline” ==== */
 .site-views{
-  --bg: #fff;
   display:flex;
   align-items:center;
-  gap:.6rem;
+  gap:.7rem;
   padding:10px 14px;
-  margin:15px auto 1rem;
-  border-radius:14px;
+  margin:16px auto 1rem;
+  border-radius:999px;
   background:
-    linear-gradient(#fff,#fff) padding-box,
-    linear-gradient(120deg, rgba(200,182,136,.35), rgba(230,201,129,.25)) border-box;
+    linear-gradient(var(--white), var(--white)) padding-box,
+    linear-gradient(120deg, rgba(var(--accent-rgb), .40), rgba(var(--accent-rgb), .22)) border-box;
   border:1px solid transparent;
   box-shadow:0 6px 20px rgba(0,0,0,.05);
-  
 }
 
 /* icona */
 .site-views__icon{
   display:inline-flex; align-items:center; justify-content:center;
-  color: var(--accent, #d4af37);
+  color: var(--accent-strong);
   opacity:.95;
 }
-.site-views__icon svg{ width:20px; height:20px; }
-
+.site-views__icon svg{ width:18px; height:18px; }
 
 .site-views__label{
-  color: var(--muted, #6b7280);
-  font: 600 .95rem/1.2 Inter, system-ui, sans-serif;
-  letter-spacing:.01em;
+  color: var(--muted);
+  font: 600 .95rem/1.2 Manrope, system-ui, sans-serif;
 }
 
 /* numero */
 .site-views__count{
-  font: 700 1.05rem/1.1 Inter, system-ui, sans-serif;
+  font: 700 1.02rem/1.1 Manrope, system-ui, sans-serif;
   font-variant-numeric: tabular-nums;
-  color:#333;
-  padding:2px 10px;
-  border-radius:10px;
-  background: linear-gradient(180deg, rgba(212,175,55,.12), rgba(212,175,55,.06));
-  box-shadow: inset 0 0 0 1px rgba(212,175,55,.25);
-  transition: background .25s ease, box-shadow .25s ease;
+  color: var(--fg);
+  padding:4px 12px;
+  border-radius:999px;
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), .14), rgba(var(--accent-rgb), .08));
+  box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .4);
+  transition: background .2s ease, box-shadow .2s ease, transform .12s ease;
 }
 .site-views__count:hover{
-  background: linear-gradient(180deg, rgba(212,175,55,.18), rgba(212,175,55,.10));
-  box-shadow: inset 0 0 0 1px rgba(212,175,55,.35);
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), .22), rgba(var(--accent-rgb), .12));
+  box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .55);
+  transform: translateY(-1px);
 }
 
-/* ===== DESKTOP: versione “bar” elegante e centrata ===== */
+/* Desktop: bar centrata */
 @media (min-width: 1024px){
   .site-views{
-    width: min(500px, 92vw);
-    padding: 12px 10px;
-    gap: 14px;
-    justify-content: center;          /* tutto centrato */
+    width: min(540px, 92vw);
+    padding: 12px 14px;
+    gap: 16px;
+    justify-content: center;
     margin-bottom: 2rem;
   }
-  .site-views__icon svg{ width:22px; height:22px; }
+  .site-views__icon svg{ width:20px; height:20px; }
   .site-views__label{ font-size:1rem; }
-  .site-views__count{
-    font-size:1.15rem;
-    padding:4px 12px;
-  }
-  /* piccolo divisore prima del numero per struttura */
-  .site-views__count{
-    position:relative;
-  }
-  .site-views__count::before{
-    content:"";
-    position:absolute;
-    left:-10px; top:50%;
-    width:1px; height:18px;
-    background: rgba(0,0,0,.08);
-    transform: translateY(-50%);
-  }
+  .site-views__count{ font-size:1.12rem; }
 }
-
-
 
 /* ==== FOOTER BASE ==== */
 .footer {
-  background: #f3f2ee;
+  background: var(--bg) !important; /* forza lo sfondo richiesto */
+  color: var(--fg);
   padding: 40px 20px 20px;
   overflow-x: hidden;
   text-align: center;
@@ -1695,14 +1690,10 @@ a {
   align-items: start;
 }
 @media (max-width: 1024px) {
-  .footer__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  .footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 600px) {
-  .footer__grid {
-    grid-template-columns: 1fr;
-  }
+  .footer__grid { grid-template-columns: 1fr; }
 }
 
 /* ==== LOGO ==== */
@@ -1722,52 +1713,48 @@ a {
 }
 
 /* ==== COLONNE ==== */
-.footer__col {
-  min-width: 0;
-}
-.footer__col p,
-.footer__col a {
-  word-break: break-word;
-}
-.footer__col ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.footer__col li {
-  padding: 6px 0;
-}
+.footer__col { min-width: 0; }
+.footer__col p, .footer__col a { word-break: break-word; }
+.footer__col ul { list-style: none; padding: 0; margin: 0; }
+.footer__col li { padding: 6px 0; }
+
 .footer__col a {
   color: inherit;
   text-decoration: none;
   text-underline-offset: 2px;
 }
 .footer__col a:hover {
-  color: var(--accent, #d4af37);
+  color: var(--accent-strong);
 }
 
-/* ==== SOCIAL CON IMMAGINI ==== */
+/* ==== SOCIAL CON IMMAGINI (come richiesto) ==== */
 .footer__social {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
   justify-content: center;
 }
 .footer__social a {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
   background: transparent;
   border: 0;
-  color: inherit;
 }
 .footer__social img {
-  height: 28px; /* dimensione loghi social */
+  height: 28px; /* usa i tuoi asset */
   width: auto;
   display: block;
+  filter: saturate(0.92) contrast(1.02);
+  transition: transform .12s ease, filter .2s ease, opacity .2s ease;
+}
+.footer__social a:hover img {
+  transform: translateY(-1px);
+  filter: none;
+  opacity: .95;
 }
 
-/* ==== STRIPE PAGAMENTI A COLORI ==== */
+/* ==== STRIPE PAGAMENTI ==== */
 .footer__bottom {
   margin-top: 28px;
   display: grid;
@@ -1775,7 +1762,7 @@ a {
   justify-items: center;
   text-align: center;
   font-size: 0.85rem;
-  color: var(--muted, #777);
+  color: var(--muted);
 }
 .footer__payments {
   display: flex;
@@ -1785,53 +1772,29 @@ a {
   padding: 0;
   margin-bottom: 2rem;
 }
-.footer__payments li {
-  flex: 0 1 auto;
-}
+.footer__payments li { flex: 0 1 auto; }
 .footer__payments img {
   height: 33px;
   width: auto;
   display: block;
-  /* tolto il filtro in bianco e nero */
 }
 
 /* ==== MOBILE ==== */
 @media (max-width: 600px) {
-   .footer .brand img {
-    max-width: 260px; /* ↑ prima era 220px */
-    max-height: 260px; /* ↑ prima era 220px */
-}
+  .footer .brand img { max-width: 260px; max-height: 260px; }
+  .footer__locations, .footer__contacts { text-align: center; }
 }
 
-.footer__locations,
-.footer__contacts {
+.footer__locations, .footer__contacts {
   list-style: none;
   padding: 0;
   margin: 0 0 10px;
   font-size: 0.9rem;
 }
+.footer__locations li, .footer__contacts li { padding: 3px 0; }
 
-.footer__locations li,
-.footer__contacts li {
-  padding: 3px 0;
-}
-
-.footer__contacts a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.footer__contacts a:hover {
-  color: var(--accent, #d4af37);
-}
-
-/* Mobile: centra tutto */
-@media (max-width: 600px) {
-  .footer__locations,
-  .footer__contacts {
-    text-align: center;
-  }
-}
+.footer__contacts a { color: inherit; text-decoration: none; }
+.footer__contacts a:hover { color: var(--accent-strong); }
 
 .footer__actions {
   display: flex;
@@ -1840,23 +1803,20 @@ a {
   justify-content: center;
   margin-top: 10px;
 }
-
 .footer__actions button {
   background: transparent;
-  border: 1px solid var(--accent, #d4af37);
-  color: var(--accent, #d4af37);
+  border: 1px solid rgba(var(--accent-strong-rgb), .95);
+  color: var(--accent-strong);
   padding: 6px 12px;
-  border-radius: 4px;
+  border-radius: 999px;
   font-size: 0.85rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.18s ease;
 }
-
 .footer__actions button:hover {
-  background: var(--accent, #d4af37);
+  background: var(--accent-strong);
   color: #fff;
 }
-
 .whatsapp-float {
   position: fixed;
   bottom: 20px;
