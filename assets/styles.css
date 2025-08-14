@@ -1940,7 +1940,7 @@ img, svg { max-width: 100%; height: auto; }
 .ba-track { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; overscroll-behavior: contain; }
 
 /* ——— Card ——— */
-.ba-card { background:#fff; border-radius:12px; overflow:hidden; max-width:360px; flex:1 1 320px; }
+.ba-card { background:#fff; border-radius:12px; overflow:hidden; max-width:300px; flex:1 1 320px; }
 
 /* ——— Area media + variabile condivisa ——— */
 .ba-media{
