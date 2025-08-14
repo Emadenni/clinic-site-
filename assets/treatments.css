@@ -110,3 +110,82 @@
   gap: 6px; /* <— meno spazio (prima 10px) */
   flex: 1;
 }
+
+/* Modal: fix contrasto bottone ghost */
+.t-modal__actions .btn-ghost {
+  color: #1b1b1b;           /* testo scuro */
+  border-color: #d6d6d6;
+}
+.t-modal__actions .btn-ghost:hover {
+  background: #f7f7f7;
+}
+
+/* 1) Backdrop sopra a tutto */
+.t-modal__backdrop {
+  z-index: 9999 !important;   /* sopra header */
+  position: fixed;
+  inset: 0;
+  display: flex;              /* centratura robusta anche su iOS */
+  align-items: center;
+  justify-content: center;
+}
+
+/* 2) Modal: crea stacking context e altezze sane */
+.t-modal {
+  position: relative;         /* stacking context per i figli */
+  width: min(1024px, 96vw);
+  max-height: min(92vh, 96svh);
+  overflow: hidden;
+}
+
+/* 3) L'immagine NON deve crescere oltre metà schermo su mobile,
+      e mantiene proporzioni controllate */
+.t-modal__media {
+  position: relative;
+  background: #000;
+  overflow: hidden;
+  /* desktop: dimensione proporzionata */
+  aspect-ratio: 4 / 3;
+}
+
+/* immagine copre lo spazio ma resta confinata */
+.t-modal__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 4) Su mobile: prima l'immagine, poi il testo; immagine max ~55% viewport */
+@media (max-width: 900px) {
+  .t-modal {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(40svh, 55svh) 1fr; /* immagine “alta ma non infinita” */
+    max-height: 96svh;  /* più alto dell’header */
+  }
+  .t-modal__media {
+    aspect-ratio: auto;    /* lascia che la riga fissi l’altezza */
+  }
+  .t-modal__body {
+    overflow: auto;        /* scrolla solo il testo, non tutta la pagina */
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* 5) Contrasto bottone ghost nel modal */
+.t-modal__actions .btn-ghost {
+  color: #1b1b1b;
+  border-color: #d6d6d6;
+}
+.t-modal__actions .btn-ghost:hover {
+  background: #f7f7f7;
+}
+
+/* 6) (facoltativo) Leggera sfumatura in basso sull’immagine per leggere il titolo se lo metti sopra */
+.t-modal__media::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,.25));
+  pointer-events: none;
+}
