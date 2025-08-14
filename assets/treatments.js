@@ -6,7 +6,7 @@ const MODAL_TITLE = document.getElementById('t-modal-title');
 const MODAL_META = document.getElementById('t-modal-meta');
 const MODAL_LONG = document.getElementById('t-modal-long');
 const MODAL_BOOK = document.getElementById('t-modal-book');
-const MODAL_SHARE = document.getElementById('t-modal-share');
+const CONTACT_BTN = document.getElementById('t-modal-contact'); // ← cambiato
 const MODAL_CLOSE = document.getElementById('t-modal-close');
 const SEARCH = document.getElementById('search');
 const CHIPS = document.getElementById('quick-chips');
@@ -17,21 +17,24 @@ let lastFocusedEl = null;
 // Util: crea elemento con classi e contenuto
 function el(tag, className, html){
   const n = document.createElement(tag);
-  if(className) n.className = className;
-  if(html !== undefined) n.innerHTML = html;
+  if (className) n.className = className;
+  if (html !== undefined) n.innerHTML = html;
   return n;
 }
 
 async function loadTreatments(){
   try {
     const res = await fetch('/data/treatments.json', { headers: { 'Accept': 'application/json' }});
-    if(!res.ok) throw new Error('Impossibile caricare treatments.json');
+    if (!res.ok) throw new Error('Impossibile caricare treatments.json');
     TREATMENTS = await res.json();
     renderGrid(TREATMENTS);
     // Se c'è uno slug nell'URL, apri direttamente
     const url = new URL(location.href);
     const slug = url.searchParams.get('t');
-    if(slug){ const item = TREATMENTS.find(t => t.slug === slug); if(item) openModal(item); }
+    if (slug){
+      const item = TREATMENTS.find(t => t.slug === slug);
+      if (item) openModal(item);
+    }
   } catch (err){
     GRID.innerHTML = `<div class="t-error">Errore nel caricamento dei trattamenti. Riprova più tardi.</div>`;
     console.error(err);
@@ -50,7 +53,9 @@ function card(item){
   img.alt = item.title;
   img.loading = 'lazy';
   media.appendChild(img);
-  if(item.featured){ media.insertAdjacentHTML('beforeend', `<span class="t-card__badge">In evidenza</span>`); }
+  if (item.featured){
+    media.insertAdjacentHTML('beforeend', `<span class="t-card__badge">In evidenza</span>`);
+  }
 
   const body = el('div', 't-card__body');
   const title = el('h3', 't-card__title', item.title);
@@ -71,14 +76,15 @@ function card(item){
 
 function renderGrid(list){
   GRID.innerHTML = '';
-  if(!list.length){ GRID.innerHTML = '<p>Nessun trattamento trovato.</p>'; return; }
+  if (!list.length){ GRID.innerHTML = '<p>Nessun trattamento trovato.</p>'; return; }
   const frag = document.createDocumentFragment();
-  for(const t of list){ frag.appendChild(card(t)); }
+  for (const t of list){ frag.appendChild(card(t)); }
   GRID.appendChild(frag);
 }
 
 function openModal(item){
   lastFocusedEl = document.activeElement;
+
   MODAL_IMG.src = `/${item.image}`.replace(/\/+/g, '/');
   MODAL_IMG.alt = item.title;
   MODAL_TITLE.textContent = item.title;
@@ -90,16 +96,20 @@ function openModal(item){
     ['Risultato', item.result || '—'],
     ['Prezzo', item.price || 'Su valutazione']
   ];
-  meta.forEach(([k,v]) => { const li = el('li', '', `<strong>${k}:</strong> ${v}`); MODAL_META.appendChild(li); });
+  meta.forEach(([k,v]) => {
+    const li = el('li', '', `<strong>${k}:</strong> ${v}`);
+    MODAL_META.appendChild(li);
+  });
 
   MODAL_LONG.textContent = item.long || '';
   MODAL_BOOK.href = `/prenota?trattamento=${encodeURIComponent(item.slug)}`;
-  MODAL_SHARE.href = `https://wa.me/?text=${encodeURIComponent(item.title + ' – ' + location.origin + location.pathname + '?t=' + item.slug)}`;
+  if (CONTACT_BTN) CONTACT_BTN.href = `/contatti.html`; // ← link semplice a contatti
 
   // Mostra modal
   MODAL_BACKDROP.hidden = false;
   document.body.style.overflow = 'hidden';
   MODAL_CLOSE.focus();
+
   // Aggiorna URL (senza ricaricare) per deep-linking
   const url = new URL(location.href);
   url.searchParams.set('t', item.slug);
@@ -110,15 +120,19 @@ function closeModal(){
   MODAL_BACKDROP.hidden = true;
   document.body.style.overflow = '';
   // Ripulisci parametro URL
-  const url = new URL(location.href); url.searchParams.delete('t'); history.replaceState({}, '', url);
+  const url = new URL(location.href);
+  url.searchParams.delete('t');
+  history.replaceState({}, '', url);
   // Focus back
-  if(lastFocusedEl && typeof lastFocusedEl.focus === 'function'){ lastFocusedEl.focus(); }
+  if (lastFocusedEl && typeof lastFocusedEl.focus === 'function'){
+    lastFocusedEl.focus();
+  }
 }
 
 // Eventi modal
-MODAL_BACKDROP?.addEventListener('click', (e) => { if(e.target === MODAL_BACKDROP) closeModal(); });
+MODAL_BACKDROP?.addEventListener('click', (e) => { if (e.target === MODAL_BACKDROP) closeModal(); });
 MODAL_CLOSE?.addEventListener('click', closeModal);
-window.addEventListener('keydown', (e) => { if(!MODAL_BACKDROP.hidden && e.key === 'Escape') closeModal(); });
+window.addEventListener('keydown', (e) => { if (!MODAL_BACKDROP.hidden && e.key === 'Escape') closeModal(); });
 
 // Ricerca live
 SEARCH?.addEventListener('input', () => {
@@ -134,14 +148,14 @@ SEARCH?.addEventListener('input', () => {
 // Chips veloci
 CHIPS?.addEventListener('click', (e) => {
   const btn = e.target.closest('button[data-chip]');
-  if(!btn) return;
+  if (!btn) return;
   const type = btn.dataset.chip;
   CHIPS.querySelectorAll('button').forEach(b => b.classList.toggle('is-active', b === btn));
 
   let filtered = TREATMENTS.slice();
-  if(type === 'featured') filtered = filtered.filter(t => t.featured);
-  if(type === 'basso') filtered = filtered.filter(t => (t.pain || '').toLowerCase().includes('basso'));
-  if(type === 'medio') filtered = filtered.filter(t => (t.pain || '').toLowerCase().includes('medio'));
+  if (type === 'featured') filtered = filtered.filter(t => t.featured);
+  if (type === 'basso') filtered = filtered.filter(t => (t.pain || '').toLowerCase().includes('basso'));
+  if (type === 'medio') filtered = filtered.filter(t => (t.pain || '').toLowerCase().includes('medio'));
   renderGrid(filtered);
 });
 
@@ -149,4 +163,5 @@ CHIPS?.addEventListener('click', (e) => {
 loadTreatments();
 
 // Extra: aggiorna anno footer se presente
-const yearEl = document.getElementById('year'); if(yearEl) yearEl.textContent = new Date().getFullYear();
+const yearEl = document.getElementById('year');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
