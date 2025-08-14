@@ -82,7 +82,7 @@ a {
   left: 0;
   right: 0;
   top: -240px;
-  width: 100%;
+  max-width: 100%;
   z-index: 10000;
   background: transparent;
   color: #fff;
@@ -2059,6 +2059,7 @@ img, svg { max-width: 100%; height: auto; }
   box-shadow: 0 10px 22px rgba(0,0,0,.18);
   backdrop-filter: blur(2px);
   white-space: nowrap;
+  overflow-x: hidden;
 }
 .treatments-tooltip.show{
   opacity: 1;
@@ -2108,3 +2109,172 @@ img, svg { max-width: 100%; height: auto; }
     scroll-snap-align: start;
   }
 }
+
+/* ===== TREATMENTS: versione SENZA CAROSELLO ===== */
+
+/* La sezione non deve creare overflow orizzontale */
+.treatments{
+  overflow: visible;     /* niente clip/carousel */
+  max-width: 100%;
+}
+
+/* GRID base (vale per tutti) */
+.treatments__grid{
+  display: grid !important;
+  gap: 20px;
+  grid-auto-flow: row;           /* niente scorrimento orizzontale */
+  grid-auto-columns: auto !important;
+  overflow: visible !important;  /* disattiva overflow-x */
+  padding: 10px;         /* rimuove padding usato dal carosello */
+  margin: 0 !important;          /* rimuove eventuali margini negativi */
+  scroll-snap-type: none !important;
+}
+
+/* Desktop: 3 colonne → 3x2 = 6 card */
+@media (min-width: 1024px){
+  .treatments__grid{
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Tablet: 2 colonne */
+@media (min-width: 600px) and (max-width: 1023px){
+  .treatments__grid{
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Mobile stretto: 1 o 2 colonne in base allo spazio */
+@media (max-width: 599px){
+  .treatments__grid{
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
+    gap: 16px;
+    
+  }
+}
+
+/* Media/immagini sempre piene (niente “metà immagine”) */
+.tcard__media{
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden; 
+  margin: auto;
+  
+}
+.tcard__media img{
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: none !important;   /* evita micro-zoom che taglia */
+}
+
+/* Evita che hover su mobile crei piccoli spostamenti */
+@media (hover: none){
+  .tcard:hover{
+    transform: none !important;
+    box-shadow: 0 12px 32px rgba(0,0,0,.08) !important;
+  }
+}
+
+/* Hardening: nessun elemento deve “spingere” la larghezza */
+.treatments__grid > *, .tcard, .tcard__media, .tcard__body{ min-width: 0; }
+
+/* Desktop: 3 colonne */
+@media (min-width: 1024px){
+  .treatments__grid{
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+/* Tablet: 2 colonne */
+@media (min-width: 600px) and (max-width: 1023px){
+  .treatments__grid{
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Mobile: sempre 1 colonna con aria ai lati */
+@media (max-width: 599px){
+  .treatments__grid{
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+/* Tooltip treatments — desktop/mob */
+.treatments-tooltip{
+  position: fixed;
+  left: 0; top: 0;
+  transform: translate(0,0);
+  z-index: 9999;
+  pointer-events: none;
+
+  /* anti-scrollbar + tipografia */
+  overflow: hidden;                 /* ← niente barre di scorrimento */
+  white-space: nowrap;              /* su desktop in-line, niente a capo */
+  user-select: none;                /* niente selezione accidentale */
+  -webkit-user-select: none;
+
+  /* estetica: glass + bordo fine, palette tua */
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: color-mix(in oklab, var(--white, #fff) 84%, transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow:
+     0 10px 28px rgba(0,0,0,.14),
+     inset 0 0 0 1px color-mix(in oklab, var(--fg, #1f1f1f) 10%, transparent),
+     inset 0 -2px 8px color-mix(in oklab, var(--accent-bright, #e6c981) 26%, transparent);
+  color: var(--fg, #1f1f1f);
+  font: 700 .92rem/1 Manrope, Inter, system-ui, sans-serif;
+
+  opacity: 0;
+  transform-origin: center;
+  transition: opacity .18s ease, transform .18s ease;
+}
+.treatments-tooltip.show{
+  opacity: 1;
+  transform: translate(0,0) scale(1); /* niente bump size */
+}
+
+/* Tooltip base: fixed, niente scrollbar interne, look pulito */
+.treatments-tooltip{
+  position: fixed;
+  left: 0; top: 0;                 /* desktop: aggiornati via JS */
+  transform: none;
+  z-index: 9999;
+  pointer-events: none;
+
+  overflow: hidden;                 /* no frecce di scroll */
+  white-space: nowrap;              /* desktop una riga */
+  user-select: none;
+
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(0,0,0,.85);
+  color: #fff;
+  font: 700 .92rem/1 Manrope, system-ui, sans-serif;
+  box-shadow: 0 10px 28px rgba(0,0,0,.14), inset 0 0 0 1px rgba(255,255,255,.08);
+
+  opacity: 0;
+  transition: opacity .18s ease;
+}
+.treatments-tooltip.show{ opacity: 1; }
+
+/* Mobile: fisso centrato, può andare a capo */
+.treatments-tooltip.is-centered{
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  white-space: normal;
+  text-align: center;
+  max-width: min(80vw, 320px);
+}
+
+/* niente freccette decorative */
+.treatments-tooltip::before,
+.treatments-tooltip::after{ display:none !important; content:none !important; }

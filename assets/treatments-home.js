@@ -80,62 +80,69 @@ function setupCTAReveal(){
   if (!sec) return;
 
   const DEST = '/trattamenti';
+  const isDesktop = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
 
-  // --- Tooltip element (unico per desktop+mobile) ---
+  // Tooltip unico
   const tip = document.createElement('div');
   tip.className = 'treatments-tooltip';
-  tip.textContent = 'Vai ai trattamenti';
+  tip.innerHTML = `
+  <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" fill="currentColor" style="margin-right:6px;vertical-align:middle" viewBox="0 0 16 16">
+    <path d="M8 0a8 8 0 1 0 8 8A8.009 8.009 0 0 0 8 0Zm0 12a4 4 0 1 1 4-4 4.005 4.005 0 0 1-4 4Z"/>
+  </svg>
+  Vai ai trattamenti
+`;
   document.body.appendChild(tip);
 
-  // Helpers
   const isInteractive = el => !!el.closest('a,button,input,textarea,select,label,[role="button"]');
 
+  // mostra/nascondi
+  const show = () => tip.classList.add('show');
+  const hide = () => tip.classList.remove('show', 'is-centered');
+
+  // posiziona: desktop segue il mouse; mobile sta centrato
   const showTipAt = (x, y) => {
-    tip.style.left = x + 12 + 'px';
-    tip.style.top  = y + 12 + 'px';
-    tip.classList.add('show');
-    // su mobile auto-hide soft
-    if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    if (isDesktop) {
+      tip.classList.remove('is-centered');
+      // posizionamento rispetto alla viewport
+      tip.style.left = (x + 14) + 'px';
+      tip.style.top  = (y + 14) + 'px';
+      show();
+    } else {
+      tip.classList.add('is-centered'); // CSS lo centra
+      show();
       clearTimeout(showTipAt._t);
-      showTipAt._t = setTimeout(() => tip.classList.remove('show'), 1200);
+      showTipAt._t = setTimeout(hide, 1200);
     }
   };
-  const hideTip = () => tip.classList.remove('show');
 
-  // --- Desktop (hover/mouse) ---
-  const isDesktop = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  // DESKTOP
   if (isDesktop) {
-    sec.addEventListener('mouseenter', e => showTipAt(e.pageX, e.pageY));
-    sec.addEventListener('mousemove',  e => showTipAt(e.pageX, e.pageY));
-    sec.addEventListener('mouseleave', hideTip);
+    let raf = null;
+    sec.addEventListener('mouseenter', e => showTipAt(e.clientX, e.clientY));
+    sec.addEventListener('mousemove',  e => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => showTipAt(e.clientX, e.clientY));
+    });
+    sec.addEventListener('mouseleave', hide);
   }
 
-  // --- Mobile/tablet (touch) ---
-  // Mostra subito al tocco, segue il dito, non blocca scroll
-  sec.addEventListener('touchstart', (e) => {
-    if (isInteractive(e.target)) return;           // rispetta elementi interni
-    const t = e.touches[0];
-    if (!t) return;
-    showTipAt(t.pageX, t.pageY);
+  // MOBILE/TABLET
+  sec.addEventListener('touchstart', e => {
+    if (isInteractive(e.target)) return;
+    showTipAt(); // nessuna coord: resta centrato
   }, { passive: true });
 
-  sec.addEventListener('touchmove', (e) => {
-    const t = e.touches[0];
-    if (!t) return;
-    showTipAt(t.pageX, t.pageY);
-  }, { passive: true });
+  ['touchend','touchcancel'].forEach(ev =>
+    sec.addEventListener(ev, hide, { passive: true })
+  );
 
-  sec.addEventListener('touchend', hideTip,   { passive: true });
-  sec.addEventListener('touchcancel', hideTip,{ passive: true });
-
-  // --- Navigazione (tap/click ovunque nella sezione) ---
-  // Click desktop: diretto
+  // Navigazione
   sec.addEventListener('click', (e) => {
-    if (isInteractive(e.target)) return; // lascia fare ai link interni
+    if (isInteractive(e.target)) return;
     window.location.href = DEST;
   });
 
-  // Accessibilità tastiera
+  // A11y
   sec.setAttribute('role','link');
   sec.setAttribute('tabindex','0');
   sec.addEventListener('keydown', (e) => {
