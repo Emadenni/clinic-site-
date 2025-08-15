@@ -106,10 +106,11 @@ a {
 .brand {
   align-self: start;
   justify-self: start;
+  transform: translate(-20px, -10px);
 
   img {
     display: block;
-    height: clamp(180px, 22vw, 240px);
+    height: clamp(220px, 22vw, 240px);
     width: auto;
     filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
     image-rendering: -webkit-optimize-contrast;
@@ -873,7 +874,7 @@ a {
   }
 
   .brand img {
-    height: clamp(200px, 24vw, 150px) !important;
+    height: clamp(260px, 24vw, 150px) !important;
   } /* mantengo override che avevi */
   .nav-desktop {
     display: none;
@@ -908,7 +909,7 @@ a {
   }
 
   .brand img {
-    height: clamp(122px, 24vw, 150px) !important;
+    height: clamp(162px, 24vw, 150px) !important;
   }
   .nav-desktop {
     display: none;
