@@ -109,10 +109,10 @@
   .grid { grid-template-columns: 1fr; }
 }
 
-/* --- CTA float base (sinistra, opposta a WhatsApp) --- */
+/* --- CTA float base --- */
 .cta-float{
   position: fixed;
-  left: 24px;            /* lato sinistro */
+  left: 24px;
   bottom: 24px;
   z-index: 10000;
   display: block;
@@ -130,7 +130,6 @@
   opacity: 0;
   transform: translateY(8px);
   transition: opacity .28s ease, transform .28s ease;
-  
 }
 .cta-float--show{ opacity: 1; transform: translateY(0); }
 .cta-float__icon{ display: inline-grid; place-items: center; }
@@ -143,10 +142,9 @@
   .cta-float__sub{ font-size: 11px; }
 }
 
-/* --- CTA: override nucleare --- */
 #bookNow{
   position: fixed !important;
-  left: 24px !important;        /* metti right:24px !important; se la vuoi a dx */
+  left: 24px !important;
   bottom: 24px !important;
   z-index: 2147483647 !important;
   opacity: 1 !important;
@@ -161,8 +159,7 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background: #ff3b3b;  background: #f3a2a2;
-
+  background: #f3a2a2;
   color: white;
   display: flex;
   align-items: center;
@@ -196,67 +193,47 @@
   100% { transform: rotate(360deg); }
 }
 
-/* FIX: niente blocco bianco in fondo su mobile */
-
-/* usa il colore di pagina ovunque */
 body { background: var(--bg); }
 
-/* 1) annulla il padding-bottom che creava il “blocco” */
 @media (max-width: 1024px) {
   main.container { padding-bottom: 0 !important; }
 }
 
-/* 2) aggiungi spazio “trasparente” dopo la griglia, così CTA/WhatsApp non coprono nulla */
 @media (max-width: 768px) {
   .contact-grid::after {
     content: "";
     display: block;
-    height: calc(100px + env(safe-area-inset-bottom)); /* spazio per i bottoni flottanti */
+    height: calc(100px + env(safe-area-inset-bottom));
   }
-
-  /* centrature/colonne come prima, senza overflow */
   .contact-grid { grid-template-columns: 1fr; justify-items: center; margin-inline: auto; }
   .grid { grid-template-columns: 1fr; }
   .pref-extra { grid-template-columns: 1fr; }
-
   .contact-info { text-align: center; }
   .channels { justify-content: center; }
   .badges { justify-items: center; }
   .locations-card { max-width: 640px; margin-inline: auto; text-align: left; }
-
   .contact-card,
-  .contact-success {
-    width: 100%;
-    max-width: 720px;
-    margin-inline: auto;
-  }
-
-  /* sposta la CTA un filo più in alto su mobile */
+  .contact-success { width: 100%; max-width: 720px; margin-inline: auto; }
   .cta-float,
   #bookNow { left: 16px !important; bottom: calc(88px + env(safe-area-inset-bottom)) !important; }
 }
 
-/* 3) ultima difesa su schermi molto piccoli */
 @media (max-width: 480px) {
   .segmented { grid-template-columns: 1fr; }
   .contact-card, .contact-success { padding: 16px; border-radius: 16px; }
 }
 
-/* ↓ CTA più in basso su mobile (opposta a WhatsApp) */
 @media (max-width: 768px){
   .cta-float,
   #bookNow{
     left: 16px !important;
-    bottom: calc(env(safe-area-inset-bottom) + 22px) !important; /* prima ~88px */
+    bottom: calc(env(safe-area-inset-bottom) + 22px) !important;
   }
-
-  /* meno spazio finale (resta trasparente) */
   .contact-grid::after{
     height: calc(72px + env(safe-area-inset-bottom));
   }
 }
 
-/* schermi piccolissimi: stringi ancora un filo lo spacer */
 @media (max-width: 380px){
   .contact-grid::after{
     height: calc(64px + env(safe-area-inset-bottom));
@@ -297,13 +274,7 @@ body { background: var(--bg); }
   font-weight: bold;
   transition: background 0.3s;
 }
-.btn-primary {
-  background: #4CAF50;
-  color: #fff;
-}
-.btn-primary:hover {
-  background: #43A047;
-}
+
 .btn-secondary {
   background: #f0f0f0;
   color: #333;
@@ -337,7 +308,6 @@ body { background: var(--bg); }
   gap: 12px;
 }
 
-/* Ogni sede */
 .loc {
   border: 1px solid var(--accent-weak);
   border-radius: 14px;
@@ -376,7 +346,6 @@ body { background: var(--bg); }
   font-size: 12px;
 }
 
-/* Corpo espanso */
 .loc__body {
   padding: 12px 14px 16px;
   display: grid;
@@ -398,46 +367,12 @@ body { background: var(--bg); }
   font-size: 12px;
 }
 
-/* Azioni */
 .loc__actions {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0,1fr)); /* 3 bottoni */
+  grid-template-columns: repeat(3, minmax(0,1fr));
   gap: 8px;
 }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid var(--accent-weak);
-  background: var(--white);
-  color: var(--fg);
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background .15s ease, border-color .15s ease;
-}
-
-.btn:hover {
-  background: color-mix(in oklab, var(--accent) 12%, var(--white));
-  border-color: var(--accent);
-}
-
-.btn-ico {
-  flex-shrink: 0;
-}
-
-.btn.ghostless {
-  background: var(--accent);
-  color: #1b1201;
-  border-color: var(--accent-strong);
-}
-
-/* Responsive */
 @media (max-width: 768px) {
   .loc__actions {
     grid-template-columns: repeat(2, minmax(0,1fr));
@@ -452,8 +387,7 @@ body { background: var(--bg); }
   }
 }
 
-/* Freccia di espansione su <summary> */
-.loc details > summary::-webkit-details-marker { display: none; } /* nasconde il marker nativo */
+.loc details > summary::-webkit-details-marker { display: none; }
 .loc__summary { position: relative; user-select: none; }
 .loc__chev {
   display: inline-grid;
@@ -468,7 +402,6 @@ body { background: var(--bg); }
   transform: rotate(180deg);
 }
 
-/* focus accessibile sul summary */
 .loc__summary:focus-visible {
   outline: 2px solid var(--accent-strong);
   outline-offset: 2px;
@@ -509,6 +442,7 @@ body { background: var(--bg); }
     border-radius: 6px;
   }
 }
+
 
 #submitBtn {
     position: relative;
