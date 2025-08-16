@@ -1705,6 +1705,7 @@ background-color: #f8f1f1;
   align-items: center;
   padding: 0 0 10px;
   width: 100%;
+  transform: translateX(0px)
 }
 .footer .brand img {
   max-width: 260px;

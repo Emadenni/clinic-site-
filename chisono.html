@@ -3,26 +3,19 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>FAQ • Clinica di Medicina Estetica</title>
-    <meta name="description" content="Domande frequenti su trattamenti, prenotazioni, pagamenti e post-trattamento." />
+    <title>Chi Sono • Clinica di Medicina Estetica</title>
+    <meta name="description" content="Catalogo trattamenti di medicina estetica: informazioni, durata, dolore, risultati e prezzi." />
     <meta name="theme-color" content="#0b0b0b" />
 
-    <!-- Fonts + foglio stile globale -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;600;700&family=Poppins:wght@700;800&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Fonts + foglio stile globale esistente -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet" />
-
-    <!-- Stili condivisi del sito -->
     <link rel="stylesheet" href="/assets/styles.css" />
-    <!-- Ri-uso il foglio che contiene gli stili dell'HERO come nelle altre pagine (no home) -->
+    <link rel="stylesheet" href="/assets/chisono.css" />
+
     <link rel="stylesheet" href="/assets/treatments.css" />
-    <!-- Stile specifico per la pagina FAQ -->
-    <link rel="stylesheet" href="/assets/faq.css" />
-    <link rel="stylesheet" href="/assets/contatti.css" />
   </head>
-  <body class="faq-page">
+  <body class="treatments-page">
     <header class="site-header show" data-header>
       <div class="container header-inner">
         <a class="brand" href="/" aria-label="Homepage">
@@ -103,7 +96,7 @@
                 <circle cx="12" cy="7" r="4" />
               </svg>
             </span>
-            Chi siamo
+            Chi sono
           </a>
 
           <a href="/faq.html" class="is-active">
@@ -240,7 +233,7 @@
                 <circle cx="12" cy="7" r="4" />
               </svg>
             </span>
-            <span>Chi siamo</span>
+            <span>Chi sono</span>
           </a>
 
           <a href="/faq.html" class="is-active">
@@ -266,125 +259,89 @@
       </div>
     </div>
 
-    <!-- HERO scuro (identico alle altre pagine interne) -->
-    <section class="page-hero" aria-label="FAQ">
+    <!-- HERO scuro con immagine placeholder -->
+    <section class="page-hero" aria-label="Trattamenti">
       <div class="page-hero__bg" role="img" aria-label="Texture elegante scura"></div>
       <div class="container page-hero__inner">
-        <h1 class="display">FAQ</h1>
-        <p class="lead">Risposte rapide alle domande più comuni.</p>
+        <h1 class="display">Chi sono</h1>
+        <p class="lead">La mia storia, il mio percorso e le mie competenze</p>
       </div>
     </section>
 
     <main class="container">
-      <!-- Intro -->
-      <section class="faq-intro">
-        <p class="muted">
-          Non trovi quello che cerchi? Dai un’occhiata qui sotto oppure <a href="/contatti.html">contattaci</a>.
-        </p>
+         <!-- BIO -->
+      <section class="about-grid" aria-labelledby="bioTitle">
+        <div class="about-photo">
+          <img src="/images/d.ssa_Puhach.webp" alt="Dottoressa: ritratto professionale" loading="eager" />
+        </div>
+        <div class="about-text">
+          <h2 id="bioTitle" class="h3">Piacere, sono Veranika Puhach</h2>
+          <p>Sono un medico estetico con oltre 15 anni di esperienza in trattamenti mini-invasivi per viso e profilo.</p>
+          <p>Credo nell’armonia dei tratti, in un approccio conservativo e nel rispetto delle proporzioni individuali.</p>
+          <ul class="about-bullets">
+            <li>Specializzazione in Medicina Estetica (Università …)</li>
+            <li>Master in Tecniche Iniettive Avanzate</li>
+            <li>Relatrice in congressi nazionali</li>
+          </ul>
+          <div class="about-cta">
+            <a class="btn btn-primary" href="/trattamenti.html">Scopri i trattamenti</a>
+            <a class="btn btn-ghost" href="/contatti.html">Contattami</a>
+          </div>
+        </div>
       </section>
 
-      <!-- Lista FAQ -->
-      <section class="faq-grid" aria-labelledby="faqTitle">
-        <h2 id="faqTitle" class="h3">Domande frequenti</h2>
-
-        <div class="faq-list" role="list">
-          <!-- 1 -->
-          <details class="faq" id="prenotazioni">
-            <summary class="faq__summary">
-              <span class="micon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="3" y="4" width="18" height="18" rx="3" />
-                  <path d="M16 2v4M8 2v4M3 10h18" />
-                </svg>
-              </span>
-              Come posso prenotare una consulenza?
-            </summary>
-            <div class="faq__body">
-              <p>
-                Puoi prenotare direttamente dalla pagina <a href="/contatti.html">Contatti</a> oppure tramite il
-                pulsante “Prenota” in alto. Riceverai conferma via email o telefono.
-              </p>
+      <!-- TIMELINE / QUALIFICHE -->
+      <section class="cv" aria-labelledby="cvTitle">
+        <h2 id="cvTitle" class="h4">Formazione & esperienza</h2>
+        <ol class="cv-list">
+          <li>
+            <span class="cv-year">2009</span>
+            <div class="cv-item">
+              <strong>Laurea in Medicina e Chirurgia</strong>
+              <p>Università … — Tesi su protocolli di ringiovanimento del volto.</p>
             </div>
-          </details>
-
-          <!-- 2 -->
-          <details class="faq" id="pagamenti">
-            <summary class="faq__summary">
-              <span class="micon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="2" y="5" width="20" height="14" rx="3" />
-                  <path d="M2 10h20" />
-                </svg>
-              </span>
-              Quali metodi di pagamento accettate?
-            </summary>
-            <div class="faq__body">
-              <p>
-                Accettiamo carte Visa, Mastercard, Amex, Apple Pay, Google Pay e Klarna. Per informazioni sui pagamenti
-                rateali contattaci.
-              </p>
+          </li>
+          <li>
+            <span class="cv-year">2012</span>
+            <div class="cv-item">
+              <strong>Master in Medicina Estetica</strong>
+              <p>Focus su tossina botulinica, filler e biostimolazione.</p>
             </div>
-          </details>
-
-          <!-- 3 -->
-          <details class="faq" id="durata">
-            <summary class="faq__summary">
-              <span class="micon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10" />
-                  <path d="M12 6v6l4 2" />
-                </svg>
-              </span>
-              Quanto dura un trattamento?
-            </summary>
-            <div class="faq__body">
-              <p>In media tra i 20 e i 60 minuti, in base al tipo di trattamento e all’area da trattare.</p>
+          </li>
+          <li>
+            <span class="cv-year">2015–oggi</span>
+            <div class="cv-item">
+              <strong>Libera professione</strong>
+              <p>Oltre 4.000 trattamenti eseguiti con approccio personalizzato.</p>
             </div>
-          </details>
+          </li>
+        </ol>
+      </section>
 
-          <!-- 4 -->
-          <details class="faq" id="dolore">
-            <summary class="faq__summary">
-              <span class="micon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M12 20c7-4 8-10 8-10a8 8 0 1 0-16 0s1 6 8 10Z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-              </span>
-              I trattamenti sono dolorosi?
-            </summary>
-            <div class="faq__body">
-              <p>
-                La maggior parte dei trattamenti è ben tollerata. Se necessario utilizziamo creme anestetiche per
-                ridurre il fastidio.
-              </p>
-            </div>
-          </details>
+      
 
-          <!-- 5 -->
-          <details class="faq" id="post">
-            <summary class="faq__summary">
-              <span class="micon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                  <circle cx="12" cy="7" r="4" />
-                </svg>
-              </span>
-              Indicazioni post-trattamento
-            </summary>
-            <div class="faq__body">
-              <p>
-                Ti forniremo istruzioni personalizzate al termine della seduta. In generale evita sauna, palestra
-                intensa e sole diretto per 24–48 ore.
-              </p>
-            </div>
-          </details>
+      <!-- VALORI -->
+      <section class="values" aria-labelledby="valuesTitle">
+        <h2 id="valuesTitle" class="h4">Il mio approccio</h2>
+        <div class="values-grid">
+          <div class="v-card">
+            <h3>Sicurezza</h3>
+            <p>Prodotti certificati, protocolli validati e igiene rigorosa.</p>
+          </div>
+          <div class="v-card">
+            <h3>Naturalezza</h3>
+            <p>Risultati credibili, mai eccessivi, in equilibrio con il volto.</p>
+          </div>
+          <div class="v-card">
+            <h3>Trasparenza</h3>
+            <p>Valutazione onesta, preventivi chiari e follow-up dedicato.</p>
+          </div>
         </div>
       </section>
     </main>
 
-    <!-- FOOTER identico -->
     <footer class="footer">
+      <!-- Contatore in alto -->
       <section class="site-views" aria-live="polite">
         <span class="site-views__icon" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -396,7 +353,9 @@
         <strong id="site-views-count" class="site-views__count">—</strong>
       </section>
 
+      <!-- Griglia colonne -->
       <div class="footer__grid">
+        <!-- Colonna 1 -->
         <div class="footer__col">
           <a class="brand" href="/" aria-label="Homepage">
             <img id="brandLogo" src="/images/logo-transparent-hamb.png" alt="Logo clinica" />
@@ -404,44 +363,138 @@
           <p>Medicina estetica avanzata per viso e profilo. Approccio conservativo e risultati credibili nel tempo.</p>
         </div>
 
+        <!-- Colonna 2 -->
         <div class="footer__col">
           <h4>Link utili</h4>
           <ul>
-            <li><a href="/chisono.html">Chi siamo</a></li>
+            <li><a href="/chisono.html">Chi sono</a></li>
             <li><a href="/trattamenti.html">Trattamenti</a></li>
             <li><a href="/contatti.html">Contatti</a></li>
             <li><a href="/privacy.html">Privacy Policy</a></li>
           </ul>
         </div>
 
+        <!-- Colonna 3 (icone SVG eleganti) -->
         <div class="footer__col">
           <h4>Sedi</h4>
           <ul class="footer__locations">
-            <li>Via Roma 123, Torino</li>
-            <li>Corso Milano 45, Milano</li>
-            <li>Via Napoli 87, Roma</li>
+            <li>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--accent-strong)"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="margin-right: 6px; vertical-align: middle"
+              >
+                <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0Z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              Via Roma 123, Torino
+            </li>
+            <li>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--accent-strong)"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="margin-right: 6px; vertical-align: middle"
+              >
+                <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0Z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              Corso Milano 45, Milano
+            </li>
+            <li>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--accent-strong)"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="margin-right: 6px; vertical-align: middle"
+              >
+                <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0Z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              Via Napoli 87, Roma
+            </li>
           </ul>
 
           <h4>Contatti</h4>
           <ul class="footer__contacts">
-            <li><a href="tel:+39011223344">+39 011 223344</a></li>
-            <li><a href="mailto:info@clinica.it">info@clinica.it</a></li>
+            <li>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--accent-strong)"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="margin-right: 6px; vertical-align: middle"
+              >
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 
+                 19.79 19.79 0 0 1-8.63-3.07 
+                 19.5 19.5 0 0 1-6-6 
+                 19.79 19.79 0 0 1-3.07-8.63 
+                 A2 2 0 0 1 4.11 2h3a2 2 0 0 1 
+                 2 1.72c.13.9.39 1.77.78 2.58a2 
+                 2 0 0 1-.45 2.11l-1.27 1.27a16 
+                 16 0 0 0 6 6l1.27-1.27a2 2 0 0 
+                 1 2.11-.45c.81.39 1.68.65 2.58.78 
+                 A2 2 0 0 1 22 16.92z"
+                />
+              </svg>
+              <a href="tel:+39011223344">+39 011 223344</a>
+            </li>
+            <li>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--accent-strong)"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="margin-right: 6px; vertical-align: middle"
+              >
+                <path d="M4 4h16v16H4z" fill="none" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+              <a href="mailto:info@clinica.it">info@clinica.it</a>
+            </li>
           </ul>
         </div>
 
+        <!-- Colonna 4 (con IMMAGINI social, non testo) -->
         <div class="footer__col">
           <h4>Seguici</h4>
           <div class="footer__social">
-            <a href="#" aria-label="Facebook"
-              ><img src="/images/socials/facebook-logo-facebook-icon-transparent-free-png.webp" alt="Facebook"
-            /></a>
-            <a href="#" aria-label="Instagram"
-              ><img src="/images/socials/instagram-logo-instagram-icon-transparent-free-png.webp" alt="Instagram"
-            /></a>
+            <a href="#" aria-label="Facebook">
+              <img src="/images/socials/facebook-logo-facebook-icon-transparent-free-png.webp" alt="Facebook" />
+            </a>
+            <a href="#" aria-label="Instagram">
+              <img src="/images/socials/instagram-logo-instagram-icon-transparent-free-png.webp" alt="Instagram" />
+            </a>
           </div>
         </div>
       </div>
 
+      <!-- Bottom -->
       <div class="footer__bottom">
         <div class="footer__actions">
           <button id="btn-cookie-settings" type="button">Preferenze cookie</button>
@@ -458,35 +511,14 @@
         <small>&copy; <span id="year"></span> Clinica • Tutti i diritti riservati</small>
       </div>
     </footer>
-
-    <!-- CTA Prenota + WhatsApp come nelle altre pagine -->
-    <a
-      id="bookNow"
-      class="cta-rotating"
-      href="https://calendly.com/mambylysolutions/consulenza-gratuita"
-      target="_blank"
-      rel="noopener"
-      aria-label="Prenota una consulenza su Calendly"
-    >
-      <svg class="cta-icon" viewBox="0 0 24 24">
-        <path
-          fill="currentColor"
-          d="M19,19H5V8H19M19,6H5V5C5,4.45 5.45,4 6,4H8V2H10V4H14V2H16V4H18C18.55,4 19,4.45 19,5V6M7,10H9V12H7V10M11,10H13V12H11V10M15,10H17V12H15V10M7,14H9V16H7V14M11,14H13V16H11V14M15,14H17V16H15V14Z"
-        />
-      </svg>
-      <svg class="cta-text" viewBox="0 0 200 200">
-        <defs><path id="circlePath" d="M100,100 m-75,0 a75,75 0 1,1 150,0 a75,75 0 1,1 -150,0" /></defs>
-        <text dy="5"><textPath xlink:href="#circlePath">• PRENOTA ORA LA TUA CONSULENZA GRATUITA •</textPath></text>
-      </svg>
-    </a>
-
+    <!-- WhatsApp floating -->
     <a href="https://wa.me/39333111222" class="whatsapp-float" target="_blank" aria-label="Chatta su WhatsApp">
       <img src="/images/socials/whatsapp-logo-icone.png" alt="WhatsApp" />
     </a>
 
-    <!-- Script base + pagina -->
+    <!-- Script di base del sito + pagina -->
     <script src="/assets/main.js" type="module"></script>
-    <script src="/assets/faq.js" type="module"></script>
-    <script src="/assets/contatti.js" type="module"></script>
+    <script src="/assets/treatments.js" type="module"></script>
+    <script src="/assets/chisono.js" type="module"></script>
   </body>
 </html>
