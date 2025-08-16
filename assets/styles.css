@@ -6,6 +6,7 @@
   /* palette */
   --bg: #fafaf8;
   --fg: #1f1f1f;
+  --fg: #212120;;
   --muted: #6b7280;
   --accent: #c8b688;
   --accent-strong: #b88a2e;
@@ -675,18 +676,29 @@ a {
 }
 
 .sx-title {
-  font-family: "DM Serif Display", serif;
+/*   font-family: "DM Serif Display", serif;
+   font-family: "Cerebri Sans Regular";
+    font-family: "Dahlia"; */
+      font-family: "Dahlia";
+  src: url("/assets/fonts/Dahlia-Regular.woff2") format("woff2"),
+       url("/assets/fonts/Dahlia-Regular.woff") format("woff");
+  font-weight: 6300;
+  font-style: normal;
+
   font-size: clamp(28px, 3.6vw, 42px);
   margin: 10px 0 10px;
-  color: var(--fg);
+  color: var(--accent);
 }
 
 .sx-underline-anim {
   padding: 0 0.12em;
   border-radius: 6px;
   background:
-    linear-gradient(to right, rgba(200, 182, 136, 0.3), rgba(230, 201, 129, 0.3)) 0 100% / 100% 0.38em no-repeat,
+    linear-gradient(to right, rgba(238, 193, 238, 0.3), rgb(236, 204, 231)) 0 100% / 100% 0.38em no-repeat,
     linear-gradient(90deg, var(--accent), var(--accent-bright), var(--accent)) 0 100% / 0% 0.38em no-repeat;
+    /* linear-gradient(to right, rgba(200, 182, 136, 0.3), rgba(230, 201, 129, 0.3)) 0 100% / 100% 0.38em no-repeat,
+    linear-gradient(90deg, var(--accent), var(--accent-bright), var(--accent)) 0 100% / 0% 0.38em no-repeat; */
+
   animation: sx-underline 5s ease-in-out infinite;
 }
 @keyframes sx-underline {
