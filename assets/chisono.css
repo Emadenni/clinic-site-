@@ -618,7 +618,7 @@ main.container {
   z-index: 0;
   background: radial-gradient(120% 80% at 15% 10%, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0) 60%),
     radial-gradient(110% 70% at 85% 90%, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0) 65%),
-    linear-gradient(135deg, #b88a2e 0%, #b88a2e 32%, #b88a2e 66%, #b88a2e 100%);
+    linear-gradient(135deg, #a587d3 0%, #956ecc 32%, #8e5ad6 66%, #9a74df 100%);
   background-size: auto, auto, 220% 220%;
   background-position: center, center, 0% 50%;
   animation: gg-pan 110s ease-in-out infinite alternate;
