@@ -7,11 +7,13 @@
   --bg: #fafaf8;
   --fg: #1f1f1f;
   --fg: #212120;;
-  --muted: #6b7280;
+  --muted: #baa491;
   --accent: #c8b688;
   --accent-strong: #b88a2e;
   --accent-bright: #e6c981;
   --white: #fff;
+
+ /*  #baa491 */
 
   /* derivati per il footer */
   --footer-bg: var(--bg);
@@ -682,6 +684,7 @@ a {
       font-family: "Dahlia";
   src: url("/assets/fonts/Dahlia-Regular.woff2") format("woff2"),
        url("/assets/fonts/Dahlia-Regular.woff") format("woff");
+  color: #baa491 !important;
   font-weight: 6300;
   font-style: normal;
 
