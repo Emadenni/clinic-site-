@@ -290,6 +290,28 @@ body { background: var(--bg); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+@media (min-width: 1025px) {
+  .cta-rotating {
+    width: 140px;
+    height: 140px;
+  }
+
+  .cta-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .cta-text {
+    width: 140px;
+    height: 140px;
+  }
+
+  .cta-text text {
+    font-size: 16px;
+    letter-spacing: 3px;
+  }
+}
+
 /* ===== Locations Card Pro ===== */
 .locations-card--pro {
   margin-top: 20px;
