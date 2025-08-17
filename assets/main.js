@@ -246,3 +246,45 @@ Array.from(document.querySelectorAll('#mobileMenu a')).forEach(a => {
     }
   });
 })();
+
+document.addEventListener("DOMContentLoaded", () => {
+  const hamburger = document.querySelector("[data-hamburger]");
+  const wrap = document.querySelector("[data-mobile-wrap]");
+  const closeBtn = document.querySelector("[data-close]");
+  const panel = document.querySelector(".mobile-panel");
+
+  function openMenu() {
+    wrap.hidden = false;
+    requestAnimationFrame(() => {
+      wrap.classList.add("is-open");
+      document.body.classList.add("no-scroll");
+    });
+  }
+
+  function closeMenu() {
+    wrap.classList.remove("is-open");
+    document.body.classList.remove("no-scroll");
+    // aspetta la fine della transizione del PANNELLO
+    panel.addEventListener("transitionend", () => {
+      if (!wrap.classList.contains("is-open")) {
+        wrap.hidden = true;
+      }
+    }, { once: true });
+  }
+
+  hamburger.addEventListener("click", () => {
+    wrap.classList.contains("is-open") ? closeMenu() : openMenu();
+  });
+
+  closeBtn.addEventListener("click", closeMenu);
+
+  wrap.addEventListener("click", (e) => {
+    if (e.target === wrap) closeMenu();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && wrap.classList.contains("is-open")) {
+      closeMenu();
+    }
+  });
+});
