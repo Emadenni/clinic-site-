@@ -1,11 +1,14 @@
 :root {
-  --bg: #fafaf8;
-  --fg: #1f1f1f;
-  --muted: #6b7280;
+  :root{
+   --bg: #fafaf8;
+  --fg: #666666;
+  --muted: #baa491;
   --accent: #c8b688;
   --accent-strong: #b88a2e;
   --accent-bright: #e6c981;
   --white: #fff;
+  --border: #e3e3e3;
+}
   --footer-bg: var(--bg);
   --footer-ink: var(--fg);
   --accent-weak: color-mix(in oklab, var(--accent) 18%, transparent);

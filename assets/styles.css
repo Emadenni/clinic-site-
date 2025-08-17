@@ -5,8 +5,8 @@
 :root {
   /* palette */
   --bg: #fafaf8;
-  --fg: #1f1f1f;
-  --fg: #212120;;
+  --fg: #777777;
+  --fg: #666666;
   --muted: #baa491;
   --accent: #c8b688;
   --accent-strong: #b88a2e;
@@ -76,6 +76,19 @@ a {
     padding-inline: clamp(16px, 4vw, 28px);
   }
 }
+
+@font-face {
+  font-family: "Dahlia";
+  src: url("/assets/fonts/Dahlia-Regular.woff2") format("woff2"),
+       url("/assets/fonts/Dahlia-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+html, body, * {
+  font-family: "Dahlia", sans-serif !important;
+}
+
 
 /* =========================
    HEADER (fixed on top)

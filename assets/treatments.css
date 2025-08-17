@@ -2,15 +2,17 @@
    PALETTE VARS
    =========================== */
 :root{
-  --bg: #fafaf8;
-  --fg: #1f1f1f;
-  --muted: #6b7280;
+   --bg: #fafaf8;
+  --fg: #666666;
+  --muted: #baa491;
   --accent: #c8b688;
-  --accent-strong: #c8b688;
-  --accent-weak: #f5efe3;
+  --accent-strong: #b88a2e;
+  --accent-bright: #e6c981;
   --white: #fff;
   --border: #e3e3e3;
 }
+
+ 
 
 /* ===========================
    HERO SCURO
