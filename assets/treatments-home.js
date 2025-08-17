@@ -79,7 +79,7 @@ function setupCTAReveal(){
   const sec = document.querySelector('.treatments');
   if (!sec) return;
 
-  const DEST = '/trattamenti';
+  const DEST = '/trattamenti.html';
   const isDesktop = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
 
   // Tooltip unico
