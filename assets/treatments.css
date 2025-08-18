@@ -269,3 +269,23 @@
     height: clamp(520px, 64vh, 740px);
   }
 }
+
+/* === DESKTOP (≥901px): più largo e più alto === */
+@media (min-width: 901px){
+  .t-modal{
+    width: min(1280px, 96vw);   /* prima 1024px → ora 1280px max */
+    height: clamp(600px, 78vh, 860px); /* più alto */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); /* più spazio al testo */
+  }
+}
+
+/* === MOBILE (≤900px): mantieni stabile === */
+@media (max-width: 900px){
+  .t-modal{
+    width: 100%;                /* resta full width */
+    max-width: 96vw;            /* margine laterale */
+    border-radius: 14px;
+    grid-template-rows: minmax(28svh, 36svh) 1fr; /* immagine un po' più alta */
+    
+  }
+}

@@ -333,27 +333,35 @@
       <section class="t-grid" id="t-grid" aria-live="polite"></section>
 
       <!-- Modal dettagli -->
-      <div id="t-modal-backdrop" class="t-modal__backdrop" hidden>
-        <div class="t-modal" role="dialog" aria-modal="true" aria-labelledby="t-modal-title">
-          <button class="t-modal__close" id="t-modal-close" aria-label="Chiudi">×</button>
-          <div class="t-modal__media"><img id="t-modal-img" alt="" loading="eager" /></div>
-          <div class="t-modal__body">
-            <h2 id="t-modal-title"></h2>
-            <ul class="t-meta" id="t-modal-meta" aria-label="Dettagli trattamento"></ul>
-            <p id="t-modal-long" class="t-long"></p>
-            <div class="t-modal__actions">
-              <a
-                class="btn btn-primary"
-                id="t-modal-book"
-                href="https://calendly.com/mambylysolutions/consulenza-gratuita"
-                target="_blank"
-                >Prenota una consulenza</a
-              >
-              <a class="btn btn-ghost" id="t-modal-contact" href="/contatti.html">Contattaci</a>
-            </div>
-          </div>
-        </div>
+<div id="t-modal-backdrop" class="t-modal__backdrop" hidden>
+  <div class="t-modal" role="dialog" aria-modal="true" aria-labelledby="t-modal-title">
+    <button class="t-modal__close" id="t-modal-close" aria-label="Chiudi">×</button>
+    <div class="t-modal__media">
+      <img id="t-modal-img" alt="" loading="eager" />
+    </div>
+    <div class="t-modal__body">
+      <h2 id="t-modal-title"></h2>
+      <ul class="t-meta" id="t-modal-meta" aria-label="Dettagli trattamento"></ul>
+      <p id="t-modal-long" class="t-long"></p>
+
+      <!-- Lista puntata opzionale -->
+      <ul id="t-modal-list" class="t-list" hidden></ul>
+
+      <div class="t-modal__actions">
+        <a
+          class="btn btn-primary"
+          id="t-modal-book"
+          href="https://calendly.com/mambylysolutions/consulenza-gratuita"
+          target="_blank"
+        >
+          Prenota 
+        </a>
+        <a class="btn btn-ghost" id="t-modal-contact" href="/contatti.html">Contattaci</a>
       </div>
+    </div>
+  </div>
+</div>
+
     </main>
 
     <footer class="footer">

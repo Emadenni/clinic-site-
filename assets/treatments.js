@@ -10,6 +10,7 @@ const CONTACT_BTN = document.getElementById("t-modal-contact"); // ← cambiato
 const MODAL_CLOSE = document.getElementById("t-modal-close");
 const SEARCH = document.getElementById("search");
 const CHIPS = document.getElementById("quick-chips");
+const MODAL_LIST = document.getElementById("t-modal-list");
 
 let TREATMENTS = [];
 let lastFocusedEl = null;
@@ -96,6 +97,7 @@ function openModal(item) {
   MODAL_IMG.alt = item.title;
   MODAL_TITLE.textContent = item.title;
 
+  // Reset meta
   MODAL_META.innerHTML = "";
   const meta = [
     ["Durata", item.duration],
@@ -108,22 +110,41 @@ function openModal(item) {
     MODAL_META.appendChild(li);
   });
 
+  // Testo lungo
   MODAL_LONG.textContent = item.long || "";
+
+  // Lista puntata opzionale
+  if (typeof MODAL_LIST !== "undefined") {
+    MODAL_LIST.innerHTML = "";
+    if (item.bulletPoints && item.bulletPoints.length > 0) {
+      item.bulletPoints.forEach(text => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        MODAL_LIST.appendChild(li);
+      });
+      MODAL_LIST.hidden = false;
+    } else {
+      MODAL_LIST.hidden = true;
+    }
+  }
+
+  // Link azioni
   MODAL_BOOK.href = "https://calendly.com/mambylysolutions/consulenza-gratuita";
   MODAL_BOOK.target = "_blank";
   MODAL_BOOK.rel = "noopener noreferrer";
-  if (CONTACT_BTN) CONTACT_BTN.href = `/contatti.html`; // ← link semplice a contatti
+  if (CONTACT_BTN) CONTACT_BTN.href = `/contatti.html`;
 
   // Mostra modal
   MODAL_BACKDROP.hidden = false;
   document.body.style.overflow = "hidden";
   MODAL_CLOSE.focus();
 
-  // Aggiorna URL (senza ricaricare) per deep-linking
+  // Aggiorna URL (deep-linking)
   const url = new URL(location.href);
   url.searchParams.set("t", item.slug);
   history.replaceState({}, "", url);
 }
+
 
 function closeModal() {
   MODAL_BACKDROP.hidden = true;

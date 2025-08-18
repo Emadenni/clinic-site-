@@ -1,5 +1,26 @@
 [
   {
+   "slug": "liposuzione-non-chirurgica",
+  "title": "Liposuzione non chirurgica – Intralipoterapia",
+  "duration": "20–30 min",
+  "pain": "Basso–Moderato",
+  "result": "Riduzione visibile in 2–4 settimane",
+  "price": "da € 170",
+  "image": "images/treatments/liposuzione.webp",
+  "short": "Trattamento mirato per sciogliere gli accumuli di grasso senza chirurgia",
+  "long": "Le adiposità localizzate sono accumuli di grasso resistenti a dieta ed esercizio fisico, spesso dovuti a fattori genetici. Si concentrano soprattutto su addome, fianchi, cosce, ginocchia, braccia, collo e mento. La soluzione è l’intralipoterapia, un trattamento di medicina estetica non chirurgico e minimamente invasivo che permette di ridurre questi depositi senza ricorrere alla liposuzione. Il trattamento consiste in microinfiltrazioni di sodio deossicolato, un principio attivo che scioglie le cellule adipose in modo mirato e progressivo. L’iniezione viene effettuata con aghi sottilissimi studiati appositamente per garantire comfort e risultati uniformi, senza necessità di anestesia.",
+  "featured": true,
+
+    "bulletPoints": [
+      "Addome, fianchi, coulotte de cheval",
+      "Interno coscia e ginocchia",
+      "Braccia",
+      "Doppio mentoa",
+      "Borse adipose palpebrali",
+      "Ginecomastia maschile"
+    ]
+  },
+  {
     "slug": "biorivitalizzazione",
     "title": "Biorivitalizzazione",
     "duration": "30–40 min",
@@ -8,8 +29,15 @@
     "price": "da € 170",
     "image": "images/treatments/biorivitalizzazione.webp",
     "short": "Idratazione profonda e tono migliorato",
-    "long": "La biorivitalizzazione è un trattamento estetico iniettivo che utilizza acido ialuronico, vitamine e aminoacidi per stimolare la produzione di collagene ed elastina. Migliora l’idratazione cutanea, la luminosità e la compattezza della pelle, riducendo i segni di stanchezza e invecchiamento.",
-    "featured": true
+    "long": "Immagina di guardarti allo specchio e riscoprire la luce e la freschezza della tua pelle. La Biorivitalizzazione è un percorso di rinascita che ridona tono, vitalità e giovinezza a viso, collo, décolleté e mani. Grazie a micro-iniezioni di acido ialuronico puro, la pelle si nutre dall’interno: collagene e idratazione si rigenerano, la luminosità naturale riaffiora senza effetti artificiali. In soli 30 minuti ritrovi freschezza e armonia. Con i protocolli Hydra Booster, studiati dai nostri medici, ottieni risultati personalizzati, visibili e duraturi:",
+    "featured": true,
+
+    "bulletPoints": [
+      "Stimola la produzione di collagene ed elastina",
+      "Idrata profondamente la pelle",
+      "Riduce i segni di stanchezza e invecchiamento",
+      "Migliora tono e luminosità cutanea"
+    ]
   },
   {
     "slug": "lifting-liquido",
@@ -20,8 +48,9 @@
     "price": "da € 349",
     "image": "images/treatments/lifting-liquido.webp",
     "short": "Effetto tensore senza bisturi",
-    "long": "Il lifting liquido è una tecnica non chirurgica che combina filler e biostimolanti per sollevare e ridisegnare i volumi del viso. Offre un effetto tensore naturale, migliorando l’ovale e attenuando i segni di cedimento senza tempi di recupero prolungati."
+    "long": "Ringiovanire il viso senza bisturi oggi è possibile.\nIl lifting liquido è l’alternativa moderna e naturale alla chirurgia: trattamenti medici sicuri, reversibili ed efficaci che contrastano i segni del tempo senza interventi invasivi.\nCon filler di ultima generazione a base di acido ialuronico, botulino e idrossiapatite di calcio (Radiesse), il volto ritrova freschezza, volume e armonia, mantenendo un aspetto autentico e naturale.\nIl vero punto di forza è la personalizzazione: ogni ruga viene trattata in modo mirato, rispettando i lineamenti senza alterarne l’identità. Non un cambiamento artificiale, ma una valorizzazione della tua bellezza.\nI risultati sono rapidi e sorprendenti: contorni più definiti, volumi ridefiniti, rughe attenuate e pelle più tonica e luminosa in poche sedute.\nIl lifting liquido è la scelta ideale per chi desidera giovinezza e luminosità, senza rinunciare alla propria unicità."
   },
+
   {
     "slug": "botulino-rughe-fronte-occhi",
     "title": "Botulino – Rughe fronte e occhi",
@@ -31,8 +60,15 @@
     "price": "da € 224",
     "image": "images/treatments/botulino.webp",
     "short": "Distende le linee d’espressione",
-    "long": "Il trattamento con tossina botulinica riduce le rughe di espressione nella zona della fronte e del contorno occhi. Agisce rilassando i muscoli responsabili delle pieghe cutanee, offrendo un aspetto più disteso e riposato.",
-    "featured": true
+
+    "long": "Lo sguardo è il primo segno di bellezza che comunichiamo. Con il botulino rimodellante è possibile distendere rughe di fronte e contorno occhi, restituendo freschezza al viso senza ricorrere a interventi invasivi.\nLe rughe del terzo superiore nascono come segni dinamici, ma col tempo diventano permanenti. La tossina botulinica agisce con micro-iniezioni indolori sui muscoli mimici, rilassandoli e permettendo alla pelle di distendersi in modo naturale.\nIn soli 30 minuti otterrai un aspetto più riposato e luminoso, con risultati che durano fino a 6 mesi. Già dopo 10 giorni noterai un viso più fresco e armonioso, senza perdere la capacità di esprimere emozioni.\nIl botulino è anche un alleato in altri trattamenti mirati, sempre sicuri e personalizzati.",
+
+    "featured": true,
+    "bulletPoints": [
+      "400 € → ringiovanimento fronte e zona perioculare",
+      "600 € → rimodellamento massetere o trattamento iperidrosi",
+      "250 € → interventi mirati su piccole aree (es. ipertono del mento)"
+    ]
   },
   {
     "slug": "rimodellamento-labbra",
@@ -43,8 +79,15 @@
     "price": "da € 259",
     "image": "images/treatments/labbra.webp",
     "short": "Volume e definizione armonica",
-    "long": "Il rimodellamento labbra con filler a base di acido ialuronico migliora il volume, la forma e la definizione del contorno labiale. L’obiettivo è un risultato naturale e proporzionato al volto.",
-    "featured": true
+    "long": "Quando si parla di labbra belle, non è solo la grandezza a fare la differenza.\nPer risultare davvero armoniose devono essere idratate, ben definite nei contorni, proporzionate al viso e soprattutto naturali.\nIl rimodellamento labiale utilizza filler a base di acido ialuronico cross-linkato, studiati per questa zona delicata. L’obiettivo non è creare un effetto artificiale, ma ottenere una bocca più piena e morbida, in equilibrio con i tratti del volto.\nIl prodotto viene iniettato con precisione nella mucosa, nel vermiglio e nel filtro, consentendo risultati diversi a seconda delle esigenze.",
+
+    "featured": true,
+    "bulletPoints": [
+      "aumentare il volume",
+      "ridefinire la forma",
+      "delineare i contorni",
+      "correggere eventuali asimmetrie"
+    ]
   },
   {
     "slug": "radiesse",
@@ -55,7 +98,7 @@
     "price": "da € 313",
     "image": "images/treatments/radiesse.webp",
     "short": "Biostimolazione e sostegno dei tessuti",
-    "long": "Radiesse è un filler a base di idrossiapatite di calcio che, oltre a riempire e rimodellare, stimola la produzione naturale di collagene. Migliora la densità e la compattezza della pelle con risultati duraturi."
+    "long": "Scopri il potere di un volto più giovane e armonioso con Radiesse, il filler che ridefinisce i contorni e dona pelle compatta e luminosa.\nIn poche sedute, zigomi, mento, mandibola, collo, décolleté e mani ritrovano tonicità e volume naturale, senza chirurgia né tempi di recupero.\nIl tuo lifting liquido full face: immediato, naturale, duraturo. Già dopo una seduta vedi i primi risultati, mentre la stimolazione del collagene continua a rendere il viso fresco, armonioso e giovane.\nOgni trattamento è personalizzato, rispettando l’armonia del volto e il tuo stile unico. Con la sua formulazione innovativa, Radiesse garantisce comfort e risultati sorprendenti senza gonfiori né fastidi. Scopri una nuova versione di te stesso, più sicura e radiosa, ogni giorno."
   },
   {
     "slug": "profhilo",
@@ -66,30 +109,33 @@
     "price": "da € 286",
     "image": "images/treatments/profhilo.webp",
     "short": "Idratazione e turgore diffusi",
-    "long": "Profhilo è un trattamento iniettivo a base di acido ialuronico ad alta purezza, progettato per ridare tono e idratazione alla pelle. Agisce in modo naturale stimolando la produzione di collagene ed elastina.",
-    "featured": true
+    "long": "Profhilo è il trattamento antiaging che dona freschezza e armonia a viso e collo, senza volumi artificiali. Grazie all’acido ialuronico a diverso peso molecolare ridefinisce i lineamenti in modo naturale, illuminando e compattando la pelle.\nStimola collagene, elastina e idratazione profonda, mentre la sua azione tensore contrasta la lassità cutanea e solleva delicatamente i tessuti. I risultati? Mini-rughe attenuate, ovale ridefinito e un aspetto radioso e vitale.\nIl protocollo prevede 2–3 sedute mensili, senza anestesia e con minimo discomfort, per un trattamento sicuro, personalizzato e duraturo. Già dalle prime applicazioni noterai una pelle più elastica, tonica e luminosa.",
+    "bulletPoints": [
+      "500 € → per area (viso o collo), 2 sedute mirate per risultati visibili e naturali",
+      "1000 € → per area (corpo), 2 sessioni dedicate per ridefinire e rassodare la pelle"
+    ]
   },
   {
     "slug": "rimodellamento-rughe",
-    "title": "Rimodellamento rughe",
+    "title": "Trattamento anti-rughe",
     "duration": "30–45 min",
     "pain": "Medio",
     "result": "Immediati e migliorano in 1–2 settimane",
     "price": "da € 241",
     "image": "images/treatments/rughe.webp",
     "short": "Naso-geniene, marionetta, rughe del viso",
-    "long": "Trattamento mirato per riempire e distendere le rughe più profonde, come le naso-geniene e quelle della marionetta. Migliora l’armonia e la freschezza del volto."
+    "long": "Scopri il segreto per un viso più giovane e luminoso senza interventi invasivi. Il nostro trattamento all’avanguardia sfrutta acido ialuronico cross-linkato, applicato con precisione nei solchi delle rughe, per ridare al tuo volto armonia e freschezza.\nLa pelle non solo risulterà visibilmente più liscia, ma resterà nutrita e idratata a lungo, con un aspetto naturale e uniforme.\nBastano appena 30 minuti per trasformare il tuo viso: rughe attenuate, contorni ridefiniti e un incarnato radioso, con effetti che durano fino a 9 mesi."
   },
   {
     "slug": "rimodellamento-zigomi-mento-mandibola-temporale",
-    "title": "Rimodellamento zigomi, mento, mandibola, zona temporale",
+    "title": "Ridefinizione di zigomi, mento, linea mandibolare e area temporale:",
     "duration": "40–60 min",
     "pain": "Medio",
     "result": "Immediati, assestamento in 1 settimana",
     "price": "da € 349",
     "image": "images/treatments/rimodellamento.webp",
     "short": "Contouring e armonizzazione del profilo",
-    "long": "Rimodellamento volumetrico del viso per migliorare zigomi, mento, linea mandibolare e zona temporale. Utilizza filler sicuri per armonizzare e ridefinire il profilo."
+    "long": "Un volto armonioso non è solo bello da vedere, ma trasmette anche sicurezza e benessere interiore. Spesso sottovalutiamo l’importanza dei volumi del viso, ma zigomi, mento, linea mandibolare e area temporale determinano davvero l’equilibrio e la personalità dei tuoi lineamenti. Ora puoi valorizzare ogni dettaglio che racconta chi sei, correggere piccole asimmetrie o donare nuova freschezza al tuo viso grazie al filler a base di acido ialuronico.\nIn mani esperte, questo trattamento ridisegna e definisce con delicatezza il mento, gli zigomi, la mandibola e la zona temporale, rispettando la naturalezza del tuo volto. Ogni linea e curva viene armonizzata, restituendo un aspetto più giovane, luminoso e armonico.\nIl risultato? Un viso pieno di equilibrio e vitalità, naturalmente bello, con effetti che possono durare fino a 9 mesi, lasciandoti la gioia di guardarti allo specchio e sentirti davvero al meglio."
   },
   {
     "slug": "filler-occhiaie",
@@ -100,7 +146,7 @@
     "price": "da € 259",
     "image": "images/treatments/filler-occhiaie.webp",
     "short": "Sguardo riposato e luminoso",
-    "long": "Il filler occhiaie riduce il solco lacrimale e attenua l’aspetto stanco dello sguardo. Migliora la luminosità e uniforma la zona perioculare."
+    "long": "Lo scorrere del tempo e lo stress quotidiano lasciano segni sotto gli occhi, dove borse e occhiaie diventano piu evidenti. La pelle sottile perde tono e volume, accentuando rughe e stanchezza. Abitudini scorrette, sedentarieta, lavoro al computer e poco sonno contribuiscono a rendere lo sguardo spento. Sempre piu persone cercano rimedi efficaci ma non invasivi, come il riempimento con filler riassorbibili che eliminano l'effetto ombra. I prodotti di nuova generazione contengono acido ialuronico, otto amminoacidi, minerali, antiossidanti, vitamina B6 e lidocaina, garantendo idratazione e volume naturale con minimo gonfiore. Il filler puo essere posizionato in superficie o in profondita, correggendo infossamento e tono scuro. Si trattano occhiaie localizzate o estese fino allo zigomo, con risultati armoniosi e personalizzati. L’applicazione dura circa 30 minuti tramite microcannula, senza anestesia, con recupero immediato ed effetto naturale e ringiovanito."
   },
   {
     "slug": "rinofiller",
@@ -111,7 +157,7 @@
     "price": "da € 268",
     "image": "images/treatments/rinofiller.webp",
     "short": "Correzione del profilo nasale senza chirurgia",
-    "long": "Il rinofiller permette di correggere imperfezioni e asimmetrie del naso tramite filler dermico, evitando l’intervento chirurgico. Risultato armonico e naturale.",
+    "long": "Nel volto armonioso, il naso ha un ruolo da protagonista. Piccole imperfezioni come gobbette, avvallamenti o punte poco definite possono alterare l’equilibrio dell’intero profilo, facendo sembrare il naso piu grande o meno elegante di quanto sia realmente. Il rinofiller e la soluzione innovativa e non invasiva per rimodellare il naso in modo rapido e sicuro, direttamente in ambulatorio. Grazie a microiniezioni di acido ialuronico specifico, e possibile correggere irregolarita, sollevare la punta, definire la radice e armonizzare l’intero profilo nasale, ottenendo un effetto naturale e immediato. Il trattamento non richiede anestesia, e praticamente indolore e non prevede tempi di recupero: puoi tornare subito alle tue attivita quotidiane con un aspetto fresco e bilanciato. Il rinofiller non solo migliora l’estetica del naso, ma dona anche maggiore fiducia in se stessi, armonizzando l’intero viso e valorizzando i lineamenti in modo elegante e sofisticato.",
     "featured": true
   },
   {
@@ -123,7 +169,7 @@
     "price": "da € 107",
     "image": "images/treatments/peeling.webp",
     "short": "Rigenerazione e luminosità cutanea",
-    "long": "Il peeling chimico rimuove le cellule morte, stimola il rinnovamento cellulare e migliora la texture della pelle, donandole un aspetto più giovane e fresco."
+      "long": "La nostra epidermide è un tessuto in continuo rinnovamento: ogni giorno elimina cellule esauste, sostituite da nuove. Il peeling chimico potenzia questo ricambio stimolando l’esfoliazione e accelerando la rigenerazione cutanea. L’uso di sostanze mirate rende la pelle più levigata, luminosa e tonica. Durante la seduta si può avvertire un leggero pizzicore, mentre nei giorni successivi la pelle può arrossarsi o desquamarsi in misura variabile. Per risultati ottimali è fondamentale applicare una crema ad alta protezione (SPF 50+) per alcune settimane, motivo per cui il trattamento è consigliato nei periodi meno caldi. Grazie al peeling la pelle ritrova freschezza e vitalità, con un aspetto uniforme e luminoso, senza ricorrere a procedure invasive."
   },
   {
     "slug": "profiloplastica-2",
@@ -145,29 +191,12 @@
     "price": "da € 376",
     "image": "images/treatments/profiloplastic.webp",
     "short": "Armonizzazione complessiva del viso",
-    "long": "Trattamento di rimodellamento del profilo volto a equilibrare proporzioni e volumi, ottenendo un aspetto armonico e naturale."
-  },
-  {
-    "slug": "pixel-co2-alma-lasers",
-    "title": "Pixel CO₂ di Alma Lasers",
-    "duration": "30–60 min",
-    "pain": "Medio-Alto",
-    "result": "Visibili dopo 1–2 settimane, migliorano nei mesi",
-    "price": "da € 313",
-    "image": "images/treatments/laserwebp.webp",
-    "short": "Ringiovanimento cutaneo laser frazionato",
-    "long": "Il Pixel CO₂ è un trattamento laser frazionato che migliora rughe, cicatrici e texture cutanea, stimolando la rigenerazione profonda della pelle."
-  },
-  {
-    "slug": "soprano-ice-platinum",
-    "title": "Soprano Ice Platinum Epilazione laser",
-    "duration": "15–60 min (in base all’area)",
-    "pain": "Molto basso",
-    "result": "Progressivi in 4–6 sedute",
-    "price": "da € 72",
-    "image": "images/treatments/platinum.webp",
-    "short": "Epilazione permanente indolore",
-    "long": "Il laser Soprano Ice Platinum combina tre lunghezze d’onda per un’epilazione efficace e praticamente indolore, adatta a tutti i tipi di pelle.",
-    "featured": true
+    "long": "Il volto è la parte di noi che comunica prima delle parole, il nostro biglietto di presentazione. Sempre più persone desiderano non solo migliorare l’aspetto frontale, ma anche armonizzare il profilo laterale, fondamentale per l’equilibrio estetico. La profiloplastica non chirurgica risponde a questa esigenza: un trattamento di medicina estetica che corregge inestetismi di naso, labbra e mento senza ricorrere alla chirurgia. Con microiniezioni di acido ialuronico si ridefiniscono le proporzioni del volto, ottenendo un profilo più armonico ed equilibrato. Si tratta di un approccio rapido, sicuro e poco invasivo, pensato per chi desidera un risultato naturale e bilanciato senza interventi chirurgici.",
+      "bulletPoints": [
+      "Un naso regolare dona delicatezza e riduce l’impatto visivo di eventuali gobbe o punte discendenti",
+      "Labbra proporzionate valorizzano l’insieme del viso, evitando squilibri tra parte superiore e inferiore",
+      "Un mento più definito migliora la simmetria e dona maggiore armonia con naso e bocca."
+    ]
+
   }
 ]
