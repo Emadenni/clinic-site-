@@ -2498,7 +2498,7 @@ body.no-scroll { overflow: hidden; }
   }
 
   .promo-logo {
-    max-width: 110px;     /* logo più piccolo */
+    max-width: 140px;     /* logo più piccolo */
     margin-bottom: .75rem;
   }
 
