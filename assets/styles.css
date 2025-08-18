@@ -2820,13 +2820,7 @@ body.no-scroll {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-    opacity: 1;
-  transform: scale(1);
-  transition: opacity .35s ease, transform .35s ease;
-  .promo-modal[hidden] {
-  opacity: 0;
-  visibility: hidden;
-}
+  
 }
 
 .promo-close {
