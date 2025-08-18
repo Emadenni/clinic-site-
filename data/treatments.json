@@ -1,25 +1,23 @@
 [
   {
-   "slug": "liposuzione-non-chirurgica",
-  "title": "Liposuzione non chirurgica – Intralipoterapia",
-  "duration": "20–30 min",
-  "pain": "Basso–Moderato",
-  "result": "Riduzione visibile in 2–4 settimane",
-  "price": "da € 170",
-  "image": "images/treatments/liposuzione.webp",
-  "short": "Trattamento mirato per sciogliere gli accumuli di grasso senza chirurgia",
-  "long": "Le adiposità localizzate sono accumuli di grasso resistenti a dieta ed esercizio fisico, spesso dovuti a fattori genetici. Si concentrano soprattutto su addome, fianchi, cosce, ginocchia, braccia, collo e mento. La soluzione è l’intralipoterapia, un trattamento di medicina estetica non chirurgico e minimamente invasivo che permette di ridurre questi depositi senza ricorrere alla liposuzione. Il trattamento consiste in microinfiltrazioni di sodio deossicolato, un principio attivo che scioglie le cellule adipose in modo mirato e progressivo. L’iniezione viene effettuata con aghi sottilissimi studiati appositamente per garantire comfort e risultati uniformi, senza necessità di anestesia.",
-  "featured": true,
-
-    "bulletPoints": [
-      "Addome, fianchi, coulotte de cheval",
-      "Interno coscia e ginocchia",
-      "Braccia",
-      "Doppio mentoa",
-      "Borse adipose palpebrali",
-      "Ginecomastia maschile"
+    "slug": "liposuzione-non-chirurgica",
+    "title": "Liposuzione non chirurgica – Intralipoterapia",
+    "duration": "20–30 min",
+    "pain": "Basso–Mod.",
+    "result": "Progressivi, fino a 4 mesi",
+    "price": "da 200€",
+    "image": "images/treatments/liposuzione.webp",
+    "short": "Riduce gli accumuli di grasso senza chirurgia.",
+    "long": "Intralipoterapia con microinfiltrazioni di sodio deossicolato per sciogliere selettivamente il grasso resistente. Seduta rapida, senza anestesia; possibile lieve bruciore/gonfiore per pochi giorni. Rimodellamento graduale, consolidamento fino a 4 mesi; in genere 4–6 sedute in base all’area.",
+    "featured": true,
+    "bulletPoints": ["Addome e fianchi", "Interno coscia e ginocchia", "Braccia", "Doppio mento"],
+    "whyChoose": [
+      "Alternativa non invasiva alla liposuzione",
+      "Nessun segno evidente",
+      "Risultati naturali e progressivi"
     ]
   },
+
   {
     "slug": "biorivitalizzazione",
     "title": "Biorivitalizzazione",
@@ -57,7 +55,7 @@
     "duration": "20–30 min",
     "pain": "Basso",
     "result": "In 3–7 giorni, pieno in 14",
-    "price": "da € 224",
+    "price": "da € 250",
     "image": "images/treatments/botulino.webp",
     "short": "Distende le linee d’espressione",
 
@@ -76,7 +74,7 @@
     "duration": "30–45 min",
     "pain": "Medio",
     "result": "Immediati, naturali in 3–5 giorni",
-    "price": "da € 259",
+    "price": "da 350€",
     "image": "images/treatments/labbra.webp",
     "short": "Volume e definizione armonica",
     "long": "Quando si parla di labbra belle, non è solo la grandezza a fare la differenza.\nPer risultare davvero armoniose devono essere idratate, ben definite nei contorni, proporzionate al viso e soprattutto naturali.\nIl rimodellamento labiale utilizza filler a base di acido ialuronico cross-linkato, studiati per questa zona delicata. L’obiettivo non è creare un effetto artificiale, ma ottenere una bocca più piena e morbida, in equilibrio con i tratti del volto.\nIl prodotto viene iniettato con precisione nella mucosa, nel vermiglio e nel filtro, consentendo risultati diversi a seconda delle esigenze.",
@@ -95,10 +93,15 @@
     "duration": "30–45 min",
     "pain": "Medio",
     "result": "Subito visibili, collagene 4–8 settimane",
-    "price": "da € 313",
+    "price": "500€",
     "image": "images/treatments/radiesse.webp",
     "short": "Biostimolazione e sostegno dei tessuti",
-    "long": "Scopri il potere di un volto più giovane e armonioso con Radiesse, il filler che ridefinisce i contorni e dona pelle compatta e luminosa.\nIn poche sedute, zigomi, mento, mandibola, collo, décolleté e mani ritrovano tonicità e volume naturale, senza chirurgia né tempi di recupero.\nIl tuo lifting liquido full face: immediato, naturale, duraturo. Già dopo una seduta vedi i primi risultati, mentre la stimolazione del collagene continua a rendere il viso fresco, armonioso e giovane.\nOgni trattamento è personalizzato, rispettando l’armonia del volto e il tuo stile unico. Con la sua formulazione innovativa, Radiesse garantisce comfort e risultati sorprendenti senza gonfiori né fastidi. Scopri una nuova versione di te stesso, più sicura e radiosa, ogni giorno."
+    "long": "Scopri il potere di un volto più giovane e armonioso con Radiesse, il filler che ridefinisce i contorni e dona pelle compatta e luminosa.\nIn poche sedute, zigomi, mento, mandibola, collo, décolleté e mani ritrovano tonicità e volume naturale, senza chirurgia né tempi di recupero.\nIl tuo lifting liquido full face: immediato, naturale, duraturo. Già dopo una seduta vedi i primi risultati, mentre la stimolazione del collagene continua a rendere il viso fresco, armonioso e giovane.\nOgni trattamento è personalizzato, rispettando l’armonia del volto e il tuo stile unico. Con la sua formulazione innovativa, Radiesse garantisce comfort e risultati sorprendenti senza gonfiori né fastidi. Scopri una nuova versione di te stesso, più sicura e radiosa, ogni giorno. Tariffe:",
+    "bulletPoints": [
+      "500 € per area, per il percorso viso o collo, comprensivo di 2 sedute mirate per risultati visibili e naturali.",
+      "600 € → rimodellamento massetere o trattamento iperidrosi",
+      "1000 € per area, per il percorso corpo, con 2 sessioni dedicate per ridefinire e rassodare la pelle in profondità"
+    ]
   },
   {
     "slug": "profhilo",
@@ -121,7 +124,7 @@
     "duration": "30–45 min",
     "pain": "Medio",
     "result": "Immediati e migliorano in 1–2 settimane",
-    "price": "da € 241",
+    "price": "da 400€",
     "image": "images/treatments/rughe.webp",
     "short": "Naso-geniene, marionetta, rughe del viso",
     "long": "Scopri il segreto per un viso più giovane e luminoso senza interventi invasivi. Il nostro trattamento all’avanguardia sfrutta acido ialuronico cross-linkato, applicato con precisione nei solchi delle rughe, per ridare al tuo volto armonia e freschezza.\nLa pelle non solo risulterà visibilmente più liscia, ma resterà nutrita e idratata a lungo, con un aspetto naturale e uniforme.\nBastano appena 30 minuti per trasformare il tuo viso: rughe attenuate, contorni ridefiniti e un incarnato radioso, con effetti che durano fino a 9 mesi."
@@ -132,7 +135,7 @@
     "duration": "40–60 min",
     "pain": "Medio",
     "result": "Immediati, assestamento in 1 settimana",
-    "price": "da € 349",
+    "price": "da 400€",
     "image": "images/treatments/rimodellamento.webp",
     "short": "Contouring e armonizzazione del profilo",
     "long": "Un volto armonioso non è solo bello da vedere, ma trasmette anche sicurezza e benessere interiore. Spesso sottovalutiamo l’importanza dei volumi del viso, ma zigomi, mento, linea mandibolare e area temporale determinano davvero l’equilibrio e la personalità dei tuoi lineamenti. Ora puoi valorizzare ogni dettaglio che racconta chi sei, correggere piccole asimmetrie o donare nuova freschezza al tuo viso grazie al filler a base di acido ialuronico.\nIn mani esperte, questo trattamento ridisegna e definisce con delicatezza il mento, gli zigomi, la mandibola e la zona temporale, rispettando la naturalezza del tuo volto. Ogni linea e curva viene armonizzata, restituendo un aspetto più giovane, luminoso e armonico.\nIl risultato? Un viso pieno di equilibrio e vitalità, naturalmente bello, con effetti che possono durare fino a 9 mesi, lasciandoti la gioia di guardarti allo specchio e sentirti davvero al meglio."
@@ -143,7 +146,7 @@
     "duration": "30–40 min",
     "pain": "Medio",
     "result": "Immediati, definitivi in 1 settimana",
-    "price": "da € 259",
+    "price": "da 500€",
     "image": "images/treatments/filler-occhiaie.webp",
     "short": "Sguardo riposato e luminoso",
     "long": "Lo scorrere del tempo e lo stress quotidiano lasciano segni sotto gli occhi, dove borse e occhiaie diventano piu evidenti. La pelle sottile perde tono e volume, accentuando rughe e stanchezza. Abitudini scorrette, sedentarieta, lavoro al computer e poco sonno contribuiscono a rendere lo sguardo spento. Sempre piu persone cercano rimedi efficaci ma non invasivi, come il riempimento con filler riassorbibili che eliminano l'effetto ombra. I prodotti di nuova generazione contengono acido ialuronico, otto amminoacidi, minerali, antiossidanti, vitamina B6 e lidocaina, garantendo idratazione e volume naturale con minimo gonfiore. Il filler puo essere posizionato in superficie o in profondita, correggendo infossamento e tono scuro. Si trattano occhiaie localizzate o estese fino allo zigomo, con risultati armoniosi e personalizzati. L’applicazione dura circa 30 minuti tramite microcannula, senza anestesia, con recupero immediato ed effetto naturale e ringiovanito."
@@ -154,7 +157,7 @@
     "duration": "20–30 min",
     "pain": "Medio",
     "result": "Immediati",
-    "price": "da € 268",
+    "price": "da 500€",
     "image": "images/treatments/rinofiller.webp",
     "short": "Correzione del profilo nasale senza chirurgia",
     "long": "Nel volto armonioso, il naso ha un ruolo da protagonista. Piccole imperfezioni come gobbette, avvallamenti o punte poco definite possono alterare l’equilibrio dell’intero profilo, facendo sembrare il naso piu grande o meno elegante di quanto sia realmente. Il rinofiller e la soluzione innovativa e non invasiva per rimodellare il naso in modo rapido e sicuro, direttamente in ambulatorio. Grazie a microiniezioni di acido ialuronico specifico, e possibile correggere irregolarita, sollevare la punta, definire la radice e armonizzare l’intero profilo nasale, ottenendo un effetto naturale e immediato. Il trattamento non richiede anestesia, e praticamente indolore e non prevede tempi di recupero: puoi tornare subito alle tue attivita quotidiane con un aspetto fresco e bilanciato. Il rinofiller non solo migliora l’estetica del naso, ma dona anche maggiore fiducia in se stessi, armonizzando l’intero viso e valorizzando i lineamenti in modo elegante e sofisticato.",
@@ -166,10 +169,10 @@
     "duration": "30–40 min",
     "pain": "Basso",
     "result": "Immediati, pelle più luminosa e uniforme",
-    "price": "da € 107",
+    "price": "150€ – 1000€",
     "image": "images/treatments/peeling.webp",
     "short": "Rigenerazione e luminosità cutanea",
-      "long": "La nostra epidermide è un tessuto in continuo rinnovamento: ogni giorno elimina cellule esauste, sostituite da nuove. Il peeling chimico potenzia questo ricambio stimolando l’esfoliazione e accelerando la rigenerazione cutanea. L’uso di sostanze mirate rende la pelle più levigata, luminosa e tonica. Durante la seduta si può avvertire un leggero pizzicore, mentre nei giorni successivi la pelle può arrossarsi o desquamarsi in misura variabile. Per risultati ottimali è fondamentale applicare una crema ad alta protezione (SPF 50+) per alcune settimane, motivo per cui il trattamento è consigliato nei periodi meno caldi. Grazie al peeling la pelle ritrova freschezza e vitalità, con un aspetto uniforme e luminoso, senza ricorrere a procedure invasive."
+    "long": "La nostra epidermide è un tessuto in continuo rinnovamento: ogni giorno elimina cellule esauste, sostituite da nuove. Il peeling chimico potenzia questo ricambio stimolando l’esfoliazione e accelerando la rigenerazione cutanea. L’uso di sostanze mirate rende la pelle più levigata, luminosa e tonica. Durante la seduta si può avvertire un leggero pizzicore, mentre nei giorni successivi la pelle può arrossarsi o desquamarsi in misura variabile. Per risultati ottimali è fondamentale applicare una crema ad alta protezione (SPF 50+) per alcune settimane, motivo per cui il trattamento è consigliato nei periodi meno caldi. Grazie al peeling la pelle ritrova freschezza e vitalità, con un aspetto uniforme e luminoso, senza ricorrere a procedure invasive."
   },
   {
     "slug": "profiloplastica-2",
@@ -177,7 +180,7 @@
     "duration": "40–60 min",
     "pain": "Medio",
     "result": "Immediati",
-    "price": "da € 402",
+    "price": "da 1000€",
     "image": "images/treatments/profiloplastica-2.webp",
     "short": "Ridefinizione avanzata del profilo",
     "long": "La profiloplastica 2 combina diverse tecniche di filler per correggere e armonizzare il profilo del viso in maniera personalizzata."
@@ -188,15 +191,14 @@
     "duration": "40–60 min",
     "pain": "Medio",
     "result": "Immediati",
-    "price": "da € 376",
+    "price": "1000€",
     "image": "images/treatments/profiloplastic.webp",
     "short": "Armonizzazione complessiva del viso",
     "long": "Il volto è la parte di noi che comunica prima delle parole, il nostro biglietto di presentazione. Sempre più persone desiderano non solo migliorare l’aspetto frontale, ma anche armonizzare il profilo laterale, fondamentale per l’equilibrio estetico. La profiloplastica non chirurgica risponde a questa esigenza: un trattamento di medicina estetica che corregge inestetismi di naso, labbra e mento senza ricorrere alla chirurgia. Con microiniezioni di acido ialuronico si ridefiniscono le proporzioni del volto, ottenendo un profilo più armonico ed equilibrato. Si tratta di un approccio rapido, sicuro e poco invasivo, pensato per chi desidera un risultato naturale e bilanciato senza interventi chirurgici.",
-      "bulletPoints": [
+    "bulletPoints": [
       "Un naso regolare dona delicatezza e riduce l’impatto visivo di eventuali gobbe o punte discendenti",
       "Labbra proporzionate valorizzano l’insieme del viso, evitando squilibri tra parte superiore e inferiore",
       "Un mento più definito migliora la simmetria e dona maggiore armonia con naso e bocca."
     ]
-
   }
 ]

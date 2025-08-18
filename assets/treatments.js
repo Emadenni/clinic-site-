@@ -11,6 +11,7 @@ const MODAL_CLOSE = document.getElementById("t-modal-close");
 const SEARCH = document.getElementById("search");
 const CHIPS = document.getElementById("quick-chips");
 const MODAL_LIST = document.getElementById("t-modal-list");
+const MODAL_WHY = document.getElementById("t-modal-why");
 
 let TREATMENTS = [];
 let lastFocusedEl = null;
@@ -127,6 +128,20 @@ function openModal(item) {
       MODAL_LIST.hidden = true;
     }
   }
+
+  if (MODAL_WHY) {
+  MODAL_WHY.innerHTML = "";
+  if (Array.isArray(item.whyChoose) && item.whyChoose.length > 0) {
+    item.whyChoose.forEach(text => {
+      const li = document.createElement("li");
+      li.textContent = text;
+      MODAL_WHY.appendChild(li);
+    });
+    MODAL_WHY.hidden = false;
+  } else {
+    MODAL_WHY.hidden = true;
+  }
+}
 
   // Link azioni
   MODAL_BOOK.href = "https://calendly.com/mambylysolutions/consulenza-gratuita";
