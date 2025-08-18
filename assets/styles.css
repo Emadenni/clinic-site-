@@ -2804,6 +2804,8 @@ body.no-scroll {
   place-items: center;
   background: rgba(0, 0, 0, 0.45);
   z-index: 9999900000; /* sopra tutto */
+  
+  
 }
 
 /* Modal */
@@ -2920,6 +2922,8 @@ body.no-scroll {
 .privacy-policy-link {
   color: purple;
 }
+
+
 
 @media (max-width: 520px) {
   .promo-modal {
