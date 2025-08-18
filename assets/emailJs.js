@@ -38,6 +38,7 @@
   let BACKDROP, CLOSE, FORM, MSG, SUBMIT;
   let lastFocusedEl = null;
   let listenersBound = false;
+  let promoTimerId = null; // evita timer doppi
 
   function bindEls() {
     BACKDROP = document.getElementById("promo-backdrop");
@@ -284,14 +285,20 @@
   }
 
   /* ----------------------------------------
-     AUTO OPEN (10s) — solo se non già mostrato
+     COOKIE → AVVIO TIMER DOPO CHIUSURA BANNER
      ---------------------------------------- */
-  function bootAutoOpen() {
+  function startPromoTimerIfEligible() {
+    // evita doppi timer & rispetta "mostra una volta"
+    if (promoTimerId || hasPromoShown()) return;
     if (typeof CONFIG.autoOpenDelayMs !== "number") return;
-    if (hasPromoShown()) return;
 
-    setTimeout(openPromo, CONFIG.autoOpenDelayMs);
+    promoTimerId = setTimeout(() => {
+      try { openPromo(); } finally { promoTimerId = null; }
+    }, CONFIG.autoOpenDelayMs);
   }
+
+  // ✅ parte 10s dopo che il banner cookie è stato CHIUSO (qualunque scelta)
+  window.addEventListener("cookieConsentClosed", startPromoTimerIfEligible);
 
   /* ----------------------------------------
      VALIDAZIONE
@@ -366,7 +373,13 @@
     ensurePromoMarkup(); // se manca, crea HTML
     bindEls();           // rilega riferimenti
     bindListenersOnce(); // una sola volta
-    bootAutoOpen();      // timer 10s se non già mostrato
+
+    // Se l'utente aveva già una scelta e il banner l'ha subito "chiuso" in boot
+    // (cookie-consent.js emette cookieConsentClosed), il nostro listener partirà.
+    // In aggiunta, se il consenso è già presente, avvia comunque il timer come fallback.
+    if (window.CookieConsent?.accepted === true) {
+      startPromoTimerIfEligible();
+    }
   }
 
   if (document.readyState === "complete") {

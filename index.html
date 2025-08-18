@@ -13,11 +13,14 @@
     <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="stylesheet" href="/assets/chisono.css" />
     <link rel="stylesheet" href="/assets/contatti.css" />
+    <link rel="stylesheet" href="/assets/cookies-banner.css" />
+    
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet" />
     <link
       href="https://db.onlinewebfonts.com/c/bb018e64d01355748d8ddc53553850b9?family=Cerebri+Sans+Regular"
       rel="stylesheet"
     />
+
   </head>
   <body>
     <header class="site-header show" data-header>
@@ -891,14 +894,16 @@
                 <span>Telefono</span>
                 <input type="tel" name="phone" autocomplete="tel" inputmode="tel" />
               </label>
-             <label class="promo-check promo-field--full">
-  <input type="checkbox" name="consent" required />
-  <span class="consent-text">
-    Acconsento a ricevere comunicazioni su offerte e nuovi trattamenti.  
-    Confermo di aver letto e accettato la 
-    <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" class="privacy-policy-link">Privacy Policy</a>.
-  </span>
-</label>
+              <label class="promo-check promo-field--full">
+                <input type="checkbox" name="consent" required />
+                <span class="consent-text">
+                  Acconsento a ricevere comunicazioni su offerte e nuovi trattamenti. Confermo di aver letto e accettato
+                  la
+                  <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" class="privacy-policy-link"
+                    >Privacy Policy</a
+                  >.
+                </span>
+              </label>
             </div>
 
             <button class="btn btn-primary promo-submit" type="submit">Invia e ottieni -20%</button>
@@ -909,10 +914,51 @@
       </div>
     </div>
 
+    <!-- Cookie Consent Banner -->
+    <div id="cc-backdrop" class="cc-backdrop" hidden>
+      <div class="cc-modal" role="dialog" aria-modal="true" aria-labelledby="cc-title" aria-describedby="cc-desc">
+        <div class="cc-content">
+          <h2 id="cc-title" class="cc-title">Cookie</h2>
+          <p id="cc-desc" class="cc-text">
+            Usiamo cookie per migliorare la tua esperienza. Puoi accettare tutti, consentire solo i necessari oppure
+            rifiutare. In qualsiasi momento puoi cambiare scelta dal footer.
+          </p>
+
+          <div class="cc-actions">
+            <button
+              class="cc-btn cc-btn-secondary"
+              id="cc-reject"
+              type="button"
+              aria-label="Rifiuta tutti i cookie non necessari"
+            >
+              Rifiuta
+            </button>
+            <button
+              class="cc-btn cc-btn-ghost"
+              id="cc-necessary"
+              type="button"
+              aria-label="Consenti solo i cookie necessari"
+            >
+              Solo necessari
+            </button>
+            <button class="cc-btn cc-btn-primary" id="cc-accept" type="button" aria-label="Accetta tutti i cookie">
+              Accetta tutti
+            </button>
+          </div>
+
+          <p class="cc-links">
+            <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- /Cookie Consent Banner -->
+
     <script src="/assets/main.js" type="module"></script>
     <script type="module" src="/assets/before-after.js"></script>
     <script type="module" src="assets/treatments-home.js"></script>
     <script type="module" src="assets/chisono.js"></script>
     <script type="module" src="assets/emailJs.js"></script>
+    <script type="module" src="assets/cookie-banner.js"></script>
   </body>
 </html>
