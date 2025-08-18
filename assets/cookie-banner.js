@@ -141,3 +141,42 @@
   if (document.readyState === "complete") boot();
   else window.addEventListener("load", boot, { once:true });
 })();
+
+
+  (function () {
+    "use strict";
+
+    function onReady(fn){ 
+      if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn, {once:true});
+      else fn();
+    }
+
+    onReady(() => {
+      const btnCookies = document.getElementById("btn-cookie-settings");
+      const btnTop     = document.getElementById("btn-scroll-top");
+
+      // Apri pannello cookie
+      btnCookies?.addEventListener("click", () => {
+        if (window.CookieConsent && typeof window.CookieConsent.open === "function") {
+          window.CookieConsent.open();
+        } else {
+          console.warn("CookieConsent non è ancora disponibile.");
+        }
+      });
+
+      // Scroll-to-top fluido
+      btnTop?.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      // (Opzionale) mostra/nascondi il bottone "Torna su"
+      const toggleTopBtn = () => {
+        if (!btnTop) return;
+        const show = window.scrollY > 240;
+        btnTop.style.opacity = show ? "1" : "0";
+        btnTop.style.pointerEvents = show ? "auto" : "none";
+      };
+      window.addEventListener("scroll", toggleTopBtn, { passive: true });
+      toggleTopBtn();
+    });
+  })();
