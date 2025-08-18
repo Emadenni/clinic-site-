@@ -40,21 +40,24 @@
   let listenersBound = false;
   let promoTimerId = null; // evita timer doppi
 
+  // --- Launcher (pulsante regalo) ---
+  let LAUNCHER = null;
+
   function bindEls() {
     BACKDROP = document.getElementById("promo-backdrop");
     CLOSE    = document.getElementById("promo-close");
     FORM     = document.getElementById("promo-form");
     MSG      = document.getElementById("promo-msg");
     SUBMIT   = FORM?.querySelector('[type="submit"]');
+    LAUNCHER = document.getElementById("promo-launcher") || LAUNCHER;
   }
 
   /* ----------------------------------------
      INIETTA MARKUP SE MANCANTE (per pagine senza HTML)
      ---------------------------------------- */
   function ensurePromoMarkup() {
-    if (document.getElementById("promo-backdrop")) return;
-
-    const html = `
+    if (!document.getElementById("promo-backdrop")) {
+      const html = `
 <div id="promo-backdrop" class="promo-backdrop" hidden>
   <div class="promo-modal" role="dialog" aria-modal="true" aria-labelledby="promo-title">
     <button class="promo-close" id="promo-close" aria-label="Chiudi">×</button>
@@ -102,9 +105,29 @@
     </div>
   </div>
 </div>`;
-    const wrapper = document.createElement("div");
-    wrapper.innerHTML = html;
-    document.body.appendChild(wrapper.firstElementChild);
+      const wrapper = document.createElement("div");
+      wrapper.innerHTML = html;
+      document.body.appendChild(wrapper.firstElementChild);
+    }
+
+    // crea il launcher se manca
+    if (!document.getElementById("promo-launcher")) {
+      const btn = document.createElement("button");
+      btn.id = "promo-launcher";
+      btn.type = "button";
+      btn.setAttribute("aria-label", "Apri l’offerta -20%");
+      btn.title = "Apri l’offerta -20%";
+      btn.style.display = "none"; // hidden by default
+      btn.innerHTML = `
+<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22">
+  <path d="M20 7h-2.18A3 3 0 0 0 12 5.5 3 3 0 0 0 6.18 7H4a1 1 0 0 0-1 1v3h18V8a1 1 0 0 0-1-1ZM9 7a1.5 1.5 0 1 1 3 0H9Zm-6 6v6a2 2 0 0 0 2 2h6v-8H3Zm10 0v8h6a2 2 0 0 0 2-2v-6h-8Z"/>
+</svg>`;
+      btn.addEventListener("click", () => {
+        // Il launcher riapre SEMPRE su richiesta (non modifica show-once)
+        openPromo();
+      });
+      document.body.appendChild(btn);
+    }
   }
 
   /* ----------------------------------------
@@ -188,13 +211,30 @@
   /* ----------------------------------------
      OPEN / CLOSE
      ---------------------------------------- */
+  function hideLauncher(){
+    if (!LAUNCHER) return;
+    LAUNCHER.style.opacity = "0";
+    setTimeout(() => { if (LAUNCHER) LAUNCHER.style.display = "none"; }, 120);
+  }
+
+  function showLauncher(){
+    if (!LAUNCHER) return;
+    LAUNCHER.style.display = "flex";
+    // piccolo delay per far prendere la transition se hai CSS
+    requestAnimationFrame(() => { LAUNCHER.style.opacity = "1"; });
+  }
+
   function openPromo() {
     /*
     if (localStorage.getItem("promo:done") === "1") {
       return; // già completato → non aprire
     }
     */
-    if (hasPromoShown()) return;
+    // L'auto-open è bloccato da hasPromoShown(); il launcher apre sempre su richiesta.
+    if (hasPromoShown() && BACKDROP?.hidden !== false) {
+      // Se è stato già mostrato, permetti comunque la riapertura manuale dal launcher
+      // ma NON bloccare l'apertura manuale.
+    }
 
     // assicurati che gli elementi esistano (se lo script è in <head>)
     if (!BACKDROP || !FORM) {
@@ -203,6 +243,8 @@
     }
     if (!BACKDROP) return; // se ancora non c'è, esci silenziosamente
 
+    hideLauncher(); // nascondi il pulsantino quando il modal è aperto
+
     lastFocusedEl = document.activeElement;
     BACKDROP.hidden = false;
     document.body.style.overflow = "hidden";
@@ -210,19 +252,36 @@
     if (firstInput) firstInput.focus();
     if (CONFIG.closeOnEsc) window.addEventListener("keydown", onEscClose);
 
-    // segna come mostrato per bloccare aperture successive su altre pagine
+    // segna come mostrato per bloccare aperture automatiche successive su altre pagine
     markPromoShown();
   }
+function closePromo() {
+  if (!BACKDROP) return;
+  BACKDROP.hidden = true;
+  document.body.style.overflow = "";
 
-  function closePromo() {
-    if (!BACKDROP) return;
-    BACKDROP.hidden = true;
-    document.body.style.overflow = "";
-    if (lastFocusedEl && typeof lastFocusedEl.focus === "function") {
-      lastFocusedEl.focus();
-    }
-    window.removeEventListener("keydown", onEscClose);
+  if (lastFocusedEl && typeof lastFocusedEl.focus === "function") {
+    lastFocusedEl.focus();
   }
+
+  window.removeEventListener("keydown", onEscClose);
+
+  showLauncher(); // mostra il pulsantino quando chiudi
+
+  // 🔹 salva stato persistente
+  localStorage.setItem("promoLauncherVisible", "1");
+}
+
+// Al caricamento pagina → se l’utente ha già chiuso il promo
+window.addEventListener("load", () => {
+  const shown = localStorage.getItem("promoLauncherVisible");
+  if (shown === "1") {
+    // forza il launcher a comparire
+    const launcher = document.getElementById("promo-launcher");
+    if (launcher) launcher.style.display = "flex";
+  }
+});
+
 
   function onEscClose(e) {
     if (e.key === "Escape" && BACKDROP && !BACKDROP.hidden) closePromo();
@@ -370,7 +429,7 @@
      BOOT ROBUSTO (funziona anche a pagina già caricata)
      ---------------------------------------- */
   function boot() {
-    ensurePromoMarkup(); // se manca, crea HTML
+    ensurePromoMarkup(); // se manca, crea HTML (modal + launcher)
     bindEls();           // rilega riferimenti
     bindListenersOnce(); // una sola volta
 
@@ -394,3 +453,18 @@
   window.openPromoModal  = openPromo;
   window.closePromoModal = closePromo;
 })();
+
+window.addEventListener("load", () => {
+  const shown = localStorage.getItem("promoLauncherVisible");
+  if (shown === "1") {
+    const launcher = document.getElementById("promo-launcher");
+
+    if (launcher) {
+      // resetta eventuali attributi che lo nascondono
+      launcher.style.removeProperty("display");
+      launcher.style.display = "flex";
+      launcher.hidden = false;
+      launcher.classList.remove("hidden");
+    }
+  }
+});
