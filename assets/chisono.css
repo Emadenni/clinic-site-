@@ -238,7 +238,7 @@
 .values-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(12px, 2.8vw, 18px);
+  gap: clamp(10px, 2.8vw, 18px);
 }
 .v-card {
   position: relative;
@@ -256,7 +256,7 @@
   flex-direction: column;
   align-items: center; /* centro orizzontale */
   text-align: center;  /* centro il testo */
-  gap: 10px;    
+  gap: 6px;    
  
 }
 .v-card:nth-child(1) {
@@ -842,7 +842,7 @@ main.container {
 }
 
 .ethics {
-  margin: 4rem 0;
+  margin: 1rem 0;
   background: var(--bg, #fafaf8); /* sfondo sezione leggero */
   padding: 3rem 1.5rem;
   border-radius: 1rem;
@@ -931,4 +931,15 @@ main.container {
   .e-card {
     min-height: 360px;
   }
+}
+
+/* Effetto reveal in ingresso */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }

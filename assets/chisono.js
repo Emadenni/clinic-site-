@@ -197,3 +197,37 @@ document.addEventListener('DOMContentLoaded', () => {
   syncPRM();
 })();
 });
+
+
+// Target: ethics + about
+const targets = [
+  '.ethics h2',
+  '.ethics .e-card',
+  '.about-grid .about-photo',
+  '.about-grid .about-text > *', // h2, p, ul, .about-cta
+  '.about-grid .about-cta > *'   // i due bottoni
+].join(',');
+
+const reveals = document.querySelectorAll(targets);
+
+// aggiunge .reveal a tutti i target
+reveals.forEach(el => el.classList.add('reveal'));
+
+// preferenze di riduzione movimento
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (reduceMotion || typeof IntersectionObserver === 'undefined') {
+  reveals.forEach(el => el.classList.add('visible'));
+} else {
+  let order = 0; // stagger globale nell’ordine del DOM
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.style.transitionDelay = `${Math.min(order * 120, 600)}ms`;
+      entry.target.classList.add('visible');
+      order++;
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.2, rootMargin: '0px 0px -10% 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+}
