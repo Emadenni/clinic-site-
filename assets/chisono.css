@@ -571,7 +571,6 @@ animation: goldFlow 70s ease-in-out infinite alternate, goldPulse 14s ease-in-ou
 
 /* pill: STAT */
 .pill--stat .pill-kpi {
-  font-family: "DM Serif Display", serif;
   font-size: clamp(2.2rem, 5.6vw, 3.4rem);
   line-height: 1;
   letter-spacing: 0.3px;
@@ -842,3 +841,94 @@ main.container {
   mix-blend-mode: multiply;
 }
 
+.ethics {
+  margin: 4rem 0;
+  background: var(--bg, #fafaf8); /* sfondo sezione leggero */
+  padding: 3rem 1.5rem;
+  border-radius: 1rem;
+}
+
+.ethics h2 {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: var(--accent-strong, #b88a2e);
+  font-weight: 700;
+}
+
+.ethics-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.e-card {
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.e-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+
+.e-card .icon {
+  width: 34px;
+  height: 34px;
+  color: var(--accent-strong, #b88a2e);
+  margin-bottom: 1rem;
+}
+
+.e-card h3 {
+  margin: 0 0 1rem;
+  font-size: 1.2rem;
+  color: var(--fg, #666);
+  font-weight: 600;
+}
+
+.e-card p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--fg, #777);
+}
+
+/* Colori alternati coerenti con la palette */
+.e-card:nth-child(1) {
+  background: var(--white, #fff);
+  border-top: 3px solid var(--accent-strong);
+}
+.e-card:nth-child(2) {
+  background: #fafaf8; /* beige neutro */
+  border-top: 3px solid var(--accent);
+}
+.e-card:nth-child(3) {
+  background: #fdfcfb; /* avorio soft */
+  border-top: 3px solid var(--muted);
+}
+.e-card:nth-child(4) {
+  background: #fbfaf7; /* sabbia chiara */
+  border-top: 3px solid var(--accent-bright);
+}
+
+/* Tablet: 2 colonne */
+@media (min-width: 768px) {
+  .ethics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .e-card {
+    min-height: 320px;
+  }
+}
+
+/* Desktop grande: 4 colonne */
+@media (min-width: 1200px) {
+  .ethics-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .e-card {
+    min-height: 360px;
+  }
+}
