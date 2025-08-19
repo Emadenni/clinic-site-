@@ -10,9 +10,6 @@
     closeOnEsc: true,
     autoCloseAfterSuccessMs: null, // null = non chiudere in automatico
     backendUrl: "/api/newsletter",
-    // 🔁 Mostra una sola volta su tutto il sito
-    // scope: "session" = una volta per sessione browser
-    //        "local"   = persistente (puoi aggiungere ttlMs)
     showOnce: {
       scope: "session",   // "session" | "local"
       ttlMs: null         // es: 24*60*60*1000 per 24h, oppure null per nessuna scadenza
@@ -33,14 +30,12 @@
   };
 
   /* ----------------------------------------
-     ELEMENTI (riassegnabili)
+     ELEMENTI
      ---------------------------------------- */
   let BACKDROP, CLOSE, FORM, MSG, SUBMIT;
   let lastFocusedEl = null;
   let listenersBound = false;
-  let promoTimerId = null; // evita timer doppi
-
-  // --- Launcher (pulsante regalo) ---
+  let promoTimerId = null;
   let LAUNCHER = null;
 
   function bindEls() {
@@ -53,7 +48,7 @@
   }
 
   /* ----------------------------------------
-     INIETTA MARKUP SE MANCANTE (per pagine senza HTML)
+     INIETTA MARKUP SE MANCANTE
      ---------------------------------------- */
   function ensurePromoMarkup() {
     if (!document.getElementById("promo-backdrop")) {
@@ -61,7 +56,6 @@
 <div id="promo-backdrop" class="promo-backdrop" hidden>
   <div class="promo-modal" role="dialog" aria-modal="true" aria-labelledby="promo-title">
     <button class="promo-close" id="promo-close" aria-label="Chiudi">×</button>
-
     <div class="promo-body">
       <img src="/images/logo-transparent-hamb.png" alt="logo-transparent-hamb" class="promo-logo" />
       <h2 id="promo-title">Iscriviti e ricevi <span class="u-accent">-20%</span></h2>
@@ -69,7 +63,6 @@
         Lasciaci i tuoi dati per ricevere <strong>offerte</strong>, <strong>novità</strong> e un
         <strong>buono sconto del 20%</strong> direttamente via email.
       </p>
-
       <form id="promo-form" novalidate>
         <div class="promo-grid">
           <label class="promo-field">
@@ -97,7 +90,6 @@
             </span>
           </label>
         </div>
-
         <button class="btn btn-primary promo-submit" type="submit">Invia e ottieni -20%</button>
         <p class="promo-note">Riceverai il codice sconto via email dopo la registrazione.</p>
         <p class="promo-msg" id="promo-msg" role="status" aria-live="polite"></p>
@@ -110,28 +102,24 @@
       document.body.appendChild(wrapper.firstElementChild);
     }
 
-    // crea il launcher se manca
     if (!document.getElementById("promo-launcher")) {
       const btn = document.createElement("button");
       btn.id = "promo-launcher";
       btn.type = "button";
       btn.setAttribute("aria-label", "Apri l’offerta -20%");
       btn.title = "Apri l’offerta -20%";
-      btn.style.display = "none"; // hidden by default
+      btn.style.display = "none";
       btn.innerHTML = `
 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22">
   <path d="M20 7h-2.18A3 3 0 0 0 12 5.5 3 3 0 0 0 6.18 7H4a1 1 0 0 0-1 1v3h18V8a1 1 0 0 0-1-1ZM9 7a1.5 1.5 0 1 1 3 0H9Zm-6 6v6a2 2 0 0 0 2 2h6v-8H3Zm10 0v8h6a2 2 0 0 0 2-2v-6h-8Z"/>
 </svg>`;
-      btn.addEventListener("click", () => {
-        // Il launcher riapre SEMPRE su richiesta (non modifica show-once)
-        openPromo();
-      });
+      btn.addEventListener("click", () => openPromo());
       document.body.appendChild(btn);
     }
   }
 
   /* ----------------------------------------
-     STORAGE UTILS (show-once)
+     STORAGE UTILS
      ---------------------------------------- */
   const SHOWN_KEY = "promo:shown";
 
@@ -139,7 +127,6 @@
     try {
       return CONFIG.showOnce.scope === "local" ? window.localStorage : window.sessionStorage;
     } catch {
-      // Safari private mode o storage disabilitato → fallback in memoria
       return {
         _mem: {},
         getItem(k){ return this._mem[k] ?? null; },
@@ -153,7 +140,6 @@
     const store = getStore();
     const raw = store.getItem(SHOWN_KEY);
     if (!raw) return false;
-
     if (raw === "1") return true;
 
     try {
@@ -220,68 +206,45 @@
   function showLauncher(){
     if (!LAUNCHER) return;
     LAUNCHER.style.display = "flex";
-    // piccolo delay per far prendere la transition se hai CSS
     requestAnimationFrame(() => { LAUNCHER.style.opacity = "1"; });
   }
 
   function openPromo() {
-    /*
-    if (localStorage.getItem("promo:done") === "1") {
-      return; // già completato → non aprire
-    }
-    */
-    // L'auto-open è bloccato da hasPromoShown(); il launcher apre sempre su richiesta.
-    if (hasPromoShown() && BACKDROP?.hidden !== false) {
-      // Se è stato già mostrato, permetti comunque la riapertura manuale dal launcher
-      // ma NON bloccare l'apertura manuale.
-    }
-
-    // assicurati che gli elementi esistano (se lo script è in <head>)
     if (!BACKDROP || !FORM) {
       ensurePromoMarkup();
       bindEls();
     }
-    if (!BACKDROP) return; // se ancora non c'è, esci silenziosamente
-
-    hideLauncher(); // nascondi il pulsantino quando il modal è aperto
-
+    if (!BACKDROP) return;
+    hideLauncher();
     lastFocusedEl = document.activeElement;
     BACKDROP.hidden = false;
     document.body.style.overflow = "hidden";
     const firstInput = FORM?.querySelector('input[name="firstName"]');
     if (firstInput) firstInput.focus();
     if (CONFIG.closeOnEsc) window.addEventListener("keydown", onEscClose);
+  }
 
-    // segna come mostrato per bloccare aperture automatiche successive su altre pagine
+  function closePromo() {
+    if (!BACKDROP) return;
+    BACKDROP.hidden = true;
+    document.body.style.overflow = "";
+    if (lastFocusedEl && typeof lastFocusedEl.focus === "function") {
+      lastFocusedEl.focus();
+    }
+    window.removeEventListener("keydown", onEscClose);
+    showLauncher();
+    localStorage.setItem("promoLauncherVisible", "1");
+    // ✅ segna mostrato SOLO qui
     markPromoShown();
   }
-function closePromo() {
-  if (!BACKDROP) return;
-  BACKDROP.hidden = true;
-  document.body.style.overflow = "";
 
-  if (lastFocusedEl && typeof lastFocusedEl.focus === "function") {
-    lastFocusedEl.focus();
-  }
-
-  window.removeEventListener("keydown", onEscClose);
-
-  showLauncher(); // mostra il pulsantino quando chiudi
-
-  // 🔹 salva stato persistente
-  localStorage.setItem("promoLauncherVisible", "1");
-}
-
-// Al caricamento pagina → se l’utente ha già chiuso il promo
-window.addEventListener("load", () => {
-  const shown = localStorage.getItem("promoLauncherVisible");
-  if (shown === "1") {
-    // forza il launcher a comparire
-    const launcher = document.getElementById("promo-launcher");
-    if (launcher) launcher.style.display = "flex";
-  }
-});
-
+  window.addEventListener("load", () => {
+    const shown = localStorage.getItem("promoLauncherVisible");
+    if (shown === "1") {
+      const launcher = document.getElementById("promo-launcher");
+      if (launcher) launcher.style.display = "flex";
+    }
+  });
 
   function onEscClose(e) {
     if (e.key === "Escape" && BACKDROP && !BACKDROP.hidden) closePromo();
@@ -301,7 +264,6 @@ window.addEventListener("load", () => {
       if (e.target && e.target.id === "promo-close") closePromo();
     });
 
-    // Delegation: funziona anche se il form è iniettato
     document.addEventListener("submit", async (e) => {
       if (e.target?.id !== "promo-form") return;
       e.preventDefault();
@@ -326,11 +288,7 @@ window.addEventListener("load", () => {
       try {
         await sendToBackend(CONFIG.backendUrl, data);
         await sendWithEmailJs(data);
-
-        // localStorage.setItem("promo:done", "1");
-
         setMessage("Grazie! Controlla la tua email: riceverai il codice sconto del 20%.", "ok");
-
         if (typeof CONFIG.autoCloseAfterSuccessMs === "number") {
           setTimeout(() => closePromo(), CONFIG.autoCloseAfterSuccessMs);
         }
@@ -344,19 +302,16 @@ window.addEventListener("load", () => {
   }
 
   /* ----------------------------------------
-     COOKIE → AVVIO TIMER DOPO CHIUSURA BANNER
+     COOKIE → AVVIO TIMER
      ---------------------------------------- */
   function startPromoTimerIfEligible() {
-    // evita doppi timer & rispetta "mostra una volta"
     if (promoTimerId || hasPromoShown()) return;
     if (typeof CONFIG.autoOpenDelayMs !== "number") return;
-
     promoTimerId = setTimeout(() => {
       try { openPromo(); } finally { promoTimerId = null; }
     }, CONFIG.autoOpenDelayMs);
   }
 
-  // ✅ parte 10s dopo che il banner cookie è stato CHIUSO (qualunque scelta)
   window.addEventListener("cookieConsentClosed", startPromoTimerIfEligible);
 
   /* ----------------------------------------
@@ -365,20 +320,14 @@ window.addEventListener("load", () => {
   function validateForm(data) {
     if (!data.firstName) return { ok: false, msg: "Inserisci il nome." };
     if (!data.lastName)  return { ok: false, msg: "Inserisci il cognome." };
-    if (!data.email || !$isEmail(data.email)) {
-      return { ok: false, msg: "Inserisci un'email valida." };
-    }
-    if (data.phone && !$isPhone(data.phone)) {
-      return { ok: false, msg: "Inserisci un numero di telefono valido." };
-    }
-    if (!data.consent) {
-      return { ok: false, msg: "Devi accettare per continuare." };
-    }
+    if (!data.email || !$isEmail(data.email)) return { ok: false, msg: "Inserisci un'email valida." };
+    if (data.phone && !$isPhone(data.phone)) return { ok: false, msg: "Inserisci un numero di telefono valido." };
+    if (!data.consent) return { ok: false, msg: "Devi accettare per continuare." };
     return { ok: true };
   }
 
   /* ----------------------------------------
-     INVIO DATI – BACKEND
+     INVIO DATI
      ---------------------------------------- */
   async function sendToBackend(url, payload) {
     if (!url) return { ok: true };
@@ -391,58 +340,30 @@ window.addEventListener("load", () => {
     return { ok: true };
   }
 
-  /* ----------------------------------------
-     INVIO DATI – EMAILJS (commentato)
-     ---------------------------------------- */
   async function sendWithEmailJs(data) {
     if (!CONFIG.emailJs.enabled) return { ok: true };
-    /* 
-    // Assicurati di avere incluso lo script:
-    // <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-
-    emailjs.init(CONFIG.emailJs.publicKey);
-
-    const adminParams = {
-      firstName: data.firstName,
-      lastName:  data.lastName,
-      email:     data.email,
-      phone:     data.phone,
-      page_url:  location.href
-    };
-
-    const userParams = {
-      to_email: data.email,
-      to_name:  `${data.firstName} ${data.lastName}`,
-      discount: CONFIG.emailJs.userAutoReply.discount,
-      coupon:   CONFIG.emailJs.userAutoReply.coupon,
-      subject:  CONFIG.emailJs.userAutoReply.subject,
-      message:  CONFIG.emailJs.userAutoReply.message
-    };
-
-    await emailjs.send(CONFIG.emailJs.serviceId, CONFIG.emailJs.templateAdmin, adminParams);
-    await emailjs.send(CONFIG.emailJs.serviceId, CONFIG.emailJs.templateUser, userParams);
-    */
     return { ok: true };
   }
 
   /* ----------------------------------------
-     BOOT ROBUSTO (funziona anche a pagina già caricata)
+     BOOT
      ---------------------------------------- */
   function boot() {
-    ensurePromoMarkup(); // se manca, crea HTML (modal + launcher)
-    bindEls();           // rilega riferimenti
-    bindListenersOnce(); // una sola volta
-
-    // Se l'utente aveva già una scelta e il banner l'ha subito "chiuso" in boot
-    // (cookie-consent.js emette cookieConsentClosed), il nostro listener partirà.
-    // In aggiunta, se il consenso è già presente, avvia comunque il timer come fallback.
-    if (window.CookieConsent?.accepted === true) {
+    ensurePromoMarkup();
+    bindEls();
+    bindListenersOnce();
+    const cc = window.CookieConsent;
+    if (cc) {
+      if (cc.accepted === true || cc.rejected === true) {
+        startPromoTimerIfEligible();
+      }
+    } else {
       startPromoTimerIfEligible();
     }
   }
 
   if (document.readyState === "complete") {
-    boot(); // script caricato tardi
+    boot();
   } else {
     window.addEventListener("load", boot, { once: true });
   }
@@ -453,18 +374,3 @@ window.addEventListener("load", () => {
   window.openPromoModal  = openPromo;
   window.closePromoModal = closePromo;
 })();
-
-window.addEventListener("load", () => {
-  const shown = localStorage.getItem("promoLauncherVisible");
-  if (shown === "1") {
-    const launcher = document.getElementById("promo-launcher");
-
-    if (launcher) {
-      // resetta eventuali attributi che lo nascondono
-      launcher.style.removeProperty("display");
-      launcher.style.display = "flex";
-      launcher.hidden = false;
-      launcher.classList.remove("hidden");
-    }
-  }
-});
