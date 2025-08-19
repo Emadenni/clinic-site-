@@ -12,7 +12,7 @@
     backendUrl: "/api/newsletter",
     showOnce: {
       scope: "session",   // "session" | "local"
-      ttlMs: null         // es: 24*60*60*1000 per 24h, oppure null per nessuna scadenza
+      ttlMs: null         
     },
     emailJs: {
       enabled: false,
@@ -108,7 +108,6 @@
       btn.type = "button";
       btn.setAttribute("aria-label", "Apri l’offerta -20%");
       btn.title = "Apri l’offerta -20%";
-      btn.style.display = "none";
       btn.innerHTML = `
 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22">
   <path d="M20 7h-2.18A3 3 0 0 0 12 5.5 3 3 0 0 0 6.18 7H4a1 1 0 0 0-1 1v3h18V8a1 1 0 0 0-1-1ZM9 7a1.5 1.5 0 1 1 3 0H9Zm-6 6v6a2 2 0 0 0 2 2h6v-8H3Zm10 0v8h6a2 2 0 0 0 2-2v-6h-8Z"/>
@@ -215,7 +214,6 @@
       bindEls();
     }
     if (!BACKDROP) return;
-    hideLauncher();
     lastFocusedEl = document.activeElement;
     BACKDROP.hidden = false;
     document.body.style.overflow = "hidden";
@@ -232,24 +230,17 @@
       lastFocusedEl.focus();
     }
     window.removeEventListener("keydown", onEscClose);
-    showLauncher();
-    localStorage.setItem("promoLauncherVisible", "1");
-    // ✅ segna mostrato SOLO qui
+    showLauncher(); // sempre visibile
     markPromoShown();
   }
-
-  window.addEventListener("load", () => {
-    const shown = localStorage.getItem("promoLauncherVisible");
-    if (shown === "1") {
-      const launcher = document.getElementById("promo-launcher");
-      if (launcher) launcher.style.display = "flex";
-    }
-  });
 
   function onEscClose(e) {
     if (e.key === "Escape" && BACKDROP && !BACKDROP.hidden) closePromo();
   }
 
+  /* ----------------------------------------
+     LISTENERS
+     ---------------------------------------- */
   function bindListenersOnce() {
     if (listenersBound) return;
     listenersBound = true;
@@ -352,6 +343,7 @@
     ensurePromoMarkup();
     bindEls();
     bindListenersOnce();
+    showLauncher(); // sempre visibile dal primo boot
     const cc = window.CookieConsent;
     if (cc) {
       if (cc.accepted === true || cc.rejected === true) {
