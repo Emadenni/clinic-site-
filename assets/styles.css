@@ -4,6 +4,7 @@
 :root {
   /* palette */
   --bg: #fafaf8;
+  --bg: #ffffff !important;
   --fg: #777777;
   --fg: #666666;
   --muted: #baa491;
