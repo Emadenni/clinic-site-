@@ -22,6 +22,7 @@
     />
   </head>
   <body>
+    <div id="transition">
     <header class="site-header show" data-header>
       <div class="container header-inner">
         <a class="brand" href="/" aria-label="Homepage">
@@ -305,7 +306,7 @@
 
     <!-- HERO -->
     <section class="hero" id="home" data-section="home">
-      <picture class="hero-bg">
+      <picture class="hero-bg  slide-up">
         <source media="(min-width:1024px)" srcset="/images/hero-img-desktop.webp" type="image/webp" />
         <source media="(min-width:600px)" srcset="/images/hero-img-tablet.webp" type="image/webp" />
         <img
@@ -316,7 +317,7 @@
         />
       </picture>
 
-      <div class="container hero-inner">
+      <div class="container hero-inner slide-up">
         <div class="hero-content">
           <h1 class="display">Medicina Estetica, <span class="underline">risultati naturali</span>.</h1>
           <p class="lead">Trattamenti su misura, standard elevati.</p>
@@ -961,5 +962,6 @@
     <script type="module" src="assets/chisono.js"></script>
     <script type="module" src="assets/emailJs.js"></script>
     <script type="module" src="assets/cookie-banner.js"></script>
+    </div>
   </body>
 </html>

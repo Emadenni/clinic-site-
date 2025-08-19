@@ -222,7 +222,7 @@ if (reduceMotion || typeof IntersectionObserver === 'undefined') {
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
-      entry.target.style.transitionDelay = `${Math.min(order * 120, 600)}ms`;
+      entry.target.style.transitionDelay = `${Math.min(order * 120, 200)}ms`;
       entry.target.classList.add('visible');
       order++;
       observer.unobserve(entry.target);

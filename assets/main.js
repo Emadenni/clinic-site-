@@ -1,3 +1,17 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target); // anima solo la prima volta
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll(".slide-up").forEach(el => observer.observe(el));
+});
+
+
 // ===== Footer year =========================================================
 document.getElementById('year').textContent = new Date().getFullYear();
 
