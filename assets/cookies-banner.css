@@ -24,7 +24,7 @@
   display: grid;
   align-items: end;
   background: rgba(0,0,0,.28);
-  z-index: 999988888888888888888;
+  z-index: 2147483647 !important;
 }
 
 /* Modal card */
