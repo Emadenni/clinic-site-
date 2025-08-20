@@ -44,8 +44,6 @@
   display: none !important;
 }
 
-
-
 html {
   scroll-behavior: smooth;
 }
@@ -2807,8 +2805,6 @@ body.no-scroll {
   place-items: center;
   background: rgba(0, 0, 0, 0.45);
   z-index: 9999900000; /* sopra tutto */
-  
-  
 }
 
 /* Modal */
@@ -2825,7 +2821,6 @@ body.no-scroll {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
 }
 
 .promo-close {
@@ -2926,8 +2921,6 @@ body.no-scroll {
   color: purple;
 }
 
-
-
 @media (max-width: 520px) {
   .promo-modal {
     width: 95vw;
@@ -3008,7 +3001,7 @@ body.no-scroll {
   cursor: pointer;
   transition: transform 0.08s ease, box-shadow 0.18s ease, opacity 0.18s ease;
   background: var(--bg);
-  overflow: visible; 
+  overflow: visible;
 }
 #promo-launcher::after {
   content: "";
@@ -3070,4 +3063,93 @@ body.no-scroll {
 
 #promo-launcher svg path {
   fill: var(--accent-strong);
+}
+
+.lang-switch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  position: absolute;
+  right: 20px;
+}
+
+@media (min-width: 501px) {
+  .book-home {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .lang-switch {
+    display: none;
+  }
+
+  .lang-btn{
+    background: rgba(26, 26, 26, 0.072) !important;
+  }
+
+  .lang-btn.active {
+    border: #0ea5e9 solid 1px; 
+    background: rgba(26, 26, 26, 0.262) !important;
+  }
+
+
+  .lang-switch-mobile {
+    display: block;
+    position: static;
+    margin-top: 2rem;
+    transform: translateY(90px);
+  }
+
+  .lang-notice {
+    /* sopra ai bottoni */
+    transform: translate(60px,-45px) !important;
+    
+  }
+}
+.lang-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+  background-color: transparent;
+}
+
+.lang-btn:hover {
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.lang-btn.active {
+  border-color: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.fi {
+  border-radius: 2px; /* bandiera più carina */
+  cursor: pointer !important;
+}
+
+.lang-notice {
+  position: absolute;
+  top: 5px; /* sopra ai bottoni */
+  left: 0%;
+  transform: translateX(-50%);
+  background: #111;
+  color: #fff;
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.lang-notice.show {
+  opacity: 1;
 }

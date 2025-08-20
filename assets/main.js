@@ -290,3 +290,125 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+(function(){
+    const LANG_KEY = 'lang';
+    const state = {
+      lang: localStorage.getItem(LANG_KEY) || 'it',
+      ruReady: false // quando avrai le traduzioni: metti true
+    };
+
+    function setLang(lang){
+      state.lang = lang;
+      localStorage.setItem(LANG_KEY, lang);
+      document.documentElement.setAttribute('lang', lang); // utile per SEO/a11y
+      document.body.dataset.lang = lang; // se vuoi stili condizionali
+      // Qui potresti anche chiamare la tua funzione di i18n quando sarà pronta
+      refreshAllSwitchers();
+    }
+
+    function buildDesktop(container){
+      container.innerHTML = `
+        <button class="lang-btn" data-lang="it" aria-pressed="false" title="Italiano">
+          <span class="flag">🇮🇹</span><span class="code">IT</span>
+        </button>
+        <span class="sep">|</span>
+        <button class="lang-btn" data-lang="ru" aria-pressed="false" title="Русский">
+          <span class="flag">🇷🇺</span><span class="code">RU</span>
+        </button>
+        <div class="lang-notice" role="status" hidden>
+          Stiamo lavorando alla traduzione in russo. Presto sarà disponibile.
+        </div>
+      `;
+      container.addEventListener('click', (e)=>{
+        const btn = e.target.closest('.lang-btn');
+        if(!btn) return;
+        const lang = btn.dataset.lang;
+        setLang(lang);
+      });
+    }
+
+    function buildMobile(container){
+      container.innerHTML = `
+        <div class="lang-menu-item">
+          <label for="lang-select">Lingua</label>
+          <select id="lang-select">
+            <option value="it">🇮🇹 Italiano</option>
+            <option value="ru">🇷🇺 Русский</option>
+          </select>
+          <div class="lang-notice" role="status" hidden>
+            Stiamo lavorando alla traduzione in russo. Presto sarà disponibile.
+          </div>
+        </div>
+      `;
+      container.querySelector('select').addEventListener('change', (e)=>{
+        setLang(e.target.value);
+      });
+    }
+
+    function refreshSwitcher(container){
+      const isMobile = container.classList.contains('lang-switch--mobile');
+      const notice = container.querySelector('.lang-notice');
+
+      if(isMobile){
+        const select = container.querySelector('select');
+        if(select) select.value = state.lang;
+      } else {
+        container.querySelectorAll('.lang-btn').forEach(btn=>{
+          const active = btn.dataset.lang === state.lang;
+          btn.classList.toggle('active', active);
+          btn.setAttribute('aria-pressed', String(active));
+        });
+      }
+
+      // Mostra avviso se RU non pronta
+      const showNotice = state.lang === 'ru' && !state.ruReady;
+      if(notice){
+        notice.hidden = !showNotice;
+      }
+    }
+
+    function refreshAllSwitchers(){
+      document.querySelectorAll('.lang-switch').forEach(refreshSwitcher);
+    }
+
+    // Init
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const desktop = document.getElementById('lang-switch-desktop');
+      const mobile = document.getElementById('lang-switch-mobile');
+      if(desktop) buildDesktop(desktop);
+      if(mobile) buildMobile(mobile);
+      setLang(state.lang); // applica stato iniziale e render
+    });
+  })();
+
+  document.addEventListener("DOMContentLoaded", () => {
+  const switchers = document.querySelectorAll(".lang-switch");
+
+  switchers.forEach(switcher => {
+    const notice = switcher.querySelector(".lang-notice");
+
+    switcher.addEventListener("click", e => {
+      const btn = e.target.closest(".lang-btn");
+      if (!btn) return;
+
+      const lang = btn.dataset.lang;
+
+      if (lang === "ru") {
+        // mostra la nuvoletta
+        notice.hidden = false;
+        notice.classList.add("show");
+
+        // nasconde dopo 3 secondi
+        setTimeout(() => {
+          notice.classList.remove("show");
+          notice.hidden = true;
+        }, 3000);
+      } else {
+        // se torno a IT chiudo subito la notice
+        notice.classList.remove("show");
+        notice.hidden = true;
+      }
+    });
+  });
+});
