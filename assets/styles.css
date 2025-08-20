@@ -76,18 +76,12 @@ a {
   }
 }
 
-@font-face {
-  font-family: "Dahlia";
-  src: url("/assets/fonts/Dahlia-Regular.woff2") format("woff2"),
-    url("/assets/fonts/Dahlia-Regular.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
+
 
 html,
 body,
 * {
-  font-family: "Dahlia", sans-serif !important;
+  font-family: var(--font-body) !important
 }
 
 /* =========================
