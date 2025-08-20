@@ -14,15 +14,16 @@
     <link rel="stylesheet" href="/assets/chisono.css" />
     <link rel="stylesheet" href="/assets/contatti.css" />
     <link rel="stylesheet" href="/assets/cookies-banner.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.7.0/css/flag-icons.min.css" />
 
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet" />
     <link
       href="https://db.onlinewebfonts.com/c/bb018e64d01355748d8ddc53553850b9?family=Cerebri+Sans+Regular"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.7.0/css/flag-icons.min.css" />
   </head>
   <body>
-    <div id="transition">
     <header class="site-header show" data-header>
       <div class="container header-inner">
         <a class="brand" href="/" aria-label="Homepage">
@@ -152,12 +153,29 @@
               <path d="M12 2l2.1 5.7 5.9.5-4.6 3.7 1.5 5.8L12 15.9 7.1 17.7l1.5-5.8L4 8.2l5.9-.5L12 2z" />
             </svg>
           </span>
+
+         
         </nav>
 
         <div class="header-actions">
-          <a class="btn btn-primary" href="https://calendly.com/mambylysolutions/consulenza-gratuita" target="_blank"
+          <a class="btn btn-primary book-home" href="https://calendly.com/mambylysolutions/consulenza-gratuita" target="_blank"
             >Prenota</a
           >
+           <div class="lang-switch">
+            <button class="lang-btn" data-lang="it">
+              <span class="fi fi-it"></span>
+            </button>
+
+            <span class="sep">|</span>
+
+            <button class="lang-btn" data-lang="ru">
+              <span class="fi fi-ru"></span>
+            </button>
+
+            <div class="lang-notice" role="status" hidden>
+            Presto diponibile
+            </div>
+          </div>
           <button
             class="hamburger"
             aria-label="Apri menu"
@@ -300,13 +318,35 @@
             </span>
             <span>Shop</span>
           </a>
+
+           <div class="lang-switch lang-switch-mobile">
+            <button class="lang-btn" data-lang="it">
+              <span class="fi fi-it"></span>
+            </button>
+
+            <span class="sep">|</span>
+
+            <button class="lang-btn" data-lang="ru">
+              <span class="fi fi-ru"></span>
+            </button>
+
+            <div class="lang-notice" role="status" hidden>
+              Presto diponibile
+            </div>
+          </div>
+
+         
         </nav>
+
+        
+
+        
       </div>
     </div>
 
     <!-- HERO -->
     <section class="hero" id="home" data-section="home">
-      <picture class="hero-bg ">
+      <picture class="hero-bg">
         <source media="(min-width:1024px)" srcset="/images/hero-img-desktop.webp" type="image/webp" />
         <source media="(min-width:600px)" srcset="/images/hero-img-tablet.webp" type="image/webp" />
         <img
@@ -317,7 +357,7 @@
         />
       </picture>
 
-      <div class="container hero-inner ">
+      <div class="container hero-inner">
         <div class="hero-content">
           <h1 class="display">Medicina Estetica, <span class="underline">risultati naturali</span>.</h1>
           <p class="lead">Trattamenti su misura, standard elevati.</p>
@@ -962,6 +1002,5 @@
     <script type="module" src="assets/chisono.js"></script>
     <script type="module" src="assets/emailJs.js"></script>
     <script type="module" src="assets/cookie-banner.js"></script>
-    </div>
   </body>
 </html>
