@@ -48,16 +48,6 @@
   transition: all 0.3s ease-in-out;
 }
 
-.slide-up {
-  opacity: 0;
-  transform: translateY(40px); /* parte più giù */
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.slide-up.visible {
-  opacity: 1;
-  transform: translateY(0); /* torna in posizione */
-}
 html {
   scroll-behavior: smooth;
 }
