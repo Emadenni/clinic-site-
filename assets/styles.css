@@ -81,7 +81,8 @@ a {
 html,
 body,
 * {
-  font-family: var(--font-body) !important
+  font-family: var(--font-body) !important;
+  font-weight: 300; 
 }
 
 /* =========================
@@ -233,7 +234,8 @@ body,
 .btn-primary {
   background: var(--accent);
   border-color: var(--accent);
-  color: #fff;
+  color: #fff; 
+  font-size: 0.9rem;
 
   &:hover {
     transform: translateY(-1px) scale(1.03);
