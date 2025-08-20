@@ -500,7 +500,7 @@ body,
     padding: 44px 24px;
     margin-inline: auto;
     text-align: center;
-    animation: heroFadeUp 0.2s ease both;
+    
   }
 }
 
@@ -519,7 +519,7 @@ body,
     transform: scale(1.1) translate(0, 0);
   }
   to {
-    transform: scale(1.2) translate(-15px, -15px);
+    transform: scale(1.2) translate(-5px, -5px);
   }
 }
 
