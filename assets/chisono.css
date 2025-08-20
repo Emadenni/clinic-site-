@@ -54,7 +54,7 @@
 .about-text {
   display: grid;
   gap: 10px;
-  animation: fade-up 0.6s ease-out both;
+ 
 }
 
 .about-bullets {
