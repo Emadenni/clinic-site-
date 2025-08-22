@@ -12,6 +12,8 @@
   --accent-strong: #b88a2e;
   --accent-bright: #e6c981;
   --white: #fff;
+  --font-body: "Playfair Display", serif;
+  
 
   /*  #baa491 */
 
@@ -56,7 +58,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--fg);
-  font: 16px/1.6 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  
 }
 
 a {
